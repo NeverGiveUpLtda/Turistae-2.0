@@ -7,10 +7,10 @@ import lombok.Getter;
 
 public class ApiError {
 
-    //  Atributos
+    // Atributos
     @Getter
     private List<String> errors;
-    
+
     public ApiError(String erro) {
         this.errors = Arrays.asList(erro);
     }

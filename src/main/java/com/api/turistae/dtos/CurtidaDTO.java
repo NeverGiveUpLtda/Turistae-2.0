@@ -12,16 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CurtidaDTO {
-        
-    //  Atributos
+
+    // Atributos
     private long id;
 
-    //  Relacionamentos
+    // Relacionamentos
     private long turismoId;
     private long usuarioId;
 
-    //  Timestamps 
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-    
+
 }

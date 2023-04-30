@@ -25,7 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Usuario {
 
-    //  Atributos
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -35,7 +35,7 @@ public class Usuario {
 
     @Column(length = 20, nullable = false)
     private String senha;
-    
+
     @Column(length = 200, nullable = false)
     private String nome;
 
@@ -53,7 +53,7 @@ public class Usuario {
 
     @Column(length = 200, nullable = false)
     private String bairro;
-    
+
     @Column(length = 200, nullable = false)
     private String cidade;
 
@@ -65,30 +65,30 @@ public class Usuario {
 
     @Column(length = 200, nullable = false)
     private String profissao;
-    
+
     @Column(length = 14, nullable = false)
     private String cadastroPessoaFisica;
-    
+
     @Column(length = 12, nullable = false)
     private String registroGeral;
 
-    //  Relacionamentos
+    // Relacionamentos
     @OneToMany(mappedBy = "usuario")
     private List<Turismo> turismos;
 
     @OneToMany(mappedBy = "usuario")
     private List<Review> reviews;
-    
+
     @OneToMany(mappedBy = "usuario")
     private List<Voucher> vouchers;
-    
+
     @OneToMany(mappedBy = "usuario")
     private List<Curtida> curtidas;
 
-    //  Timestamps
-     @CreatedDate
-     @Temporal(TemporalType.TIMESTAMP)
-     @Column(nullable = false, updatable = false)
+    // Timestamps
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false)

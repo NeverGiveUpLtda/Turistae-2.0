@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReviewDTO {
 
-     //  Atributos
+     // Atributos
      private long id;
      private String texto;
      private byte nota;
- 
-     //  Relacionamentos
+
+     // Relacionamentos
      private long turismoId;
      private long usuarioId;
- 
-     //  Timestamps 
+
+     // Timestamps
      private LocalDateTime dataCriacao;
      private LocalDateTime dataEdicao;
-     
+
 }

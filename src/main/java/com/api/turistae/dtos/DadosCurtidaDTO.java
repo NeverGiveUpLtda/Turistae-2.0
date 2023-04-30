@@ -15,16 +15,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DadosCurtidaDTO {
-        
-    //  Atributos
+
+    // Atributos
     private long id;
 
-    //  Relacionamentos
+    // Relacionamentos
     private Turismo turismo;
     private Usuario usuario;
 
-    //  Timestamps 
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-    
+
 }

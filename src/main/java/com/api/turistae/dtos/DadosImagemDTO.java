@@ -3,7 +3,6 @@ package com.api.turistae.dtos;
 import java.time.LocalDateTime;
 
 import com.api.turistae.models.Turismo;
-import com.api.turistae.models.Usuario;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,17 +14,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DadosImagemDTO {
-    
-    //  Atributos
+
+    // Atributos
     private long id;
     private String url;
 
-    //  Relacionamentos
+    // Relacionamentos
     private Turismo turismo;
-    private Usuario usuario;
 
-    //  Timestamps 
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-    
+
 }

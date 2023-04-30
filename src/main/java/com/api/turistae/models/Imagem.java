@@ -22,25 +22,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Imagem {
-    
-    //  Atributos
+
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @Column(nullable = false)
     private String url;
 
-    //  Relacionamentos
+    // Relacionamentos
     @ManyToOne
     @JoinColumn(name = "turismo_id", nullable = false)
     private Turismo turismo;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
-
-    //  Timestamps 
+    // Timestamps
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)

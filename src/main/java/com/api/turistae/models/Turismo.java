@@ -27,11 +27,11 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Turismo {
 
-    //  Atributos
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @Column(length = 200, nullable = false)
     private String nome;
 
@@ -46,33 +46,33 @@ public class Turismo {
 
     @Column(length = 200, nullable = false)
     private String bairro;
-    
+
     @Column(length = 200, nullable = false)
     private String cidade;
 
     @Column(length = 200, nullable = false)
     private String estado;
-    
+
     @Column(length = 18, nullable = false)
     private String cadastroNacionalPessoasJuridicas;
 
     @Column(length = 400, nullable = false)
     private String descricao;
-    
+
     @Column(length = 200, nullable = false)
     private String categoria;
 
-    //  Relacionamentos
+    // Relacionamentos
     @OneToMany(mappedBy = "turismo")
     @Column(nullable = false)
     private List<Imagem> imagens;
 
     @OneToMany(mappedBy = "turismo")
     private List<Review> reviews;
-    
+
     @OneToMany(mappedBy = "turismo")
     private List<Voucher> vouchers;
-    
+
     @OneToMany(mappedBy = "turismo")
     private List<Curtida> curtidas;
 
@@ -80,10 +80,10 @@ public class Turismo {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    //  Timestamps
-     @CreatedDate
-     @Temporal(TemporalType.TIMESTAMP)
-     @Column(nullable = false, updatable = false)
+    // Timestamps
+    @CreatedDate
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false)

@@ -15,7 +15,7 @@
     </encoder>
   </appender>
 
-  <logger name="com.api.turistae" level="debug"/>
+  <logger name="com.api.turistae" level="debug" />
 
   <root level="info">
     <appender-ref ref="FILE" />

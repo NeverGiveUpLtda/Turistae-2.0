@@ -14,25 +14,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DadosTurismoDTO {
-    
-    //  Atributos
-    private long id;    
+
+    // Atributos
+    private long id;
     private String nome;
     private long telefone;
     private int numeroLocal;
     private String rua;
-    private String bairro;    
+    private String bairro;
     private String cidade;
-    private String estado;    
+    private String estado;
     private String cadastroNacionalPessoasJuridicas;
-    private String descricao;    
+    private String descricao;
     private String categoria;
 
-    //  Relacionamentos
+    // Relacionamentos
     private Usuario usuario;
 
-    //  Timestamps
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-    
+
 }

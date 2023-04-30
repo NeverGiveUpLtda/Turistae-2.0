@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class DadosVoucherDTO {
 
-    //  Atributos
+    // Atributos
     private long id;
     private String codigo;
 
-    //  Relacionamentos
+    // Relacionamentos
     private Turismo turismo;
     private Usuario usuario;
 
-    //  Timestamps
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-    
+
 }

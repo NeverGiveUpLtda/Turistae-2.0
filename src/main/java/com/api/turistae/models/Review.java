@@ -23,33 +23,33 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Review {
 
-     //  Atributos
+     // Atributos
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private long id;
-     
+
      @Column(length = 200, nullable = false)
      private String texto;
- 
+
      @Column(nullable = false)
      private byte nota;
- 
-     //  Relacionamentos
+
+     // Relacionamentos
      @ManyToOne
      @JoinColumn(name = "turismo_id", nullable = false)
      private Turismo turismo;
- 
+
      @ManyToOne
      @JoinColumn(name = "usuario_id", nullable = false)
      private Usuario usuario;
- 
-     //  Timestamps 
+
+     // Timestamps
      @CreatedDate
      @Temporal(TemporalType.TIMESTAMP)
      @Column(nullable = false, updatable = false)
      private LocalDateTime dataCriacao;
- 
+
      @Column(nullable = false)
      private LocalDateTime dataEdicao;
-    
+
 }

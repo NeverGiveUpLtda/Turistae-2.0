@@ -18,31 +18,31 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class DadosUsuarioDTO {
-        
-    //  Atributos
+
+    // Atributos
     private long id;
     private String nomeUsuario;
-    private String senha;    
+    private String senha;
     private String nome;
     private String email;
     private long telefone;
     private int numeroCasa;
     private String rua;
-    private String bairro;    
+    private String bairro;
     private String cidade;
     private String estado;
     private LocalDateTime dataNascimento;
-    private String profissao;    
-    private String cadastroPessoaFisica;    
+    private String profissao;
+    private String cadastroPessoaFisica;
     private String registroGeral;
 
-    //  Relacionamentos
+    // Relacionamentos
     private List<Turismo> turismos;
     private List<Review> reviews;
     private List<Voucher> vouchers;
     private List<Curtida> curtidas;
 
-    //  Timestamps
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
 

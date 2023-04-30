@@ -18,23 +18,24 @@ import com.api.turistae.repositorys.VoucherRepository;
 @SpringBootApplication
 public class TuristaeApplication {
 
-	@Bean
-    public CommandLineRunner init(
+    @Bean
+    CommandLineRunner init(
             @Autowired CurtidaRepository curtidaRepository,
             @Autowired ImagemRepository imagemRepository,
-			@Autowired ReviewRepository reviewRepository,
-			@Autowired TurismoRepository turismoRepository,
-			@Autowired UsuarioRepository usuarioRepository,
-			@Autowired VoucherRepository voucherRepository) {
-        return args -> {  };
+            @Autowired ReviewRepository reviewRepository,
+            @Autowired TurismoRepository turismoRepository,
+            @Autowired UsuarioRepository usuarioRepository,
+            @Autowired VoucherRepository voucherRepository) {
+        return args -> {
+        };
     }
 
-	//  Logger do projeto
+    // Logger do projeto
     private static final Logger logger = LoggerFactory.getLogger(TuristaeApplication.class);
 
-	public static void main(String[] args) {
-		SpringApplication.run(TuristaeApplication.class, args);
-		logger.info("Projeto iniciado");
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TuristaeApplication.class, args);
+        logger.info("Projeto iniciado");
+    }
 
 }

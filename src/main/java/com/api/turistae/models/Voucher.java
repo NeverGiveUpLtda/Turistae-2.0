@@ -23,15 +23,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Voucher {
 
-    //  Atributos
+    // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    
+
     @Column(length = 200, nullable = false)
     private String codigo;
 
-    //  Relacionamentos
+    // Relacionamentos
     @ManyToOne
     @JoinColumn(name = "turismo_id", nullable = false)
     private Turismo turismo;
@@ -40,7 +40,7 @@ public class Voucher {
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
-    //  Timestamps 
+    // Timestamps
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
@@ -48,5 +48,5 @@ public class Voucher {
 
     @Column(nullable = false)
     private LocalDateTime dataEdicao;
-    
+
 }

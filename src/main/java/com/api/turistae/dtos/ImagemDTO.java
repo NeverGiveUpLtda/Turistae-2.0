@@ -12,17 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class ImagemDTO {
-    
-    //  Atributos
+
+    // Atributos
     private long id;
     private String url;
 
-    //  Relacionamentos
+    // Relacionamentos
     private long turismoId;
-    private long usuarioId;
 
-    //  Timestamps 
+    // Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-    
+
 }
