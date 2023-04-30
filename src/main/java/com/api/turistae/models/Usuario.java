@@ -74,16 +74,16 @@ public class Usuario {
 
     //  Relacionamentos
     @OneToMany(mappedBy = "usuario")
-    List<Turismo> turismos;
+    private List<Turismo> turismos;
 
     @OneToMany(mappedBy = "usuario")
-    List<Review> reviews;
+    private List<Review> reviews;
     
     @OneToMany(mappedBy = "usuario")
-    List<Voucher> vouchers;
+    private List<Voucher> vouchers;
     
     @OneToMany(mappedBy = "usuario")
-    List<Curtida> curtidas;
+    private List<Curtida> curtidas;
 
     //  Timestamps
      @CreatedDate

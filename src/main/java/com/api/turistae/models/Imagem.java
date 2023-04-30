@@ -34,11 +34,11 @@ public class Imagem {
     //  Relacionamentos
     @ManyToOne
     @JoinColumn(name = "turismo_id", nullable = false)
-    Turismo turismo;
+    private Turismo turismo;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    Usuario usuario;
+    private Usuario usuario;
 
     //  Timestamps 
     @CreatedDate

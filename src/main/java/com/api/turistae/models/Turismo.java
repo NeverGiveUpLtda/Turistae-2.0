@@ -65,20 +65,20 @@ public class Turismo {
     //  Relacionamentos
     @OneToMany(mappedBy = "turismo")
     @Column(nullable = false)
-    List<Imagem> imagens;
+    private List<Imagem> imagens;
 
     @OneToMany(mappedBy = "turismo")
-    List<Review> reviews;
+    private List<Review> reviews;
     
     @OneToMany(mappedBy = "turismo")
-    List<Voucher> vouchers;
+    private List<Voucher> vouchers;
     
     @OneToMany(mappedBy = "turismo")
-    List<Curtida> curtidas;
+    private List<Curtida> curtidas;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id", nullable = false)
-    Usuario usuario;
+    private Usuario usuario;
 
     //  Timestamps
      @CreatedDate
