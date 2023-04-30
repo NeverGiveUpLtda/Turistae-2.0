@@ -8,7 +8,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,6 +45,9 @@ public class Usuario {
     private int numeroCasa;
 
     @Column(length = 200, nullable = false)
+    private String rua;
+
+    @Column(length = 200, nullable = false)
     private String bairro;
     
     @Column(length = 200, nullable = false)
@@ -66,18 +68,20 @@ public class Usuario {
     @Column(length = 12, nullable = false)
     private String registroGeral;
 
-    @OneToMany
-    @JoinColumn(name = "reviews_id")
+    //  Relacionamentos
+    @OneToMany(mappedBy = "usuario")
+    List<Turismo> turismos;
+
+    @OneToMany(mappedBy = "usuario")
     List<Review> reviews;
     
-    @OneToMany
-    @JoinColumn(name = "vouchers_id")
+    @OneToMany(mappedBy = "usuario")
     List<Voucher> vouchers;
     
-    @OneToMany
-    @JoinColumn(name = "curtidas_id")
+    @OneToMany(mappedBy = "usuario")
     List<Curtida> curtidas;
 
+    //  Timestamps
     @Column(nullable = false)
     private LocalDateTime dataCriacao;
 
