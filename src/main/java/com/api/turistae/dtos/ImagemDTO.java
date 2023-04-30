@@ -24,4 +24,5 @@ public class ImagemDTO {
     //  Timestamps 
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
+    
 }

@@ -25,11 +25,12 @@ public class TurismoDTO {
     private String cadastroNacionalPessoasJuridicas;
     private String descricao;    
     private String categoria;
+
+    //  Relacionamentos
     private Long usuarioId;
 
     //  Timestamps
     private LocalDateTime dataCriacao;
     private LocalDateTime dataEdicao;
-
     
 }
