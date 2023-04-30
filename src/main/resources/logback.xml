@@ -9,10 +9,17 @@
     </encoder>
   </appender>
 
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+    </encoder>
+  </appender>
+
   <logger name="com.api.turistae" level="debug"/>
 
   <root level="info">
     <appender-ref ref="FILE" />
+    <appender-ref ref="CONSOLE" />
   </root>
 
 </configuration>
