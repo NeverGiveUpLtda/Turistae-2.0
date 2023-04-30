@@ -1,5 +1,6 @@
 package com.api.turistae.services;
 
+import java.security.MessageDigest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
 import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.exceptions.CriptografiaException;
+import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Usuario;
 import com.api.turistae.repositorys.UsuarioRepository;
 
@@ -26,7 +29,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         Usuario usu = new Usuario();
         usu.setNomeUsuario(dto.getNomeUsuario());
-        usu.setSenha(dto.getSenha());
+        try {
+            usu.setSenha(criptografarSenha(dto.getSenha()));
+        } catch(CriptografiaException e) {
+            throw new RegraNegocioException(e.getMessage());
+        }
+
         usu.setNome(dto.getNome());
         usu.setEmail(dto.getEmail());
         usu.setTelefone(dto.getTelefone());
@@ -76,6 +84,31 @@ public class UsuarioServiceImpl implements UsuarioService {
         String data = LocalDateTime.now().format(DateTimeFormatter.ofPattern(mascara));
         return LocalDateTime.parse(data, DateTimeFormatter.ofPattern(mascara));
 
+    }
+
+    private String criptografarSenha(String senha) throws CriptografiaException  {
+        try {
+
+            // Crie uma instância da classe MessageDigest com o algoritmo SHA-256
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+    
+            // Converta a senha para um array de bytes e realize a criptografia
+            byte[] senhaCriptografada = md.digest(senha.getBytes());
+    
+            // Converta o array de bytes para uma string hexadecimal
+            StringBuilder hexString = new StringBuilder();
+            for (int i = 0; i < senhaCriptografada.length; i++) {
+                String hex = Integer.toHexString(0xff & senhaCriptografada[i]);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+    
+            return hexString.toString();
+        } catch (Exception e) {
+
+            // Trate o erro caso ocorra
+            throw new CriptografiaException("Não foi possível Criptografar a senha");
+        }
     }
 
 }
