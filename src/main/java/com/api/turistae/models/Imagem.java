@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Imagem {
+    
     //  Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,5 +48,5 @@ public class Imagem {
 
     @Column(nullable = false)
     private LocalDateTime dataEdicao;
-    
+
 }
