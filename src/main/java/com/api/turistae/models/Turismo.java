@@ -3,6 +3,8 @@ package com.api.turistae.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +26,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Turismo {
+
     //  Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +64,7 @@ public class Turismo {
 
     //  Relacionamentos
     @OneToMany(mappedBy = "turismo")
+    @Column(nullable = false)
     List<Imagem> imagens;
 
     @OneToMany(mappedBy = "turismo")
@@ -71,13 +77,16 @@ public class Turismo {
     List<Curtida> curtidas;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", nullable = false)
     Usuario usuario;
 
     //  Timestamps
-    @Column(nullable = false)
+     @CreatedDate
+     @Temporal(TemporalType.TIMESTAMP)
+     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false)
     private LocalDateTime dataEdicao;
+
 }
