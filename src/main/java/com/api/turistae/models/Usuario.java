@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,7 +34,7 @@ public class Usuario {
     @Column(length = 25, nullable = false)
     private String nomeUsuario;
 
-    @Column(length = 20, nullable = false)
+    @Column(nullable = false)
     private String senha;
 
     @Column(length = 200, nullable = false)
@@ -61,6 +62,7 @@ public class Usuario {
     private String estado;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime dataNascimento;
 
     @Column(length = 200, nullable = false)
@@ -89,9 +91,11 @@ public class Usuario {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataEdicao;
 
 }

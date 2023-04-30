@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -84,9 +85,11 @@ public class Turismo {
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataCriacao;
 
     @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataEdicao;
 
 }
