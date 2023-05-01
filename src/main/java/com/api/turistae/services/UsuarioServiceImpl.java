@@ -129,8 +129,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        usuarioRepository.deleteById(id);
     }
 
     @Override
