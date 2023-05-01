@@ -49,7 +49,7 @@ public class Turismo {
     @Column(length = 200, nullable = false)
     private String cidade;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 2, nullable = false)
     private String estado;
 
     @Column(length = 18, nullable = false, unique = true)
@@ -87,6 +87,7 @@ public class Turismo {
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataCriacao;
 
+    @CreatedDate
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataEdicao;

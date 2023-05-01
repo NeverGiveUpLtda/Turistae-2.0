@@ -45,6 +45,7 @@ public class Curtida {
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataCriacao;
 
+    @CreatedDate
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd-HH-mm-ss")
     private LocalDateTime dataEdicao;
