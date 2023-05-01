@@ -20,5 +20,5 @@ public interface CurtidaService {
 
     // Delete
     void delete(Long id);
-    
+
 }

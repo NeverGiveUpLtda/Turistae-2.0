@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
 import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.exceptions.CriptografiaException;
+import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.UsuarioService;
-import com.api.turistae.services.UsuarioServiceImpl;
+import com.api.turistae.utils.Criptografia;
+import com.api.turistae.utils.DataUtils;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -27,11 +30,12 @@ public class UsuarioController {
     // Atributos
     private UsuarioService usuarioService;
     private final Logger logger;
+    private static final String MASCARA_DATA = "yyyy-MM-dd-HH-mm-ss";
 
     // Construtor
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-        this.logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
+        this.logger = LoggerFactory.getLogger(UsuarioController.class);
         logger.info("Usuário Controller iniciado.");
     }
 
@@ -52,20 +56,75 @@ public class UsuarioController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long postUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+
+        String senha = usuarioDTO.getSenha();
+
+        try {
+            usuarioDTO.setSenha(Criptografia.criptografarSenha(senha));
+        } catch (CriptografiaException e) {
+            throw new RegraNegocioException(e.getMessage());
+        }
+
+        usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+
         logger.info("Post usuário: {}", usuarioDTO);
+
         return usuarioService.post(usuarioDTO);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public DadosUsuarioDTO login(@RequestBody UsuarioDTO usuarioDTO) {
+        String senha;
+        if (usuarioDTO.getSenha() != null) {
+            senha = usuarioDTO.getSenha();
+        } else
+            throw new RegraNegocioException("Usuário ou senha inválidos.");
+
+        try {
+            usuarioDTO.setSenha(Criptografia.criptografarSenha(senha));
+        } catch (CriptografiaException e) {
+            throw new RegraNegocioException(e.getMessage());
+        }
+
+        if (usuarioDTO.getNomeUsuario() != null && !usuarioDTO.getNomeUsuario().isEmpty()) {
+            usuarioDTO.setEmail("");
+
+            return usuarioService.login(usuarioDTO.getNomeUsuario(), usuarioDTO.getSenha());
+        } else if (usuarioDTO.getEmail() != null && !usuarioDTO.getEmail().isEmpty()) {
+            usuarioDTO.setNomeUsuario("senha");
+
+            return usuarioService.login(usuarioDTO.getEmail(), usuarioDTO.getSenha());
+        } else
+            throw new RegraNegocioException("Usuário ou senha inválidos.");
     }
 
     // HttpPut
     @PutMapping("{id}")
     public void putUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+
+        String senha = usuarioDTO.getSenha();
+
+        try {
+            usuarioDTO.setSenha(Criptografia.criptografarSenha(senha));
+        } catch (CriptografiaException e) {
+            throw new RegraNegocioException(e.getMessage());
+        }
+
+        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+
         logger.info("Put usuário id {}: {}", id, usuarioDTO);
+
         usuarioService.put(id, usuarioDTO);
     }
 
     // HttpDelete
     @DeleteMapping("{id}")
     public void deleteUsuario(@PathVariable Long id) {
+
+        logger.info("Delete usuário id {}", id);
+
         usuarioService.delete(id);
     }
 

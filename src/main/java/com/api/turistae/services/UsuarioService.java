@@ -21,4 +21,7 @@ public interface UsuarioService {
     // Delete
     void delete(Long id);
 
+    // Métodos
+    DadosUsuarioDTO login(String usuario, String senha);
+
 }
