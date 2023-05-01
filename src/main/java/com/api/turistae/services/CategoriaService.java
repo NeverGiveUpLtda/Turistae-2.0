@@ -6,7 +6,7 @@ import com.api.turistae.dtos.CategoriaDto;
 import com.api.turistae.dtos.DadosCategoriaDTO;
 
 public interface CategoriaService {
-    
+
     // Create
     Long post(CategoriaDto dto);
 
