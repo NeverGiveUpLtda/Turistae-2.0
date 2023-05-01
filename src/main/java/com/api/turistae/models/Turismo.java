@@ -19,9 +19,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@ToString
 @Entity
 @Data
 @AllArgsConstructor
@@ -54,16 +52,21 @@ public class Turismo {
     @Column(length = 200, nullable = false)
     private String estado;
 
-    @Column(length = 18, nullable = false)
+    @Column(length = 18, nullable = false, unique = true)
     private String cadastroNacionalPessoasJuridicas;
 
     @Column(length = 400, nullable = false)
     private String descricao;
 
-    @Column(length = 200, nullable = false)
-    private String categoria;
-
     // Relacionamentos
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id", nullable = false)
+    private Categoria categoria;
+
     @OneToMany(mappedBy = "turismo")
     @Column(nullable = false)
     private List<Imagem> imagens;
@@ -76,10 +79,6 @@ public class Turismo {
 
     @OneToMany(mappedBy = "turismo")
     private List<Curtida> curtidas;
-
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
 
     // Timestamps
     @CreatedDate
