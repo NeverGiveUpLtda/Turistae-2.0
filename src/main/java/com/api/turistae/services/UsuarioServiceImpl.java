@@ -6,8 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
@@ -26,14 +24,11 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     // Atributos
     private final UsuarioRepository usuarioRepository;
-    private final Logger logger = LoggerFactory.getLogger(UsuarioServiceImpl.class);
 
     // Métodos
     @Override
     @Transactional
     public Long post(UsuarioDTO dto) {
-
-        logger.info("Post usuário: {}", dto.toString());
 
         Usuario usuario = new Usuario();
         usuario.setNomeUsuario(dto.getNomeUsuario());
@@ -146,8 +141,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 
             return hexString.toString();
         } catch (Exception e) {
-
-            logger.error(e.getMessage(), e);
 
             // Trate o erro caso ocorra
             throw new CriptografiaException("Não foi possível Criptografar a senha");
