@@ -117,6 +117,7 @@ public class UsuarioController {
         logger.info("Put usuário id {}: {}", id, usuarioDTO);
 
         usuarioService.put(id, usuarioDTO);
+
     }
 
     // HttpDelete
