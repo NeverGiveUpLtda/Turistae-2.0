@@ -17,9 +17,7 @@ import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@ToString
 @Entity
 @Data
 @AllArgsConstructor
@@ -31,7 +29,7 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 25, nullable = false)
+    @Column(length = 25, nullable = false, unique = true)
     private String nomeUsuario;
 
     @Column(nullable = false)
@@ -40,7 +38,7 @@ public class Usuario {
     @Column(length = 200, nullable = false)
     private String nome;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 200, nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -68,10 +66,10 @@ public class Usuario {
     @Column(length = 200, nullable = false)
     private String profissao;
 
-    @Column(length = 14, nullable = false)
+    @Column(length = 14, nullable = false, unique = true)
     private String cadastroPessoaFisica;
 
-    @Column(length = 12, nullable = false)
+    @Column(length = 12, nullable = false, unique = true)
     private String registroGeral;
 
     // Relacionamentos

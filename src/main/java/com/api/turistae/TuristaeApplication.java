@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.api.turistae.repositorys.CategoriaRepository;
 import com.api.turistae.repositorys.CurtidaRepository;
 import com.api.turistae.repositorys.ImagemRepository;
 import com.api.turistae.repositorys.ReviewRepository;
@@ -20,6 +21,7 @@ public class TuristaeApplication {
 
     @Bean
     CommandLineRunner init(
+            @Autowired CategoriaRepository categoriaRepository,
             @Autowired CurtidaRepository curtidaRepository,
             @Autowired ImagemRepository imagemRepository,
             @Autowired ReviewRepository reviewRepository,
