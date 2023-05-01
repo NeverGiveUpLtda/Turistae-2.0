@@ -1,5 +1,6 @@
 # Turistae
+
 Projeto em desenvolvimento aboradando ODS 8.9 (Promover o turismo sustentável e responsável, acessível a todos). Aplicando todos os conhecimentos adquiridos em ambiente acadêmico.
 
-
-To run docker: docker build --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/private_key_file)" -t turistae-app ." -t turistae-app .
+Para rodar o docker: docker build -t turistae-app . 
+                     docker run -p 8080:8080 turistae-app

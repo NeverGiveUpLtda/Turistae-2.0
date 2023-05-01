@@ -1,10 +1,21 @@
+# Base image
 FROM eclipse-temurin
 
+# Update aptitude with new repo
 RUN apt-get update
 
+# Install software 
+RUN apt-get install -y git
+
+# Set the working directory
 WORKDIR /app
 
-COPY . /app
+# Clone the Spring Boot app from GitHub
+RUN git clone https://github.com/NeverGiveUpLtda/Turistae-API.git
 
-ENTRYPOINT [ "./mvnw", "spring-boot:run"]
+# Change to the cloned app directory
+WORKDIR /app/Turistae-API
+RUN chmod +x mvnw
 
+# Set the entry point to run the app using the Maven wrapper
+ENTRYPOINT ["./mvnw", "spring-boot:run"]
