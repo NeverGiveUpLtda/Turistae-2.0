@@ -1,6 +1,8 @@
-# Turistae
+# Docker para rodar o back end.
 
-Projeto em desenvolvimento aboradando ODS 8.9 (Promover o turismo sustentável e responsável, acessível a todos). Aplicando todos os conhecimentos adquiridos em ambiente acadêmico.
+Para executar:
 
-Para rodar o docker: docker build -t turistae-app . 
-                     docker run -p 8080:8080 turistae-app
+Instalar Docker: https://www.docker.com
+
+Rodar os seguintes comandos na pasta do projeto: docker build -t turistae-app .
+docker run -p 8080:8080 turistae-app
