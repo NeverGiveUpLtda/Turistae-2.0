@@ -3,7 +3,6 @@ package com.api.turistae.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
@@ -28,6 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Long post(UsuarioDTO dto) {
 
         Usuario usuario = new Usuario();
+
         usuario.setNomeUsuario(dto.getNomeUsuario());
         usuario.setSenha(dto.getSenha());
         usuario.setNome(dto.getNome());
@@ -44,13 +44,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setRegistroGeral(dto.getRegistroGeral());
         usuario.setDataCriacao(dto.getDataCriacao());
         usuario.setDataEdicao(dto.getDataEdicao());
+        
         Usuario usuarioGerado;
 
-        try {
-            usuarioGerado = usuarioRepository.save(usuario);
-        } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Erro: " + e.getMessage());
-        }
+        usuarioGerado = usuarioRepository.save(usuario);
 
         return usuarioGerado.getId();
 
@@ -72,6 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .dataNascimento(u.getDataNascimento())
                         .email(u.getEmail())
                         .estado(u.getEstado())
+                        .bairro(u.getBairro())
                         .nome(u.getNome())
                         .nomeUsuario(u.getNomeUsuario())
                         .numeroCasa(u.getNumeroCasa())
@@ -143,11 +141,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setDataCriacao(dto.getDataCriacao());
         usuario.setDataEdicao(dto.getDataEdicao());
 
-        try {
-            usuarioRepository.save(usuario);
-        } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Campo vazio no objeto: " + usuario.toString());
-        }
+        usuarioRepository.save(usuario);
 
     }
 
