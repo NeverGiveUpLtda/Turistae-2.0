@@ -68,7 +68,6 @@ public class Turismo {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "turismo")
-    @Column(nullable = false)
     private List<Imagem> imagens;
 
     @OneToMany(mappedBy = "turismo")

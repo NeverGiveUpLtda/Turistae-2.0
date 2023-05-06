@@ -3,7 +3,6 @@ package com.api.turistae.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
@@ -28,6 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Long post(UsuarioDTO dto) {
 
         Usuario usuario = new Usuario();
+
         usuario.setNomeUsuario(dto.getNomeUsuario());
         usuario.setSenha(dto.getSenha());
         usuario.setNome(dto.getNome());
@@ -44,13 +44,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setRegistroGeral(dto.getRegistroGeral());
         usuario.setDataCriacao(dto.getDataCriacao());
         usuario.setDataEdicao(dto.getDataEdicao());
+        
         Usuario usuarioGerado;
 
-        try {
-            usuarioGerado = usuarioRepository.save(usuario);
-        } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Campo vazio no objeto: " + usuario.toString());
-        }
+        usuarioGerado = usuarioRepository.save(usuario);
 
         return usuarioGerado.getId();
 
@@ -72,6 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .dataNascimento(u.getDataNascimento())
                         .email(u.getEmail())
                         .estado(u.getEstado())
+                        .bairro(u.getBairro())
                         .nome(u.getNome())
                         .nomeUsuario(u.getNomeUsuario())
                         .numeroCasa(u.getNumeroCasa())
@@ -122,44 +120,64 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     @Transactional
     public void put(Long id, UsuarioDTO dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'put'");
+
+        Usuario usuario = usuarioRepository.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado."));
+
+        usuario.setNomeUsuario(dto.getNomeUsuario());
+        usuario.setSenha(dto.getSenha());
+        usuario.setNome(dto.getNome());
+        usuario.setEmail(dto.getEmail());
+        usuario.setTelefone(dto.getTelefone());
+        usuario.setNumeroCasa(dto.getNumeroCasa());
+        usuario.setRua(dto.getRua());
+        usuario.setBairro(dto.getBairro());
+        usuario.setCidade(dto.getCidade());
+        usuario.setEstado(dto.getEstado());
+        usuario.setDataNascimento(dto.getDataNascimento());
+        usuario.setProfissao(dto.getProfissao());
+        usuario.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
+        usuario.setRegistroGeral(dto.getRegistroGeral());
+        usuario.setDataCriacao(dto.getDataCriacao());
+        usuario.setDataEdicao(dto.getDataEdicao());
+
+        usuarioRepository.save(usuario);
+
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        usuarioRepository.deleteById(id);
     }
 
     @Override
     @Transactional
     public DadosUsuarioDTO login(String usuario, String senha) {
         return usuarioRepository.login(usuario, usuario, senha).map((Usuario u) -> DadosUsuarioDTO.builder()
-        .id(u.getId())
-        .cadastroPessoaFisica(u.getCadastroPessoaFisica())
-        .cidade(u.getCidade())
-        .curtidas(u.getCurtidas())
-        .dataCriacao(u.getDataCriacao())
-        .dataEdicao(u.getDataEdicao())
-        .dataNascimento(u.getDataNascimento())
-        .email(u.getEmail())
-        .estado(u.getEstado())
-        .nome(u.getNome())
-        .nomeUsuario(u.getNomeUsuario())
-        .numeroCasa(u.getNumeroCasa())
-        .profissao(u.getProfissao())
-        .registroGeral(u.getRegistroGeral())
-        .reviews(u.getReviews())
-        .rua(u.getRua())
-        .senha(u.getSenha())
-        .telefone(u.getTelefone())
-        .turismos(u.getTurismos())
-        .vouchers(u.getVouchers())
-        .dataCriacao(u.getDataCriacao())
-        .dataEdicao(u.getDataEdicao())
-        .build()).orElseThrow(() -> new RegraNegocioException("Usuário ou senha inválidos."));
+                .id(u.getId())
+                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
+                .cidade(u.getCidade())
+                .curtidas(u.getCurtidas())
+                .dataCriacao(u.getDataCriacao())
+                .dataEdicao(u.getDataEdicao())
+                .dataNascimento(u.getDataNascimento())
+                .email(u.getEmail())
+                .estado(u.getEstado())
+                .nome(u.getNome())
+                .nomeUsuario(u.getNomeUsuario())
+                .numeroCasa(u.getNumeroCasa())
+                .profissao(u.getProfissao())
+                .registroGeral(u.getRegistroGeral())
+                .reviews(u.getReviews())
+                .rua(u.getRua())
+                .senha(u.getSenha())
+                .telefone(u.getTelefone())
+                .turismos(u.getTurismos())
+                .vouchers(u.getVouchers())
+                .dataCriacao(u.getDataCriacao())
+                .dataEdicao(u.getDataEdicao())
+                .build()).orElseThrow(() -> new RegraNegocioException("Usuário ou senha inválidos."));
     }
 
 }

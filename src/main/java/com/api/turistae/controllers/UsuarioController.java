@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,8 @@ import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.UsuarioService;
 import com.api.turistae.utils.Criptografia;
 import com.api.turistae.utils.DataUtils;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/usuario")
@@ -55,7 +58,7 @@ public class UsuarioController {
     // HttpPost
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long postUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+    public Long postUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
 
         String senha = usuarioDTO.getSenha();
 
@@ -70,14 +73,29 @@ public class UsuarioController {
 
         logger.info("Post usuário: {}", usuarioDTO);
 
-        return usuarioService.post(usuarioDTO);
+        //  Se usuario ou email já exisirem na tabela, retornar erro
+        // Retorno do cadastro
+        Long id = 0l;
+        try {
+            id = usuarioService.post(usuarioDTO);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getMessage().contains("nome_usuario_UNIQUE")) {
+                throw new RegraNegocioException("Nome de usuário indisponível.");
+            } else if (e.getMessage().contains("email_UNIQUE")) {
+                throw new RegraNegocioException("Endereço de email já cadastrado.");
+            } else {
+                throw new RegraNegocioException("Erro ao cadastrar usuário.");
+            }
+        }
+
+        return id;
     }
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public DadosUsuarioDTO login(@RequestBody UsuarioDTO usuarioDTO) {
         String senha;
-        if (usuarioDTO.getSenha() != null) {
+        if (usuarioDTO.getNomeUsuario() != null && usuarioDTO.getSenha() != null) {
             senha = usuarioDTO.getSenha();
         } else
             throw new RegraNegocioException("Usuário ou senha inválidos.");
@@ -95,6 +113,7 @@ public class UsuarioController {
         } else if (usuarioDTO.getEmail() != null && !usuarioDTO.getEmail().isEmpty()) {
             usuarioDTO.setNomeUsuario("senha");
 
+            // Retorno do login
             return usuarioService.login(usuarioDTO.getEmail(), usuarioDTO.getSenha());
         } else
             throw new RegraNegocioException("Usuário ou senha inválidos.");
@@ -102,7 +121,7 @@ public class UsuarioController {
 
     // HttpPut
     @PutMapping("{id}")
-    public void putUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+    public void putUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
 
         String senha = usuarioDTO.getSenha();
 
@@ -116,7 +135,19 @@ public class UsuarioController {
 
         logger.info("Put usuário id {}: {}", id, usuarioDTO);
 
-        usuarioService.put(id, usuarioDTO);
+        //  Se usuario ou email já exisirem na tabela, retornar erro
+        try {
+            usuarioService.put(id, usuarioDTO);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getMessage().contains("nome_usuario_UNIQUE")) {
+                throw new RegraNegocioException("Nome de usuário indisponível.");
+            } else if (e.getMessage().contains("email_UNIQUE")) {
+                throw new RegraNegocioException("Endereço de email já cadastrado.");
+            } else {
+                throw new RegraNegocioException("Erro ao cadastrar usuário.");
+            }
+        }
+
     }
 
     // HttpDelete
