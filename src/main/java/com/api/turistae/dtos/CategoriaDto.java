@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoriaDto {
+public class CategoriaDTO {
 
     // Atributos
     private long id;

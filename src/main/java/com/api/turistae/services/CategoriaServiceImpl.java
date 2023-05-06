@@ -1,14 +1,17 @@
 package com.api.turistae.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.api.turistae.dtos.CategoriaDto;
+import com.api.turistae.dtos.CategoriaDTO;
 import com.api.turistae.dtos.DadosCategoriaDTO;
+import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Categoria;
 import com.api.turistae.repositorys.CategoriaRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -20,41 +23,72 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     // Métodos
     @Override
-    public Long post(CategoriaDto dto) {
+    @Transactional
+    public Long post(CategoriaDTO dto) {
 
         Categoria categoria = new Categoria();
 
         categoria.setNome(dto.getNome());
+        categoria.setDataCriacao(dto.getDataCriacao());
         categoria.setDataEdicao(dto.getDataEdicao());
 
-        Categoria categoriaGerada = categoriaRepository.save(categoria);
+        Categoria categoriaGerada;
+
+        categoriaGerada = categoriaRepository.save(categoria);
 
         return categoriaGerada.getId();
-
     }
 
     @Override
+    @Transactional
     public List<DadosCategoriaDTO> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+
+        return categoriaRepository.findAll()
+                .stream()
+                .map((Categoria c) -> DadosCategoriaDTO.builder()
+                        .id(c.getId())
+                        .nome(c.getNome())
+                        .turismos(c.getTurismos())
+                        .dataCriacao(c.getDataCriacao())
+                        .dataEdicao(c.getDataEdicao())
+                        .build())
+                .collect(Collectors.toList());
+
     }
 
     @Override
+    @Transactional
     public DadosCategoriaDTO getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+
+        return categoriaRepository.findById(id).map((Categoria c) -> DadosCategoriaDTO.builder()
+                .id(c.getId())
+                .nome(c.getNome())
+                .turismos(c.getTurismos())
+                .dataCriacao(c.getDataCriacao())
+                .dataEdicao(c.getDataEdicao())
+                .build()).orElseThrow(() -> new RegraNegocioException("Categoria não encontrada."));
+
     }
 
     @Override
-    public void put(Long id, CategoriaDto dto) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'put'");
+    @Transactional
+    public void put(Long id, CategoriaDTO dto) {
+
+        Categoria categoria = categoriaRepository.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Categoria não econtrada."));
+
+        categoria.setNome(dto.getNome());
+        categoria.setDataCriacao(dto.getDataCriacao());
+        categoria.setDataEdicao(dto.getDataEdicao());
+
+        categoriaRepository.save(categoria);
+
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        categoriaRepository.deleteById(id);
     }
 
 }
