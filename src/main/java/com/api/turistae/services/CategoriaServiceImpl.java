@@ -48,7 +48,6 @@ public class CategoriaServiceImpl implements CategoriaService {
                 .map((Categoria c) -> DadosCategoriaDTO.builder()
                         .id(c.getId())
                         .nome(c.getNome())
-                        .turismos(c.getTurismos())
                         .dataCriacao(c.getDataCriacao())
                         .dataEdicao(c.getDataEdicao())
                         .build())
@@ -63,7 +62,6 @@ public class CategoriaServiceImpl implements CategoriaService {
         return categoriaRepository.findById(id).map((Categoria c) -> DadosCategoriaDTO.builder()
                 .id(c.getId())
                 .nome(c.getNome())
-                .turismos(c.getTurismos())
                 .dataCriacao(c.getDataCriacao())
                 .dataEdicao(c.getDataEdicao())
                 .build()).orElseThrow(() -> new RegraNegocioException("Categoria não encontrada."));

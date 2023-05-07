@@ -33,7 +33,6 @@ public class UsuarioController {
     // Atributos
     private UsuarioService usuarioService;
     private final Logger logger;
-    private static final String MASCARA_DATA = "yyyy-MM-dd-HH-mm-ss";
 
     // Construtor
     public UsuarioController(UsuarioService usuarioService) {
@@ -68,8 +67,8 @@ public class UsuarioController {
             throw new RegraNegocioException(e.getMessage());
         }
 
-        usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
+        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Post usuário: {}", usuarioDTO);
 
@@ -131,7 +130,7 @@ public class UsuarioController {
             throw new RegraNegocioException(e.getMessage());
         }
 
-        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put usuário id {}: {}", id, usuarioDTO);
 
@@ -142,9 +141,9 @@ public class UsuarioController {
             if (e.getMessage().contains("nome_usuario_UNIQUE")) {
                 throw new RegraNegocioException("Nome de usuário indisponível.");
             } else if (e.getMessage().contains("email_UNIQUE")) {
-                throw new RegraNegocioException("Endereço de email já cadastrado.");
+                throw new RegraNegocioException("Endereço de email indisponível.");
             } else {
-                throw new RegraNegocioException("Erro ao cadastrar usuário.");
+                throw new RegraNegocioException("Erro ao atualizar usuário.");
             }
         }
 

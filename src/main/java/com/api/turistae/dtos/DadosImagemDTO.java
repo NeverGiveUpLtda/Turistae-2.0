@@ -2,8 +2,6 @@ package com.api.turistae.dtos;
 
 import java.time.LocalDateTime;
 
-import com.api.turistae.models.Turismo;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +18,7 @@ public class DadosImagemDTO {
     private String url;
 
     // Relacionamentos
-    private Turismo turismo;
+    private TurismoDTO turismo;
 
     // Timestamps
     private LocalDateTime dataCriacao;

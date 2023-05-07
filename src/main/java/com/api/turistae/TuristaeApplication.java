@@ -23,7 +23,14 @@ public class TuristaeApplication {
 
     // Atributos
     private static final String CATEGORIA_SALVA = "Categoria salva: {}";
-    private static final String MASCARA_DATA = "yyyy-MM-dd-HH-mm-ss";
+
+    // Logger do projeto
+    private static final Logger logger = LoggerFactory.getLogger(TuristaeApplication.class);
+
+    public static void main(String[] args) {
+        SpringApplication.run(TuristaeApplication.class, args);
+        logger.info("Boot finalizado. Ouvindo porta 8080");
+    }
 
     // Inicializador
     @Bean
@@ -41,187 +48,179 @@ public class TuristaeApplication {
 
             Categoria categoria = new Categoria();
             categoria.setNome("Aventura");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             Categoria categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
 
             categoria = new Categoria();
             categoria.setNome("Cultural");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
 
             categoria = new Categoria();
             categoria.setNome("Histórico");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
 
             categoria = new Categoria();
             categoria.setNome("Gastronômico");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
 
             categoria = new Categoria();
             categoria.setNome("Natureza");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
 
             categoria = new Categoria();
             categoria.setNome("Rural");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Praia");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Montanha");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Ecoturismo");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Observação da Vida Selvagem");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Safári");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Cruzeiro");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Mergulho");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Esportes Aquáticos");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Esqui");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Golfe");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Religioso");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Peregrinação");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Bem-Estar e Spa");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Compras");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Negócios");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Eventos e Conferências");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Festivais e Celebrações");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Arquitetura");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
             
             categoria = new Categoria();
             categoria.setNome("Jardins e Parques");
-            categoria.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-            categoria.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+            categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
+            categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
         };
-    }
-
-    // Logger do projeto
-    private static final Logger logger = LoggerFactory.getLogger(TuristaeApplication.class);
-
-    public static void main(String[] args) {
-        SpringApplication.run(TuristaeApplication.class, args);
-        logger.info("Boot finalizado. Ouvindo porta 8080");
     }
 
 }

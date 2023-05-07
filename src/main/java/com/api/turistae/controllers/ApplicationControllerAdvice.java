@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -65,6 +66,14 @@ public class ApplicationControllerAdvice {
         String field = ex.getPath().get(0).getFieldName();
         String message = String.format("Campo %s com formato inválido.", field);
         return new ApiError(message);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ApiError handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+
+        logger.error("Erro de body na requisição: {}", ex.getMessage());
+
+        return new ApiError("Requisição com erro nos parâmetros.");
     }
     
 }
