@@ -1,6 +1,7 @@
 package com.api.turistae.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,10 @@ public class DadosTurismoDTO {
     // Relacionamentos
     private UsuarioDTO usuario;
     private CategoriaDTO categoria;
+
+    private List<ImagemDTO> imagens;
+    private List<CurtidaDTO> curtidas;
+    private List<ReviewDTO> reviews;
 
     // Timestamps
     private LocalDateTime dataCriacao;

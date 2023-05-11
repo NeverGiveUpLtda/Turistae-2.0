@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.CategoriaDTO;
+import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.dtos.DadosCategoriaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Categoria;
+import com.api.turistae.models.Turismo;
 import com.api.turistae.repositorys.CategoriaRepository;
 
 import jakarta.transaction.Transactional;
@@ -50,6 +52,24 @@ public class CategoriaServiceImpl implements CategoriaService {
                         .nome(c.getNome())
                         .dataCriacao(c.getDataCriacao())
                         .dataEdicao(c.getDataEdicao())
+
+                        // Relacionamentos
+                        .turismos(c.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
+                                .id(t.getId())
+                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .categoriaId(t.getCategoria().getId())
+                                .cidade(t.getCidade())
+                                .dataCriacao(t.getDataCriacao())
+                                .dataEdicao(t.getDataEdicao())
+                                .descricao(t.getDescricao())
+                                .estado(t.getEstado())
+                                .nome(t.getNome())
+                                .numeroLocal(t.getNumeroLocal())
+                                .rua(t.getRua())
+                                .telefone(t.getTelefone())
+                                .usuarioId(t.getUsuario().getId())
+                                .build())
+                                .collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
 
@@ -64,6 +84,24 @@ public class CategoriaServiceImpl implements CategoriaService {
                 .nome(c.getNome())
                 .dataCriacao(c.getDataCriacao())
                 .dataEdicao(c.getDataEdicao())
+
+                // Relacionamentos
+                .turismos(c.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
+                        .id(t.getId())
+                        .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                        .categoriaId(t.getCategoria().getId())
+                        .cidade(t.getCidade())
+                        .dataCriacao(t.getDataCriacao())
+                        .dataEdicao(t.getDataEdicao())
+                        .descricao(t.getDescricao())
+                        .estado(t.getEstado())
+                        .nome(t.getNome())
+                        .numeroLocal(t.getNumeroLocal())
+                        .rua(t.getRua())
+                        .telefone(t.getTelefone())
+                        .usuarioId(t.getUsuario().getId())
+                        .build())
+                        .collect(Collectors.toList()))
                 .build()).orElseThrow(() -> new RegraNegocioException("Categoria não encontrada."));
 
     }

@@ -5,10 +5,16 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.api.turistae.dtos.CurtidaDTO;
 import com.api.turistae.dtos.DadosUsuarioDTO;
+import com.api.turistae.dtos.ReviewDTO;
+import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.dtos.UsuarioDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
+import com.api.turistae.models.Curtida;
+import com.api.turistae.models.Review;
 import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turismo;
 import com.api.turistae.repositorys.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
@@ -44,7 +50,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setRegistroGeral(dto.getRegistroGeral());
         usuario.setDataCriacao(dto.getDataCriacao());
         usuario.setDataEdicao(dto.getDataEdicao());
-        
+
         Usuario usuarioGerado;
 
         usuarioGerado = usuarioRepository.save(usuario);
@@ -79,6 +85,38 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .telefone(u.getTelefone())
                         .dataCriacao(u.getDataCriacao())
                         .dataEdicao(u.getDataEdicao())
+
+                        // Relacionamentos
+                        .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
+                                .id(c.getId())
+                                .turismoId(c.getTurismo().getId())
+                                .usuarioId(c.getUsuario().getId())
+                                .build()).collect(Collectors.toList()))
+                        .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
+                                .id(r.getId())
+                                .dataCriacao(r.getDataCriacao())
+                                .dataEdicao(r.getDataEdicao())
+                                .nota(r.getNota())
+                                .texto(r.getTexto())
+                                .turismoId(r.getTurismo().getId())
+                                .usuarioId(r.getUsuario().getId())
+                                .build()).collect(Collectors.toList()))
+                        .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
+                                .id(t.getId())
+                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .categoriaId(t.getCategoria().getId())
+                                .cidade(t.getCidade())
+                                .dataCriacao(t.getDataCriacao())
+                                .dataEdicao(t.getDataEdicao())
+                                .descricao(t.getDescricao())
+                                .estado(t.getEstado())
+                                .nome(t.getNome())
+                                .numeroLocal(t.getNumeroLocal())
+                                .rua(t.getRua())
+                                .telefone(t.getTelefone())
+                                .usuarioId(t.getUsuario().getId())
+                                .build())
+                                .collect(Collectors.toList()))
                         .build())
                 .collect(Collectors.toList());
 
@@ -106,6 +144,37 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .telefone(u.getTelefone())
                 .dataCriacao(u.getDataCriacao())
                 .dataEdicao(u.getDataEdicao())
+
+                // Relacionamentos
+                .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
+                        .id(c.getId())
+                        .turismoId(c.getTurismo().getId())
+                        .usuarioId(c.getUsuario().getId())
+                        .build()).collect(Collectors.toList()))
+                .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
+                        .id(r.getId())
+                        .dataCriacao(r.getDataCriacao())
+                        .dataEdicao(r.getDataEdicao())
+                        .nota(r.getNota())
+                        .texto(r.getTexto())
+                        .turismoId(r.getTurismo().getId())
+                        .usuarioId(r.getUsuario().getId())
+                        .build()).collect(Collectors.toList()))
+                .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
+                        .id(t.getId())
+                        .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                        .categoriaId(t.getCategoria().getId())
+                        .cidade(t.getCidade())
+                        .dataCriacao(t.getDataCriacao())
+                        .dataEdicao(t.getDataEdicao())
+                        .descricao(t.getDescricao())
+                        .estado(t.getEstado())
+                        .nome(t.getNome())
+                        .numeroLocal(t.getNumeroLocal())
+                        .rua(t.getRua())
+                        .telefone(t.getTelefone())
+                        .usuarioId(t.getUsuario().getId())
+                        .build()).collect(Collectors.toList()))
                 .build()).orElseThrow(() -> new RegraNegocioException("Usuário não encontrado."));
     }
 
