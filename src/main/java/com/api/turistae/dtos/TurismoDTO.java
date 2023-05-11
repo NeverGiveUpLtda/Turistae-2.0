@@ -19,15 +19,15 @@ public class TurismoDTO {
 
     // Atributos
     private long id;
-    
+
     @NotBlank(message = "O campo Nome deve ser preencido.")
     @Size(min = 3, max = 200, message = "O campo Nome deve ter entre 3 e 200 caracteres.")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "Campo Nome com caracteres inválidos. Insira apenas letras.")
     private String nome;
-    
+
     @NotNull(message = "O campo Telefone deve ser preencido.")
     private long telefone;
-    
+
     @NotNull(message = "O campo Número da Casa deve ser preencido.")
     private int numeroLocal;
 
@@ -63,7 +63,6 @@ public class TurismoDTO {
 
     // Relacionamentos
     private Long usuarioId;
-    
     private Long categoriaId;
 
     // Timestamps

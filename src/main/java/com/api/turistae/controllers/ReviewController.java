@@ -35,7 +35,7 @@ public class ReviewController {
     // Construtor
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
-        this.logger = LoggerFactory.getLogger(ReviewController.class);
+        this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Review Controller iniciado.");
     }
 

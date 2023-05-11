@@ -35,7 +35,7 @@ public class TurismoController {
     // Construtor
     public TurismoController(TurismoService turismoService) {
         this.turismoService = turismoService;
-        this.logger = LoggerFactory.getLogger(TurismoController.class);
+        this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Turismo Controller iniciado.");
     }
     

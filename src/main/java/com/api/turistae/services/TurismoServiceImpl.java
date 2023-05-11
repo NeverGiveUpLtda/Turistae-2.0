@@ -134,7 +134,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .dataCriacao(i.getDataCriacao())
                                                 .dataEdicao(i.getDataEdicao())
                                                 .turismoId(i.getTurismo().getId())
-                                                .url(i.getUrl())
+                                                .string64(i.getString64())
                                                 .build()).collect(Collectors.toList()))
 
                                 .build()).collect(Collectors.toList());
@@ -201,9 +201,9 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .dataCriacao(i.getDataCriacao())
                                                 .dataEdicao(i.getDataEdicao())
                                                 .turismoId(i.getTurismo().getId())
-                                                .url(i.getUrl())
+                                                .string64(i.getString64())
                                                 .build()).collect(Collectors.toList()))
-                                                
+
                                 .build()).orElseThrow(() -> new RegraNegocioException("Turismo não encontrado."));
         }
 

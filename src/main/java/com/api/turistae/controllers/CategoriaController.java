@@ -35,7 +35,7 @@ public class CategoriaController {
     // Construtor
     public CategoriaController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
-        this.logger = LoggerFactory.getLogger(CategoriaController.class);
+        this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Categoria Controller iniciado.");
     }
 

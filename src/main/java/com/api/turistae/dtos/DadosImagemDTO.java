@@ -15,7 +15,7 @@ public class DadosImagemDTO {
 
     // Atributos
     private long id;
-    private String url;
+    private String string64;
 
     // Relacionamentos
     private TurismoDTO turismo;

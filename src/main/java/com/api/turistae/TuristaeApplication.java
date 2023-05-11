@@ -87,133 +87,133 @@ public class TuristaeApplication {
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Praia");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Montanha");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Ecoturismo");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Observação da Vida Selvagem");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Safári");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Cruzeiro");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Mergulho");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Esportes Aquáticos");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Esqui");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Golfe");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Religioso");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Peregrinação");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Bem-Estar e Spa");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Compras");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Negócios");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Eventos e Conferências");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Festivais e Celebrações");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Arquitetura");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());
             categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
-            
+
             categoria = new Categoria();
             categoria.setNome("Jardins e Parques");
             categoria.setDataCriacao(DataUtils.getDataAtualComMascara());

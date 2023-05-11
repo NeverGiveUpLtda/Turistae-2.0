@@ -16,7 +16,7 @@ public class DadosReviewDTO {
     // Atributos
     private long id;
     private String texto;
-    private byte nota;
+    private int nota;
 
     // Relacionamentos
     private TurismoDTO turismo;
