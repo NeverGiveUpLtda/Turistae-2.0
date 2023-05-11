@@ -67,6 +67,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .stream()
                 .map((Usuario u) -> DadosUsuarioDTO.builder()
                         .id(u.getId())
+                        .bairro(u.getBairro())
                         .cadastroPessoaFisica(u.getCadastroPessoaFisica())
                         .cidade(u.getCidade())
                         .dataCriacao(u.getDataCriacao())
@@ -91,6 +92,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                                 .id(c.getId())
                                 .turismoId(c.getTurismo().getId())
                                 .usuarioId(c.getUsuario().getId())
+                                .dataCriacao(c.getDataCriacao())
+                                .dataEdicao(c.getDataEdicao())
                                 .build()).collect(Collectors.toList()))
                         .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                                 .id(r.getId())
@@ -127,6 +130,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public DadosUsuarioDTO getById(Long id) {
         return usuarioRepository.findById(id).map((Usuario u) -> DadosUsuarioDTO.builder()
                 .id(u.getId())
+                .bairro(u.getBairro())
                 .cadastroPessoaFisica(u.getCadastroPessoaFisica())
                 .cidade(u.getCidade())
                 .dataCriacao(u.getDataCriacao())
@@ -148,6 +152,8 @@ public class UsuarioServiceImpl implements UsuarioService {
                 // Relacionamentos
                 .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
                         .id(c.getId())
+                        .dataCriacao(c.getDataCriacao())
+                        .dataEdicao(c.getDataEdicao())
                         .turismoId(c.getTurismo().getId())
                         .usuarioId(c.getUsuario().getId())
                         .build()).collect(Collectors.toList()))

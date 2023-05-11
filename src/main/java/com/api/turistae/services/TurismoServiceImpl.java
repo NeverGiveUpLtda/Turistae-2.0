@@ -78,6 +78,7 @@ public class TurismoServiceImpl implements TurismoService {
 
                 return turismoRepository.findAll().stream().map((Turismo t) -> DadosTurismoDTO.builder()
                                 .id(t.getId())
+                                .bairro(t.getBairro())
                                 .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
                                 .cidade(t.getBairro())
                                 .dataCriacao(t.getDataCriacao())
@@ -117,6 +118,8 @@ public class TurismoServiceImpl implements TurismoService {
                                 // Relacionamentos
                                 .curtidas(t.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
                                                 .id(c.getId())
+                                                .dataCriacao(c.getDataCriacao())
+                                                .dataEdicao(c.getDataEdicao())
                                                 .turismoId(c.getTurismo().getId())
                                                 .usuarioId(c.getUsuario().getId())
                                                 .build()).collect(Collectors.toList()))
@@ -214,10 +217,10 @@ public class TurismoServiceImpl implements TurismoService {
                 Turismo turismo = turismoRepository.findById(id)
                                 .orElseThrow(() -> new RegraNegocioException("Turismo não encontrado."));
 
-                Categoria categ = categoriaRepository.findById(dto.getUsuarioId())
+                Categoria categ = categoriaRepository.findById(dto.getCategoriaId())
                                 .orElseThrow(() -> new RegraNegocioException("Categoria não encontrada."));
 
-                Usuario usu = usuarioRepository.findById(dto.getCategoriaId())
+                Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
                                 .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado."));
 
                 turismo.setBairro(dto.getBairro());

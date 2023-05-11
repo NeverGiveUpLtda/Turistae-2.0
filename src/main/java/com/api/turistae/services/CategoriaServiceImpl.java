@@ -56,6 +56,7 @@ public class CategoriaServiceImpl implements CategoriaService {
                         // Relacionamentos
                         .turismos(c.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
                                 .id(t.getId())
+                                .bairro(t.getBairro())
                                 .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
                                 .categoriaId(t.getCategoria().getId())
                                 .cidade(t.getCidade())
@@ -88,6 +89,7 @@ public class CategoriaServiceImpl implements CategoriaService {
                 // Relacionamentos
                 .turismos(c.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
                         .id(t.getId())
+                        .bairro(t.getBairro())
                         .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
                         .categoriaId(t.getCategoria().getId())
                         .cidade(t.getCidade())
