@@ -31,12 +31,11 @@ public class CategoriaController {
     // Atributos
     private CategoriaService categoriaService;
     private final Logger logger;
-    private static final String MASCARA_DATA = "yyyy-MM-dd-HH-mm-ss";
 
     // Construtor
     public CategoriaController(CategoriaService categoriaService) {
         this.categoriaService = categoriaService;
-        this.logger = LoggerFactory.getLogger(CategoriaController.class);
+        this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Categoria Controller iniciado.");
     }
 
@@ -58,8 +57,8 @@ public class CategoriaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 
-        categoriaDTO.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-        categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        categoriaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
+        categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Post categoria: {}", categoriaDTO);
 
@@ -78,7 +77,7 @@ public class CategoriaController {
     @PutMapping("{id}")
     public void putCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
 
-        categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put categoria id {}: {}", id, categoriaDTO);
 

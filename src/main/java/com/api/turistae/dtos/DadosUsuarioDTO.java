@@ -3,11 +3,6 @@ package com.api.turistae.dtos;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.api.turistae.models.Curtida;
-import com.api.turistae.models.Review;
-import com.api.turistae.models.Turismo;
-import com.api.turistae.models.Voucher;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,10 +32,9 @@ public class DadosUsuarioDTO {
     private String registroGeral;
 
     // Relacionamentos
-    private List<Turismo> turismos;
-    private List<Review> reviews;
-    private List<Voucher> vouchers;
-    private List<Curtida> curtidas;
+    private List<CurtidaDTO> curtidas;
+    private List<ReviewDTO> reviews;
+    private List<TurismoDTO> turismos;
 
     // Timestamps
     private LocalDateTime dataCriacao;

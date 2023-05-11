@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -67,16 +68,16 @@ public class Turismo {
     @JoinColumn(name = "categoria_id", nullable = false)
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "turismo")
+    @OneToMany(mappedBy = "turismo", fetch = FetchType.EAGER)
     private List<Imagem> imagens;
 
-    @OneToMany(mappedBy = "turismo")
+    @OneToMany(mappedBy = "turismo", fetch = FetchType.EAGER)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "turismo")
+    @OneToMany(mappedBy = "turismo", fetch = FetchType.EAGER)
     private List<Voucher> vouchers;
 
-    @OneToMany(mappedBy = "turismo")
+    @OneToMany(mappedBy = "turismo", fetch = FetchType.EAGER)
     private List<Curtida> curtidas;
 
     // Timestamps

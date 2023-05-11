@@ -32,8 +32,8 @@ public class Review {
      @Column(length = 200, nullable = false)
      private String texto;
 
-     @Column(nullable = false)
-     private byte nota;
+     @Column(nullable = false, columnDefinition = "NUMERIC(3,1) CHECK (nota >= 0 AND nota <= 10)")
+     private int nota;
 
      // Relacionamentos
      @ManyToOne

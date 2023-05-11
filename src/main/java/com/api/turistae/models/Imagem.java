@@ -29,8 +29,8 @@ public class Imagem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false, unique = true)
-    private String url;
+    @Column(nullable = false, length = 67108864)
+    private String string64;
 
     // Relacionamentos
     @ManyToOne

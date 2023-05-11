@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 import lombok.AccessLevel;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Criptografia {
+public class CriptografiaUtils {
 
     // Atributos
-    private static final Logger logger = LoggerFactory.getLogger(Criptografia.class);
+    private static final Logger logger = LoggerFactory.getLogger(CriptografiaUtils.class);
     
     // Métodos
     

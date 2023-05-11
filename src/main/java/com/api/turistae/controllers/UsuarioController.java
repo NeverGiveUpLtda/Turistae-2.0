@@ -21,7 +21,7 @@ import com.api.turistae.dtos.UsuarioDTO;
 import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.UsuarioService;
-import com.api.turistae.utils.Criptografia;
+import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
 
 import jakarta.validation.Valid;
@@ -33,12 +33,11 @@ public class UsuarioController {
     // Atributos
     private UsuarioService usuarioService;
     private final Logger logger;
-    private static final String MASCARA_DATA = "yyyy-MM-dd-HH-mm-ss";
 
     // Construtor
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
-        this.logger = LoggerFactory.getLogger(UsuarioController.class);
+        this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Usuário Controller iniciado.");
     }
 
@@ -63,13 +62,13 @@ public class UsuarioController {
         String senha = usuarioDTO.getSenha();
 
         try {
-            usuarioDTO.setSenha(Criptografia.criptografarSenha(senha));
+            usuarioDTO.setSenha(CriptografiaUtils.criptografarSenha(senha));
         } catch (CriptografiaException e) {
             throw new RegraNegocioException(e.getMessage());
         }
 
-        usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
-        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
+        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Post usuário: {}", usuarioDTO);
 
@@ -101,7 +100,7 @@ public class UsuarioController {
             throw new RegraNegocioException("Usuário ou senha inválidos.");
 
         try {
-            usuarioDTO.setSenha(Criptografia.criptografarSenha(senha));
+            usuarioDTO.setSenha(CriptografiaUtils.criptografarSenha(senha));
         } catch (CriptografiaException e) {
             throw new RegraNegocioException(e.getMessage());
         }
@@ -126,12 +125,12 @@ public class UsuarioController {
         String senha = usuarioDTO.getSenha();
 
         try {
-            usuarioDTO.setSenha(Criptografia.criptografarSenha(senha));
+            usuarioDTO.setSenha(CriptografiaUtils.criptografarSenha(senha));
         } catch (CriptografiaException e) {
             throw new RegraNegocioException(e.getMessage());
         }
 
-        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara(MASCARA_DATA));
+        usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put usuário id {}: {}", id, usuarioDTO);
 
@@ -142,9 +141,9 @@ public class UsuarioController {
             if (e.getMessage().contains("nome_usuario_UNIQUE")) {
                 throw new RegraNegocioException("Nome de usuário indisponível.");
             } else if (e.getMessage().contains("email_UNIQUE")) {
-                throw new RegraNegocioException("Endereço de email já cadastrado.");
+                throw new RegraNegocioException("Endereço de email indisponível.");
             } else {
-                throw new RegraNegocioException("Erro ao cadastrar usuário.");
+                throw new RegraNegocioException("Erro ao atualizar usuário.");
             }
         }
 
