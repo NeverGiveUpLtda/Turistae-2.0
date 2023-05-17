@@ -22,6 +22,7 @@ import com.api.turistae.repositorys.ReviewRepository;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.UsuarioRepository;
 import com.api.turistae.repositorys.VoucherRepository;
+import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
 
 @SpringBootApplication
@@ -264,7 +265,11 @@ public class TuristaeApplication {
                 usuario.setProfissao("Profissão " + x);
                 usuario.setRegistroGeral("11.111.111-" + x);
                 usuario.setRua("Rua " + x);
-                usuario.setSenha("Senha@123");
+                try {
+                    usuario.setSenha(CriptografiaUtils.criptografarSenha("Senha@123"));
+                } catch(CriptografiaException e) {
+                    usuario.setSenha("Senha@123");
+                }
                 usuario.setTelefone(x);
                 Usuario usuarioSalvo = usuarioRepository.save(usuario);
                 logger.info(USUARIO_SALVO, usuarioSalvo);
