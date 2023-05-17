@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.models.Categoria;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Imagem;
