@@ -224,6 +224,64 @@ public class CurtidaServiceImpl implements CurtidaService {
 
         @Override
         @Transactional
+        public DadosCurtidaDTO getCurtidaByTurismoAndUsuario(Long usuarioId, Long turismoId) {
+
+                Turismo turis = turismoRepository
+                                .findById(turismoId)
+                                .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
+
+                Usuario usu = usuarioRepository
+                                .findById(usuarioId)
+                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+
+                return curtidaRepository.findByUsuarioAndTurismo(usu, turis).map((Curtida c) -> DadosCurtidaDTO.builder()
+                                .id(c.getId())
+                                .dataCriacao(c.getDataCriacao())
+                                .dataEdicao(c.getDataEdicao())
+                                .turismo(TurismoDTO.builder()
+                                                .id(c.getTurismo().getId())
+                                                .bairro(c.getTurismo().getBairro())
+                                                .cadastroNacionalPessoasJuridicas(
+                                                                c.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .categoriaId(c.getTurismo().getCategoria().getId())
+                                                .cidade(c.getTurismo().getCidade())
+                                                .dataCriacao(c.getTurismo().getDataCriacao())
+                                                .dataEdicao(c.getTurismo().getDataEdicao())
+                                                .descricao(c.getTurismo().getDescricao())
+                                                .estado(c.getTurismo().getEstado())
+                                                .nome(c.getTurismo().getNome())
+                                                .numeroLocal(c.getTurismo().getNumeroLocal())
+                                                .rua(c.getTurismo().getRua())
+                                                .telefone(c.getTurismo().getTelefone())
+                                                .usuarioId(c.getTurismo().getUsuario().getId())
+                                                .build())
+
+                                // Relacionamentos
+                                .usuario(UsuarioDTO.builder()
+                                                .id(c.getUsuario().getId())
+                                                .bairro(c.getUsuario().getBairro())
+                                                .cadastroPessoaFisica(c.getUsuario().getCadastroPessoaFisica())
+                                                .cidade(c.getUsuario().getCidade())
+                                                .dataCriacao(c.getUsuario().getDataCriacao())
+                                                .dataEdicao(c.getUsuario().getDataEdicao())
+                                                .dataNascimento(c.getUsuario().getDataNascimento())
+                                                .email(c.getUsuario().getEmail())
+                                                .estado(c.getUsuario().getEstado())
+                                                .nome(c.getUsuario().getNome())
+                                                .nomeUsuario(c.getUsuario().getNomeUsuario())
+                                                .numeroCasa(c.getUsuario().getNumeroCasa())
+                                                .profissao(c.getUsuario().getProfissao())
+                                                .registroGeral(c.getUsuario().getRegistroGeral())
+                                                .rua(c.getUsuario().getRua())
+                                                .senha(c.getUsuario().getSenha())
+                                                .telefone(c.getUsuario().getTelefone())
+                                                .build())
+                                .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
+
+        }
+
+        @Override
+        @Transactional
         public void put(Long id, CurtidaDTO dto) {
 
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())

@@ -80,6 +80,8 @@ public class TurismoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long postTurismo(@Valid @RequestBody TurismoDTO turismoDTO) {
+
+        //TODO
         turismoDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
@@ -105,6 +107,7 @@ public class TurismoController {
     @PutMapping("{id}")
     public void putTurismo(@PathVariable Long id, @Valid @RequestBody TurismoDTO turismoDTO) {
 
+        //TODO
         turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put turismo id {}: {}", id, turismoDTO);

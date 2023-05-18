@@ -13,7 +13,15 @@ public interface VoucherService {
     // Read
     List<DadosVoucherDTO> getAll();
 
+    List<DadosVoucherDTO> getVouchersSemUsuario(Long id);
+
+    List<DadosVoucherDTO> getVouchersComUsuario(Long id);
+
+    List<DadosVoucherDTO> getVouchersPorTurismo(Long id);
+
     DadosVoucherDTO getById(Long id);
+
+    DadosVoucherDTO claim(VoucherDTO dto);
 
     // Update
     void put(Long id, VoucherDTO dto);

@@ -17,6 +17,8 @@ public interface CurtidaService {
 
     DadosCurtidaDTO getById(Long id);
 
+    DadosCurtidaDTO getCurtidaByTurismoAndUsuario(Long usuarioId, Long turismoId);
+
     // Update
     void put(Long id, CurtidaDTO dto);
 

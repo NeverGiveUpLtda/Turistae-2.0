@@ -64,6 +64,7 @@ public class ImagemController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postImagem(@Valid @RequestBody ImagemDTO imagemDTO) {
 
+        //TODO
         String validacao = ImagemUtils.validarImagem(imagemDTO.getString64());
         // Valida a imagem
         if (!"valida".equals(validacao)) {
@@ -92,6 +93,7 @@ public class ImagemController {
     @PutMapping("{id}")
     public void putImagem(@PathVariable Long id, @Valid @RequestBody ImagemDTO imagemDTO) {
 
+        //TODO
         imagemDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put Imagem id {}: {}", id, imagemDTO);

@@ -59,6 +59,7 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
 
+        //TODO
         String senha = usuarioDTO.getSenha();
 
         try {
@@ -93,6 +94,8 @@ public class UsuarioController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public DadosUsuarioDTO login(@RequestBody UsuarioDTO usuarioDTO) {
+
+        //TODO
         String senha;
         if (usuarioDTO.getNomeUsuario() != null && usuarioDTO.getSenha() != null) {
             senha = usuarioDTO.getSenha();
@@ -106,14 +109,9 @@ public class UsuarioController {
         }
 
         if (usuarioDTO.getNomeUsuario() != null && !usuarioDTO.getNomeUsuario().isEmpty()) {
-            usuarioDTO.setEmail("");
 
             return usuarioService.login(usuarioDTO.getNomeUsuario(), usuarioDTO.getSenha());
-        } else if (usuarioDTO.getEmail() != null && !usuarioDTO.getEmail().isEmpty()) {
-            usuarioDTO.setNomeUsuario("senha");
 
-            // Retorno do login
-            return usuarioService.login(usuarioDTO.getEmail(), usuarioDTO.getSenha());
         } else
             throw new RegraNegocioException("Usuário ou senha inválidos.");
     }
@@ -122,6 +120,7 @@ public class UsuarioController {
     @PutMapping("{id}")
     public void putUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
 
+        //TODO
         String senha = usuarioDTO.getSenha();
 
         try {

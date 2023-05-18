@@ -43,8 +43,26 @@ public class VoucherController {
     // HttpGet
     @GetMapping
     public List<DadosVoucherDTO> getVouchers() {
-        logger.info("Get todas Vouchers.");
+        logger.info("Get todos Vouchers.");
         return voucherService.getAll();
+    }
+
+    @GetMapping("/turismo/{turismoId}")
+    public List<DadosVoucherDTO> getVouchersPorTurismo(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers para o turismo id: {}", turismoId);
+        return voucherService.getVouchersPorTurismo(turismoId);
+    }
+
+    @GetMapping("/turismo/{turismoId}/unclaimed")
+    public List<DadosVoucherDTO> getVouchersPorTurismoSemUsuario(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers sem usuário para o turismo id: {}", turismoId);
+        return voucherService.getVouchersSemUsuario(turismoId);
+    }
+
+    @GetMapping("/turismo/{turismoId}/claimed")
+    public List<DadosVoucherDTO> getVouchersPorTurismoComUsuario(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers com usuário para o turismo id: {}", turismoId);
+        return voucherService.getVouchersComUsuario(turismoId);
     }
 
     @GetMapping("{id}")
@@ -58,6 +76,7 @@ public class VoucherController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postVoucher(@Valid @RequestBody VoucherDTO voucherDTO) {
 
+        //TODO
         voucherDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
         voucherDTO.setCodigo(VoucherUtils.gerarVoucher(voucherDTO.getTurismoId()));
@@ -75,13 +94,30 @@ public class VoucherController {
         return id;
     }
 
+
+    @PostMapping("/claim")
+    public void claimVoucher(@Valid @RequestBody VoucherDTO voucherDTO) {
+
+        //TODO
+        voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
+
+        logger.info("Claim Voucher: {}", voucherDTO);
+
+        try {
+            voucherService.claim(voucherDTO);
+        } catch (DataIntegrityViolationException e) {
+            throw new RegraNegocioException("Voucher indisponível.");
+        }
+    }
+
     // HttpPut
     @PutMapping("{id}")
     public void putVoucher(@PathVariable Long id, @Valid @RequestBody VoucherDTO voucherDTO) {
 
+        //TODO
         voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
         voucherDTO.setCodigo(VoucherUtils.gerarVoucher(voucherDTO.getTurismoId()));
-        
+
         logger.info("Put Voucher id {}: {}", id, voucherDTO);
 
         try {
