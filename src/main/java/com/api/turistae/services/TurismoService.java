@@ -13,6 +13,14 @@ public interface TurismoService {
     // Read
     List<DadosTurismoDTO> getAll();
 
+    List<DadosTurismoDTO> getAllOrderByCurtidas();
+
+    List<DadosTurismoDTO> getAllByCategoria(Long id);
+
+    List<DadosTurismoDTO> getAllOrderByNota();
+
+    Double calcularMediaNotasPorId(Long turismoId);
+
     DadosTurismoDTO getById(Long id);
 
     // Update

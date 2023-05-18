@@ -6,4 +6,6 @@ import com.api.turistae.models.Voucher;
 
 public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 
+    //List<Voucher> findAllByTurismoId(Long turismoId)
+
 }

@@ -46,6 +46,12 @@ public class CurtidaController {
         return curtidaService.getAll();
     }
 
+    @GetMapping("/porTurismo/{id}")
+    public int getQuantidadeCurtidas(@PathVariable Long id) {
+        logger.info("Get quantidade de curtidas por turismo: {}", id);
+        return curtidaService.getByTurismo(id).size();
+    }
+
     @GetMapping("{id}")
     public DadosCurtidaDTO getCurtidaPorId(@PathVariable Long id) {
         logger.info("Get Curtida id: {}", id);

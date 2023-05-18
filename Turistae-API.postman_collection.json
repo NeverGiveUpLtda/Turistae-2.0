@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "6b014621-60be-4f28-97f2-3815559c0f5f",
+		"_postman_id": "5d10db00-eac9-4cb6-9660-8ef57f24b738",
 		"name": "Turistae-API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27247723"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -160,7 +159,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeUsuario\": \"ettorerollo\",\r\n    \"senha\": \"SenhaValida@2\"\r\n}",
+							"raw": "{\r\n    \"nomeUsuario\": \"ettorerollo@hotmail.com\",\r\n    \"senha\": \"SenhaValida@123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -264,6 +263,67 @@
 					"response": []
 				},
 				{
+					"name": "Todos os turismos por curtida",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/turismo/porCurtida",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turismo",
+								"porCurtida"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos os turismos por categoria",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/turismo/porCategoria/25",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turismo",
+								"porCategoria",
+								"25"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos os turismos por nota",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/turismo/porNota",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turismo",
+								"porNota"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Turismo por id",
 					"request": {
 						"method": "GET",
@@ -277,6 +337,27 @@
 							"path": [
 								"api",
 								"turismo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nota do turismo média",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/turismo/nota/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turismo",
+								"nota",
 								"1"
 							]
 						}
@@ -379,6 +460,27 @@
 							"path": [
 								"api",
 								"imagem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todas as imagens por turismo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/imagem/porTurismo/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"imagem",
+								"porTurismo",
+								"1"
 							]
 						}
 					},
@@ -500,6 +602,27 @@
 							"path": [
 								"api",
 								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos os reviews por turismo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/review/porTurismo/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"review",
+								"porTurismo",
+								"1"
 							]
 						}
 					},
@@ -713,6 +836,27 @@
 							"path": [
 								"api",
 								"curtida"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quantidade de curtidas do turismo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/curtida/porTurismo/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"curtida",
+								"porTurismo",
+								"1"
 							]
 						}
 					},

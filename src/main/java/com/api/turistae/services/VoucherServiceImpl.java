@@ -24,6 +24,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class VoucherServiceImpl implements VoucherService {
 
+    /**
+     * Mude a mensagem de usuário não encontrado para curtida
+     */
+    private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
+
+    /**
+     * Mude a mensagem de turismo não encontrado para curtida
+     */
+    private static final String TURISMO_NAO_ENCONTRADO = "Turismo não encontrado.";
+
+    /**
+     * Mude a mensagem de não encontrado para curtida
+     */
+    private static final String NAO_ENCONTRADO = "Voucher não encontrado.";
+
+
         // Atributos
         private final VoucherRepository voucherRepository;
         private final TurismoRepository turismoRepository;
@@ -34,7 +50,7 @@ public class VoucherServiceImpl implements VoucherService {
         public Long post(VoucherDTO dto) {
 
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
-                                .orElseThrow(() -> new RegraNegocioException("Turismo não encontrado."));
+                                .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
                 Voucher voucher = new Voucher();
 
@@ -203,7 +219,7 @@ public class VoucherServiceImpl implements VoucherService {
                                                         .build())
                                         .build();
 
-                }).orElseThrow(() -> new RegraNegocioException("Voucher não encontrado."));
+                }).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
         }
 
         @Override
@@ -211,13 +227,13 @@ public class VoucherServiceImpl implements VoucherService {
         public void put(Long id, VoucherDTO dto) {
 
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
-                                .orElseThrow(() -> new RegraNegocioException("Turismo não encontrado."));
+                                .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
                 Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado."));
+                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
 
                 Voucher voucher = voucherRepository.findById(id)
-                                .orElseThrow(() -> new RegraNegocioException("Voucher não encontrado."));
+                                .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
                 voucher.setCodigo(dto.getCodigo());
                 voucher.setDataCriacao(dto.getDataCriacao());

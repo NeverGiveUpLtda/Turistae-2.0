@@ -46,6 +46,12 @@ public class ReviewController {
         return reviewService.getAll();
     }
 
+    @GetMapping("/porTurismo/{id}")
+    public List<DadosReviewDTO> getReviewsPorTurismo(@PathVariable Long id) {
+        logger.info("Get todas Reviews por turismo id: {}", id);
+        return reviewService.getByTurismo(id);
+    }
+
     @GetMapping("{id}")
     public DadosReviewDTO getReviewPorId(@PathVariable Long id) {
         logger.info("Get review id: {}", id);
