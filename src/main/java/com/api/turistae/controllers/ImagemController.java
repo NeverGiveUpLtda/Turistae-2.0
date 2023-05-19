@@ -47,7 +47,7 @@ public class ImagemController {
         return imagemService.getAll();
     }
 
-    @GetMapping("/porTurismo/{id}")
+    @GetMapping("/turismo/{id}")
     public List<DadosImagemDTO> getImagensPorTurismo(@PathVariable Long id) {
         logger.info("Get todas Imagens por turismo id: {}", id);
         return imagemService.getByTurismo(id);

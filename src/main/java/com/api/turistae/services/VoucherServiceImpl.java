@@ -54,6 +54,7 @@ public class VoucherServiceImpl implements VoucherService {
                 Voucher voucher = new Voucher();
 
                 voucher.setCodigo(dto.getCodigo());
+                voucher.setValor(dto.getValor());
                 voucher.setDataCriacao(dto.getDataCriacao());
                 voucher.setDataEdicao(dto.getDataEdicao());
                 voucher.setTurismo(turi);
@@ -76,6 +77,7 @@ public class VoucherServiceImpl implements VoucherService {
                                 return DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
+                                                .valor(v.getValor())
                                                 .dataCriacao(v.getDataCriacao())
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
@@ -119,6 +121,7 @@ public class VoucherServiceImpl implements VoucherService {
                         return DadosVoucherDTO.builder()
                                         .id(v.getId())
                                         .codigo(v.getCodigo())
+                                        .valor(v.getValor())
                                         .dataCriacao(v.getDataCriacao())
                                         .dataEdicao(v.getDataEdicao())
                                         .turismo(TurismoDTO.builder()
@@ -156,6 +159,7 @@ public class VoucherServiceImpl implements VoucherService {
                                 return DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
+                                                .valor(v.getValor())
                                                 .dataCriacao(v.getDataCriacao())
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
@@ -199,6 +203,7 @@ public class VoucherServiceImpl implements VoucherService {
                         return DadosVoucherDTO.builder()
                                         .id(v.getId())
                                         .codigo(v.getCodigo())
+                                        .valor(v.getValor())
                                         .dataCriacao(v.getDataCriacao())
                                         .dataEdicao(v.getDataEdicao())
                                         .turismo(TurismoDTO.builder()
@@ -234,6 +239,7 @@ public class VoucherServiceImpl implements VoucherService {
                                 .map((Voucher v) -> DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
+                                                .valor(v.getValor())
                                                 .dataCriacao(v.getDataCriacao())
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
@@ -270,6 +276,64 @@ public class VoucherServiceImpl implements VoucherService {
                 DadosVoucherDTO.builder()
                                 .id(v.getId())
                                 .codigo(v.getCodigo())
+                                .valor(v.getValor())
+                                .dataCriacao(v.getDataCriacao())
+                                .dataEdicao(v.getDataEdicao())
+                                .turismo(TurismoDTO.builder()
+                                                .bairro(v.getTurismo().getBairro())
+                                                .cadastroNacionalPessoasJuridicas(
+                                                                v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .categoriaId(v.getTurismo().getCategoria().getId())
+                                                .cidade(v.getTurismo().getCidade())
+                                                .dataCriacao(v.getTurismo().getDataCriacao())
+                                                .dataEdicao(v.getTurismo().getDataEdicao())
+                                                .descricao(v.getTurismo().getDescricao())
+                                                .estado(v.getTurismo().getEstado())
+                                                .id(v.getTurismo().getId())
+                                                .nome(v.getTurismo().getNome())
+                                                .numeroLocal(v.getTurismo().getNumeroLocal())
+                                                .rua(v.getTurismo().getRua())
+                                                .telefone(v.getTurismo().getTelefone())
+                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                .build())
+                                .usuario(UsuarioDTO.builder()
+                                                .bairro(v.getUsuario().getBairro())
+                                                .cadastroPessoaFisica(v.getUsuario()
+                                                                .getCadastroPessoaFisica())
+                                                .cidade(v.getUsuario().getCidade())
+                                                .dataCriacao(v.getUsuario().getDataCriacao())
+                                                .dataEdicao(v.getUsuario().getDataEdicao())
+                                                .dataNascimento(v.getUsuario().getDataNascimento())
+                                                .email(v.getUsuario().getEmail())
+                                                .estado(v.getUsuario().getEstado())
+                                                .id(v.getUsuario().getId())
+                                                .nome(v.getUsuario().getNome())
+                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
+                                                .numeroCasa(v.getUsuario().getNumeroCasa())
+                                                .profissao(v.getUsuario().getProfissao())
+                                                .registroGeral(v.getUsuario().getRegistroGeral())
+                                                .rua(v.getUsuario().getRua())
+                                                .senha(v.getUsuario().getSenha())
+                                                .telefone(v.getUsuario().getTelefone())
+                                                .build())
+                                .build()
+
+                ).collect(Collectors.toList());
+        }
+
+        @Override
+        @Transactional
+        public List<DadosVoucherDTO> getVouchersDoUsuario(Long id) {
+
+                Usuario usu = usuarioRepository.findById(id)
+                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+
+                return voucherRepository.findAllByUsuario(usu).stream().map((Voucher v) ->
+
+                DadosVoucherDTO.builder()
+                                .id(v.getId())
+                                .codigo(v.getCodigo())
+                                .valor(v.getValor())
                                 .dataCriacao(v.getDataCriacao())
                                 .dataEdicao(v.getDataEdicao())
                                 .turismo(TurismoDTO.builder()
@@ -324,6 +388,7 @@ public class VoucherServiceImpl implements VoucherService {
                                 return DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
+                                                .valor(v.getValor())
                                                 .dataCriacao(v.getDataCriacao())
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
@@ -368,6 +433,7 @@ public class VoucherServiceImpl implements VoucherService {
                         return DadosVoucherDTO.builder()
                                         .id(v.getId())
                                         .codigo(v.getCodigo())
+                                        .valor(v.getValor())
                                         .dataCriacao(v.getDataCriacao())
                                         .dataEdicao(v.getDataEdicao())
                                         .turismo(TurismoDTO.builder()
@@ -418,6 +484,7 @@ public class VoucherServiceImpl implements VoucherService {
                 return voucherRepository.findById(dto.getId()).map((Voucher v) -> DadosVoucherDTO.builder()
                                 .id(v.getId())
                                 .codigo(v.getCodigo())
+                                .valor(v.getValor())
                                 .dataCriacao(v.getDataCriacao())
                                 .dataEdicao(v.getDataEdicao())
                                 .turismo(TurismoDTO.builder()
@@ -465,6 +532,7 @@ public class VoucherServiceImpl implements VoucherService {
         @Transactional
         public void put(Long id, VoucherDTO dto) {
 
+                //TODO
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
@@ -475,6 +543,7 @@ public class VoucherServiceImpl implements VoucherService {
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
                 voucher.setCodigo(dto.getCodigo());
+                voucher.setValor(dto.getValor());
                 voucher.setDataCriacao(dto.getDataCriacao());
                 voucher.setDataEdicao(dto.getDataEdicao());
                 voucher.setTurismo(turi);

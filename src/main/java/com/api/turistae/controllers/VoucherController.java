@@ -65,6 +65,12 @@ public class VoucherController {
         return voucherService.getVouchersComUsuario(turismoId);
     }
 
+    @GetMapping("/usuario/{usuarioId}")
+    public List<DadosVoucherDTO> getVouchersPorUsuario(@PathVariable Long usuarioId) {
+        logger.info("Get todos Vouchers do usuário id: {}", usuarioId);
+        return voucherService.getVouchersDoUsuario(usuarioId);
+    }
+
     @GetMapping("{id}")
     public DadosVoucherDTO getVoucherPorId(@PathVariable Long id) {
         logger.info("Get Voucher id: {}", id);

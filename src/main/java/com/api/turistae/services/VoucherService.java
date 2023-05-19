@@ -19,6 +19,8 @@ public interface VoucherService {
 
     List<DadosVoucherDTO> getVouchersPorTurismo(Long id);
 
+    List<DadosVoucherDTO> getVouchersDoUsuario(Long id);
+
     DadosVoucherDTO getById(Long id);
 
     DadosVoucherDTO claim(VoucherDTO dto);

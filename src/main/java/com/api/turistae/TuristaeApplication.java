@@ -1,5 +1,7 @@
 package com.api.turistae;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import com.api.turistae.repositorys.UsuarioRepository;
 import com.api.turistae.repositorys.VoucherRepository;
 import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
+import com.api.turistae.utils.VoucherUtils;
 
 @SpringBootApplication
 public class TuristaeApplication {
@@ -40,6 +43,7 @@ public class TuristaeApplication {
 
     // Logger do projeto
     private static final Logger logger = LoggerFactory.getLogger(TuristaeApplication.class);
+    private static final Random random = new Random();
 
     public static void main(String[] args) {
         SpringApplication.run(TuristaeApplication.class, args);
@@ -319,7 +323,8 @@ public class TuristaeApplication {
                 logger.info(REVIEW_SALVO, reviewSalva);
 
                 voucher = new Voucher();
-                voucher.setCodigo("Código: " + x);
+                voucher.setCodigo(VoucherUtils.gerarVoucher(x));
+                voucher.setValor(random.nextInt(101));
                 voucher.setDataCriacao(review.getDataCriacao());
                 voucher.setDataEdicao(review.getDataEdicao());
                 voucher.setTurismo(turismoSalvo);

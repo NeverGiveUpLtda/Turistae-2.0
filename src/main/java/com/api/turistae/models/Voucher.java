@@ -32,6 +32,9 @@ public class Voucher {
     @Column(length = 200, nullable = false)
     private String codigo;
 
+    @Column(nullable = false, columnDefinition = "NUMERIC(4,1) CHECK (valor >= 0 AND valor <= 100)")
+    private int valor;
+
     // Relacionamentos
     @ManyToOne
     @JoinColumn(name = "turismo_id", nullable = false)

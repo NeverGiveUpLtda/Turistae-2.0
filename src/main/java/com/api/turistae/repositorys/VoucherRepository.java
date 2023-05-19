@@ -18,5 +18,4 @@ public interface VoucherRepository extends JpaRepository<Voucher, Long> {
 
     List<Voucher> findAllByUsuario(Usuario usuario);
 
-
 }
