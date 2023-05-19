@@ -29,6 +29,10 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/voucher")
 public class VoucherController {
 
+    /**
+     *
+     */
+    private static final String VOUCHER_INDISPONIVEL = "Voucher indisponível.";
     // Atributos
     private VoucherService voucherService;
     private final Logger logger;
@@ -94,7 +98,7 @@ public class VoucherController {
         try {
             id = voucherService.post(voucherDTO);
         } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Voucher indisponível.");
+            throw new RegraNegocioException(VOUCHER_INDISPONIVEL);
         }
 
         return id;
@@ -112,7 +116,7 @@ public class VoucherController {
         try {
             voucherService.claim(voucherDTO);
         } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Voucher indisponível.");
+            throw new RegraNegocioException(VOUCHER_INDISPONIVEL);
         }
     }
 
@@ -129,7 +133,7 @@ public class VoucherController {
         try {
             voucherService.put(id, voucherDTO);
         } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Voucher indisponível.");
+            throw new RegraNegocioException(VOUCHER_INDISPONIVEL);
         }
 
     }

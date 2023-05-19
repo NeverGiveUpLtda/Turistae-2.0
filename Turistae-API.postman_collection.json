@@ -1,9 +1,8 @@
 {
 	"info": {
-		"_postman_id": "8f0222b5-1736-41fa-bf0c-2fd5484c350c",
+		"_postman_id": "68b91c20-2710-4a1e-8750-aefdcbb6074a",
 		"name": "Turistae-API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "27247723"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -119,7 +118,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/usuario/1",
+							"raw": "localhost:8080/api/usuario/5",
 							"host": [
 								"localhost"
 							],
@@ -127,7 +126,7 @@
 							"path": [
 								"api",
 								"usuario",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -139,7 +138,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/usuario/2",
+							"raw": "localhost:8080/api/usuario/5",
 							"host": [
 								"localhost"
 							],
@@ -147,7 +146,7 @@
 							"path": [
 								"api",
 								"usuario",
-								"2"
+								"5"
 							]
 						}
 					},
@@ -160,7 +159,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeUsuario\": \"ettorerollo\",\r\n    \"senha\": \"SenhaValida@123\"\r\n}",
+							"raw": "{\r\n    \"nomeUsuario\": \"ettorerollo\",\r\n    \"senha\": \"SenhaValida@2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -189,7 +188,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nomeUsuario\": \"ettorerollo@hotmail.com\",\r\n    \"senha\": \"SenhaValida@123\"\r\n}",
+							"raw": "{\r\n    \"nomeUsuario\": \"ettorerollo@hotmail.com\",\r\n    \"senha\": \"SenhaValida@2\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -269,7 +268,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/turismo/porCurtida",
+							"raw": "localhost:8080/api/turismo/curtida",
 							"host": [
 								"localhost"
 							],
@@ -277,7 +276,7 @@
 							"path": [
 								"api",
 								"turismo",
-								"porCurtida"
+								"curtida"
 							]
 						}
 					},
@@ -289,7 +288,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/turismo/porCategoria/25",
+							"raw": "localhost:8080/api/turismo/categoria/25",
 							"host": [
 								"localhost"
 							],
@@ -297,7 +296,7 @@
 							"path": [
 								"api",
 								"turismo",
-								"porCategoria",
+								"categoria",
 								"25"
 							]
 						}
@@ -310,7 +309,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/turismo/porNota",
+							"raw": "localhost:8080/api/turismo/nota",
 							"host": [
 								"localhost"
 							],
@@ -318,7 +317,28 @@
 							"path": [
 								"api",
 								"turismo",
-								"porNota"
+								"nota"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Nota do turismo média",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/turismo/nota/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"turismo",
+								"nota",
+								"5"
 							]
 						}
 					},
@@ -345,27 +365,6 @@
 					"response": []
 				},
 				{
-					"name": "Nota do turismo média",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/api/turismo/nota/1",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"api",
-								"turismo",
-								"nota",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Editar turismo",
 					"request": {
 						"method": "PUT",
@@ -380,7 +379,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/api/turismo/1",
+							"raw": "localhost:8080/api/turismo/5",
 							"host": [
 								"localhost"
 							],
@@ -388,7 +387,7 @@
 							"path": [
 								"api",
 								"turismo",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -472,7 +471,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/imagem/porTurismo/6",
+							"raw": "localhost:8080/api/imagem/turismo/5",
 							"host": [
 								"localhost"
 							],
@@ -480,8 +479,8 @@
 							"path": [
 								"api",
 								"imagem",
-								"porTurismo",
-								"6"
+								"turismo",
+								"5"
 							]
 						}
 					},
@@ -493,7 +492,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/imagem/1",
+							"raw": "localhost:8080/api/imagem/5",
 							"host": [
 								"localhost"
 							],
@@ -501,7 +500,7 @@
 							"path": [
 								"api",
 								"imagem",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -568,7 +567,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"texto\": \"teste\",\r\n    \"nota\": 0,\r\n    \"turismoId\": 1,\r\n    \"usuarioId\": 1\r\n}",
+							"raw": "{\r\n    \"texto\": \"teste\",\r\n    \"nota\": 0,\r\n    \"turismoId\": 4,\r\n    \"usuarioId\": 4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -614,7 +613,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/review/porTurismo/1",
+							"raw": "localhost:8080/api/review/turismo/5",
 							"host": [
 								"localhost"
 							],
@@ -622,8 +621,8 @@
 							"path": [
 								"api",
 								"review",
-								"porTurismo",
-								"1"
+								"turismo",
+								"5"
 							]
 						}
 					},
@@ -635,7 +634,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/api/review/1",
+							"raw": "localhost:8080/api/review/5",
 							"host": [
 								"localhost"
 							],
@@ -643,7 +642,7 @@
 							"path": [
 								"api",
 								"review",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -710,7 +709,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"turismoId\": 5\r\n}",
+							"raw": "{\r\n    \"turismoId\": 5,\r\n    \"valor\": 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -738,7 +737,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id\": 5,\r\n    \"turismoId\": 5,\r\n    \"usuarioId\": 4\r\n}",
+							"raw": "{\r\n    \"id\": 5,\r\n    \"turismoId\": 5,\r\n    \"usuarioId\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -794,6 +793,27 @@
 								"api",
 								"voucher",
 								"turismo",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos os vouchers por usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/voucher/usuario/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"voucher",
+								"usuario",
 								"5"
 							]
 						}
@@ -896,7 +916,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"turismoId\": 4,\r\n    \"usuarioId\": 5\r\n}",
+							"raw": "{\r\n    \"turismoId\": 5,\r\n    \"usuarioId\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1033,7 +1053,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"turismoId\": 4,\r\n    \"usuarioId\": 1\r\n}",
+							"raw": "{\r\n    \"turismoId\": 5,\r\n    \"usuarioId\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1062,7 +1082,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"turismoId\": 4,\r\n    \"usuarioId\": 1\r\n}",
+							"raw": "{\r\n    \"turismoId\": 4,\r\n    \"usuarioId\": 4\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

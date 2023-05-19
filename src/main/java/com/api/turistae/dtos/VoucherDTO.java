@@ -22,7 +22,7 @@ public class VoucherDTO {
 
     @NotNull(message = "O campo Valor deve ser preencido.")
     @DecimalMin(value = "0", message = "O campo Valor deve ser maior ou igual a 0.")
-    @DecimalMax(value = "10", message = "O campo Valor deve ser menor ou igual a 10.")
+    @DecimalMax(value = "100", message = "O campo Valor deve ser menor ou igual a 100.")
     private int valor;
 
     // Relacionamentos
