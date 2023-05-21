@@ -41,8 +41,8 @@ public class Voucher {
     private Turismo turismo;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @JoinColumn(name = "turista_id")
+    private Turista turista;
 
     // Timestamps
     @CreatedDate

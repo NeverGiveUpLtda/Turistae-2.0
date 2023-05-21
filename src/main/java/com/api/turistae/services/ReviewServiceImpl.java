@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import com.api.turistae.dtos.DadosReviewDTO;
 import com.api.turistae.dtos.ReviewDTO;
 import com.api.turistae.dtos.TurismoDTO;
-import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.dtos.TuristaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Review;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turista;
 import com.api.turistae.repositorys.ReviewRepository;
 import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.TuristaRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class ReviewServiceImpl implements ReviewService {
 
         /**
-         * Mude a mensagem de usuário não encontrado para review
+         * Mude a mensagem de turista não encontrado para review
          */
-        private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
+        private static final String TURISTA_NAO_ENCONTRADO = "Turista não encontrado.";
 
         /**
          * Mude a mensagem de turismo não encontrado para review
@@ -42,7 +42,7 @@ public class ReviewServiceImpl implements ReviewService {
         // Atributos
         private final ReviewRepository reviewRepository;
         private final TurismoRepository turismoRepository;
-        private final UsuarioRepository usuarioRepository;
+        private final TuristaRepository turistaRepository;
 
         // Métodos
         @Override
@@ -53,9 +53,9 @@ public class ReviewServiceImpl implements ReviewService {
                                 .findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository
-                                .findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository
+                                .findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 Review review = new Review();
 
@@ -64,7 +64,7 @@ public class ReviewServiceImpl implements ReviewService {
                 review.setDataCriacao(dto.getDataCriacao());
                 review.setDataEdicao(dto.getDataEdicao());
                 review.setTurismo(turis);
-                review.setUsuario(usu);
+                review.setTurista(turista);
 
                 Review reviewGerado;
 
@@ -98,28 +98,25 @@ public class ReviewServiceImpl implements ReviewService {
                                                 .numeroLocal(r.getTurismo().getNumeroLocal())
                                                 .rua(r.getTurismo().getRua())
                                                 .telefone(r.getTurismo().getTelefone())
-                                                .usuarioId(r.getTurismo().getUsuario().getId())
+                                                .turistaId(r.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(r.getUsuario().getId())
-                                                .bairro(r.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(r.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(r.getUsuario().getCidade())
-                                                .dataCriacao(r.getUsuario().getDataCriacao())
-                                                .dataEdicao(r.getUsuario().getDataEdicao())
-                                                .dataNascimento(r.getUsuario().getDataNascimento())
-                                                .email(r.getUsuario().getEmail())
-                                                .estado(r.getUsuario().getEstado())
-                                                .nome(r.getUsuario().getNome())
-                                                .nomeUsuario(r.getUsuario().getNomeUsuario())
-                                                .numeroCasa(r.getUsuario().getNumeroCasa())
-                                                .profissao(r.getUsuario().getProfissao())
-                                                .registroGeral(r.getUsuario().getRegistroGeral())
-                                                .rua(r.getUsuario().getRua())
-                                                .senha(r.getUsuario().getSenha())
-                                                .telefone(r.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(r.getTurista().getId())
+                                                .bairro(r.getTurista().getBairro())
+                                                .cadastroPessoaFisica(r.getTurista().getCadastroPessoaFisica())
+                                                .cidade(r.getTurista().getCidade())
+                                                .dataCriacao(r.getTurista().getDataCriacao())
+                                                .dataEdicao(r.getTurista().getDataEdicao())
+                                                .dataNascimento(r.getTurista().getDataNascimento())
+                                                .estado(r.getTurista().getEstado())
+                                                .nome(r.getTurista().getNome())
+                                                .numeroCasa(r.getTurista().getNumeroCasa())
+                                                .profissao(r.getTurista().getProfissao())
+                                                .registroGeral(r.getTurista().getRegistroGeral())
+                                                .rua(r.getTurista().getRua())
+                                                .telefone(r.getTurista().getTelefone())
                                                 .build())
                                 .build()).collect(Collectors.toList());
 
@@ -132,7 +129,6 @@ public class ReviewServiceImpl implements ReviewService {
                 Turismo turis = turismoRepository
                                 .findById(id)
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
-
 
                 return reviewRepository.findAllByTurismo(turis).stream().map((Review r) -> DadosReviewDTO.builder()
                                 .id(r.getId())
@@ -155,28 +151,25 @@ public class ReviewServiceImpl implements ReviewService {
                                                 .numeroLocal(r.getTurismo().getNumeroLocal())
                                                 .rua(r.getTurismo().getRua())
                                                 .telefone(r.getTurismo().getTelefone())
-                                                .usuarioId(r.getTurismo().getUsuario().getId())
+                                                .turistaId(r.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(r.getUsuario().getId())
-                                                .bairro(r.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(r.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(r.getUsuario().getCidade())
-                                                .dataCriacao(r.getUsuario().getDataCriacao())
-                                                .dataEdicao(r.getUsuario().getDataEdicao())
-                                                .dataNascimento(r.getUsuario().getDataNascimento())
-                                                .email(r.getUsuario().getEmail())
-                                                .estado(r.getUsuario().getEstado())
-                                                .nome(r.getUsuario().getNome())
-                                                .nomeUsuario(r.getUsuario().getNomeUsuario())
-                                                .numeroCasa(r.getUsuario().getNumeroCasa())
-                                                .profissao(r.getUsuario().getProfissao())
-                                                .registroGeral(r.getUsuario().getRegistroGeral())
-                                                .rua(r.getUsuario().getRua())
-                                                .senha(r.getUsuario().getSenha())
-                                                .telefone(r.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(r.getTurista().getId())
+                                                .bairro(r.getTurista().getBairro())
+                                                .cadastroPessoaFisica(r.getTurista().getCadastroPessoaFisica())
+                                                .cidade(r.getTurista().getCidade())
+                                                .dataCriacao(r.getTurista().getDataCriacao())
+                                                .dataEdicao(r.getTurista().getDataEdicao())
+                                                .dataNascimento(r.getTurista().getDataNascimento())
+                                                .estado(r.getTurista().getEstado())
+                                                .nome(r.getTurista().getNome())
+                                                .numeroCasa(r.getTurista().getNumeroCasa())
+                                                .profissao(r.getTurista().getProfissao())
+                                                .registroGeral(r.getTurista().getRegistroGeral())
+                                                .rua(r.getTurista().getRua())
+                                                .telefone(r.getTurista().getTelefone())
                                                 .build())
                                 .build()).collect(Collectors.toList());
 
@@ -207,28 +200,25 @@ public class ReviewServiceImpl implements ReviewService {
                                                 .numeroLocal(r.getTurismo().getNumeroLocal())
                                                 .rua(r.getTurismo().getRua())
                                                 .telefone(r.getTurismo().getTelefone())
-                                                .usuarioId(r.getTurismo().getUsuario().getId())
+                                                .turistaId(r.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(r.getUsuario().getId())
-                                                .bairro(r.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(r.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(r.getUsuario().getCidade())
-                                                .dataCriacao(r.getUsuario().getDataCriacao())
-                                                .dataEdicao(r.getUsuario().getDataEdicao())
-                                                .dataNascimento(r.getUsuario().getDataNascimento())
-                                                .email(r.getUsuario().getEmail())
-                                                .estado(r.getUsuario().getEstado())
-                                                .nome(r.getUsuario().getNome())
-                                                .nomeUsuario(r.getUsuario().getNomeUsuario())
-                                                .numeroCasa(r.getUsuario().getNumeroCasa())
-                                                .profissao(r.getUsuario().getProfissao())
-                                                .registroGeral(r.getUsuario().getRegistroGeral())
-                                                .rua(r.getUsuario().getRua())
-                                                .senha(r.getUsuario().getSenha())
-                                                .telefone(r.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(r.getTurista().getId())
+                                                .bairro(r.getTurista().getBairro())
+                                                .cadastroPessoaFisica(r.getTurista().getCadastroPessoaFisica())
+                                                .cidade(r.getTurista().getCidade())
+                                                .dataCriacao(r.getTurista().getDataCriacao())
+                                                .dataEdicao(r.getTurista().getDataEdicao())
+                                                .dataNascimento(r.getTurista().getDataNascimento())
+                                                .estado(r.getTurista().getEstado())
+                                                .nome(r.getTurista().getNome())
+                                                .numeroCasa(r.getTurista().getNumeroCasa())
+                                                .profissao(r.getTurista().getProfissao())
+                                                .registroGeral(r.getTurista().getRegistroGeral())
+                                                .rua(r.getTurista().getRua())
+                                                .telefone(r.getTurista().getTelefone())
                                                 .build())
 
                                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
@@ -241,8 +231,8 @@ public class ReviewServiceImpl implements ReviewService {
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository.findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 Review review = reviewRepository.findById(id)
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
@@ -252,7 +242,7 @@ public class ReviewServiceImpl implements ReviewService {
                 review.setNota(dto.getNota());
                 review.setTexto(dto.getTexto());
                 review.setTurismo(turi);
-                review.setUsuario(usu);
+                review.setTurista(turista);
 
                 reviewRepository.save(review);
 

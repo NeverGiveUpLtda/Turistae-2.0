@@ -61,8 +61,8 @@ public class Turismo {
 
     // Relacionamentos
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "turista_id", nullable = false)
+    private Turista turista;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", nullable = false)

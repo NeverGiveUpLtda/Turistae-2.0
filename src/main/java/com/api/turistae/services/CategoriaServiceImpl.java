@@ -73,7 +73,7 @@ public class CategoriaServiceImpl implements CategoriaService {
                                 .numeroLocal(t.getNumeroLocal())
                                 .rua(t.getRua())
                                 .telefone(t.getTelefone())
-                                .usuarioId(t.getUsuario().getId())
+                                .turistaId(t.getTurista().getId())
                                 .build())
                                 .collect(Collectors.toList()))
                         .build())
@@ -106,7 +106,7 @@ public class CategoriaServiceImpl implements CategoriaService {
                         .numeroLocal(t.getNumeroLocal())
                         .rua(t.getRua())
                         .telefone(t.getTelefone())
-                        .usuarioId(t.getUsuario().getId())
+                        .turistaId(t.getTurista().getId())
                         .build())
                         .collect(Collectors.toList()))
                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));

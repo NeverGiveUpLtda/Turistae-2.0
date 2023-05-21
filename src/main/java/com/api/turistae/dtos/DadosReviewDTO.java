@@ -20,7 +20,7 @@ public class DadosReviewDTO {
 
     // Relacionamentos
     private TurismoDTO turismo;
-    private UsuarioDTO usuario;
+    private TuristaDTO turista;
 
     // Timestamps
     private LocalDateTime dataCriacao;

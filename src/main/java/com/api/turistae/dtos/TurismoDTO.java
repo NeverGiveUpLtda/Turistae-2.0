@@ -62,7 +62,7 @@ public class TurismoDTO {
     private String descricao;
 
     // Relacionamentos
-    private Long usuarioId;
+    private Long turistaId;
     private Long categoriaId;
 
     // Timestamps

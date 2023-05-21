@@ -18,7 +18,7 @@ public class DadosCurtidaDTO {
 
     // Relacionamentos
     private TurismoDTO turismo;
-    private UsuarioDTO usuario;
+    private TuristaDTO turista;
 
     // Timestamps
     private LocalDateTime dataCriacao;

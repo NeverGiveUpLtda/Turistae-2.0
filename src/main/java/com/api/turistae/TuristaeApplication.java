@@ -16,14 +16,14 @@ import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Imagem;
 import com.api.turistae.models.Review;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turista;
 import com.api.turistae.models.Voucher;
 import com.api.turistae.repositorys.CategoriaRepository;
 import com.api.turistae.repositorys.CurtidaRepository;
 import com.api.turistae.repositorys.ImagemRepository;
 import com.api.turistae.repositorys.ReviewRepository;
 import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.TuristaRepository;
 import com.api.turistae.repositorys.VoucherRepository;
 import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
@@ -34,7 +34,7 @@ public class TuristaeApplication {
 
     // Atributos
     private static final String CATEGORIA_SALVA = "Categoria salva: {}";
-    private static final String USUARIO_SALVO = "Usuario salvo: {}";
+    private static final String TURISTA_SALVO = "Turista salvo: {}";
     private static final String CURTIDA_SALVA = "Curtida salva: {}";
     private static final String IMAGEM_SALVA = "Imagem salva: {}";
     private static final String REVIEW_SALVO = "Review salvo: {}";
@@ -58,17 +58,17 @@ public class TuristaeApplication {
             @Autowired ImagemRepository imagemRepository,
             @Autowired ReviewRepository reviewRepository,
             @Autowired TurismoRepository turismoRepository,
-            @Autowired UsuarioRepository usuarioRepository,
+            @Autowired TuristaRepository turistaRepository,
             @Autowired VoucherRepository voucherRepository) {
         return args -> {
 
             logger.info("Rodando CommandLineRunner");
 
-            geraMock(4, categoriaRepository, curtidaRepository, imagemRepository, reviewRepository, turismoRepository, usuarioRepository, voucherRepository);
+            geraMock(4, categoriaRepository, curtidaRepository, imagemRepository, reviewRepository, turismoRepository, turistaRepository, voucherRepository);
         };
     }
 
-    private void geraMock(int i, CategoriaRepository categoriaRepository, CurtidaRepository curtidaRepository, ImagemRepository imagemRepository, ReviewRepository reviewRepository, TurismoRepository turismoRepository, UsuarioRepository usuarioRepository, VoucherRepository voucherRepository) {
+    private void geraMock(int i, CategoriaRepository categoriaRepository, CurtidaRepository curtidaRepository, ImagemRepository imagemRepository, ReviewRepository reviewRepository, TurismoRepository turismoRepository, TuristaRepository turistaRepository, VoucherRepository voucherRepository) {
 
         Categoria categoria = new Categoria();
 
@@ -246,7 +246,7 @@ public class TuristaeApplication {
             categoriaSalva = categoriaRepository.save(categoria);
             logger.info(CATEGORIA_SALVA, categoriaSalva);
 
-            Usuario usuario;
+            Turista turista;
             Curtida curtida;
             Imagem imagem;
             Review review;
@@ -255,44 +255,37 @@ public class TuristaeApplication {
 
             for(int x = 0; x < i; x++) {
 
-                usuario = new Usuario();
-                usuario.setBairro("Bairro " + x);
-                usuario.setCadastroPessoaFisica("111.111.111-" + (x + 10));
-                usuario.setCidade("Cidade " + x);
-                usuario.setDataCriacao(DataUtils.getDataAtualComMascara());
-                usuario.setDataEdicao(DataUtils.getDataAtualComMascara());
-                usuario.setDataNascimento(DataUtils.getDataAtualComMascara());
-                usuario.setEmail("email" + x + "@gmail.com");
-                usuario.setEstado("XX");
-                usuario.setNome("Nome " + x);
-                usuario.setNomeUsuario("usuario" + x);
-                usuario.setNumeroCasa(x);
-                usuario.setProfissao("Profissão " + x);
-                usuario.setRegistroGeral("11.111.111-" + x);
-                usuario.setRua("Rua " + x);
-                try {
-                    usuario.setSenha(CriptografiaUtils.criptografarSenha("Senha@123"));
-                } catch(CriptografiaException e) {
-                    usuario.setSenha("Senha@123");
-                }
-                usuario.setTelefone(x);
-                Usuario usuarioSalvo = usuarioRepository.save(usuario);
-                logger.info(USUARIO_SALVO, usuarioSalvo);
+                turista = new Turista();
+                turista.setBairro("Bairro " + x);
+                turista.setCadastroPessoaFisica("111.111.111-" + (x + 10));
+                turista.setCidade("Cidade " + x);
+                turista.setDataCriacao(DataUtils.getDataAtualComMascara());
+                turista.setDataEdicao(DataUtils.getDataAtualComMascara());
+                turista.setDataNascimento(DataUtils.getDataAtualComMascara());
+                turista.setEstado("XX");
+                turista.setNome("Nome " + x);
+                turista.setNumeroCasa(x);
+                turista.setProfissao("Profissão " + x);
+                turista.setRegistroGeral("11.111.111-" + x);
+                turista.setRua("Rua " + x);
+                turista.setTelefone(x);
+                Turista turistaSalvo = turistaRepository.save(turista);
+                logger.info(TURISTA_SALVO, turistaSalvo);
 
                 turismo = new Turismo();
-                turismo.setBairro(usuarioSalvo.getBairro());
+                turismo.setBairro(turistaSalvo.getBairro());
                 turismo.setCadastroNacionalPessoasJuridicas("12.345.678/0001-" + (x + 10));
                 turismo.setCategoria(categoriaSalva);
-                turismo.setCidade(usuarioSalvo.getCidade());
-                turismo.setDataCriacao(usuarioSalvo.getDataCriacao());
-                turismo.setDataEdicao(usuarioSalvo.getDataEdicao());
+                turismo.setCidade(turistaSalvo.getCidade());
+                turismo.setDataCriacao(turistaSalvo.getDataCriacao());
+                turismo.setDataEdicao(turistaSalvo.getDataEdicao());
                 turismo.setDescricao("Descrição " + x);
-                turismo.setEstado(usuarioSalvo.getEstado());
+                turismo.setEstado(turistaSalvo.getEstado());
                 turismo.setNome("Nome " + x);
                 turismo.setNumeroLocal(x);
-                turismo.setRua(usuarioSalvo.getRua());
+                turismo.setRua(turistaSalvo.getRua());
                 turismo.setTelefone(x);
-                turismo.setUsuario(usuarioSalvo);
+                turismo.setTurista(turistaSalvo);
                 Turismo turismoSalvo = turismoRepository.save(turismo);
                 logger.info(TURISMO_SALVO, turismoSalvo);
 
@@ -308,7 +301,7 @@ public class TuristaeApplication {
                 curtida.setDataCriacao(imagem.getDataCriacao());
                 curtida.setDataEdicao(imagem.getDataEdicao());
                 curtida.setTurismo(turismoSalvo);
-                curtida.setUsuario(usuarioSalvo);
+                curtida.setTurista(turistaSalvo);
                 Curtida curtidaSalva = curtidaRepository.save(curtida);
                 logger.info(CURTIDA_SALVA, curtidaSalva);
 
@@ -318,7 +311,7 @@ public class TuristaeApplication {
                 review.setNota(10);
                 review.setTexto("Texto review " + x);
                 review.setTurismo(turismoSalvo);
-                review.setUsuario(usuarioSalvo);
+                review.setTurista(turistaSalvo);
                 Review reviewSalva = reviewRepository.save(review);
                 logger.info(REVIEW_SALVO, reviewSalva);
 
@@ -328,7 +321,7 @@ public class TuristaeApplication {
                 voucher.setDataCriacao(review.getDataCriacao());
                 voucher.setDataEdicao(review.getDataEdicao());
                 voucher.setTurismo(turismoSalvo);
-                voucher.setUsuario(usuarioSalvo);
+                voucher.setTurista(turistaSalvo);
                 Voucher voucherSalvo = voucherRepository.save(voucher);
                 logger.info(VOUCHER_SALVO, voucherSalvo);
             }

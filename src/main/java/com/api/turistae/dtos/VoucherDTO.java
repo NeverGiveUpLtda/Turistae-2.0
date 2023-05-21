@@ -27,7 +27,7 @@ public class VoucherDTO {
 
     // Relacionamentos
     private long turismoId;
-    private long usuarioId;
+    private long turistaId;
 
     // Timestamps
     private LocalDateTime dataCriacao;

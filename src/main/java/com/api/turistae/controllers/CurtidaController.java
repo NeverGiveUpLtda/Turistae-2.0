@@ -94,7 +94,7 @@ public class CurtidaController {
         Long id = 0l;
 
         try {
-            id = curtidaService.getCurtidaByTurismoAndUsuario(curtidaDTO.getUsuarioId(), curtidaDTO.getTurismoId())
+            id = curtidaService.getCurtidaByTurismoAndTurista(curtidaDTO.getTuristaId(), curtidaDTO.getTurismoId())
                     .getId();
         } catch (RegraNegocioException e) {
             logger.info("Curtida não existente.");
@@ -122,7 +122,7 @@ public class CurtidaController {
         // Retorno do cadastro
         Long id = 0l;
         try {
-            id = curtidaService.getCurtidaByTurismoAndUsuario(curtidaDTO.getUsuarioId(), curtidaDTO.getTurismoId())
+            id = curtidaService.getCurtidaByTurismoAndTurista(curtidaDTO.getTuristaId(), curtidaDTO.getTurismoId())
                     .getId();
         } catch (DataIntegrityViolationException e) {
             throw new RegraNegocioException("Descurtida inválida.");

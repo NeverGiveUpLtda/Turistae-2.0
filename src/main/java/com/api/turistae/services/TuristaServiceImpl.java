@@ -6,72 +6,69 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.CurtidaDTO;
-import com.api.turistae.dtos.DadosUsuarioDTO;
+import com.api.turistae.dtos.DadosTuristaDTO;
 import com.api.turistae.dtos.ReviewDTO;
 import com.api.turistae.dtos.TurismoDTO;
-import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.dtos.TuristaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Review;
-import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turista;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.TuristaRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class UsuarioServiceImpl implements UsuarioService {
+public class TuristaServiceImpl implements TuristaService {
 
     /**
-     * Mude a mensagem de não encontrado para usuario
+     * Mude a mensagem de não encontrado para turista
      */
-    private static final String NAO_ENCONTRADO = "Usuario não encontrado.";
+    private static final String NAO_ENCONTRADO = "Turista não encontrado.";
 
 
     // Atributos
-    private final UsuarioRepository usuarioRepository;
+    private final TuristaRepository turistaRepository;
 
     // Métodos
     @Override
     @Transactional
-    public Long post(UsuarioDTO dto) {
+    public Long post(TuristaDTO dto) {
 
-        Usuario usuario = new Usuario();
+        Turista turista = new Turista();
 
-        usuario.setNomeUsuario(dto.getNomeUsuario());
-        usuario.setSenha(dto.getSenha());
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setTelefone(dto.getTelefone());
-        usuario.setNumeroCasa(dto.getNumeroCasa());
-        usuario.setRua(dto.getRua());
-        usuario.setBairro(dto.getBairro());
-        usuario.setCidade(dto.getCidade());
-        usuario.setEstado(dto.getEstado());
-        usuario.setDataNascimento(dto.getDataNascimento());
-        usuario.setProfissao(dto.getProfissao());
-        usuario.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
-        usuario.setRegistroGeral(dto.getRegistroGeral());
-        usuario.setDataCriacao(dto.getDataCriacao());
-        usuario.setDataEdicao(dto.getDataEdicao());
+        turista.setNome(dto.getNome());
+        turista.setTelefone(dto.getTelefone());
+        turista.setNumeroCasa(dto.getNumeroCasa());
+        turista.setRua(dto.getRua());
+        turista.setBairro(dto.getBairro());
+        turista.setCidade(dto.getCidade());
+        turista.setEstado(dto.getEstado());
+        turista.setDataNascimento(dto.getDataNascimento());
+        turista.setProfissao(dto.getProfissao());
+        turista.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
+        turista.setRegistroGeral(dto.getRegistroGeral());
+        turista.setDataCriacao(dto.getDataCriacao());
+        turista.setDataEdicao(dto.getDataEdicao());
 
-        Usuario usuarioGerado;
+        Turista turistaGerado;
 
-        usuarioGerado = usuarioRepository.save(usuario);
+        turistaGerado = turistaRepository.save(turista);
 
-        return usuarioGerado.getId();
+        return turistaGerado.getId();
 
     }
 
     @Override
     @Transactional
-    public List<DadosUsuarioDTO> getAll() {
+    public List<DadosTuristaDTO> getAll() {
 
-        return usuarioRepository.findAll()
+        return turistaRepository.findAll()
                 .stream()
-                .map((Usuario u) -> DadosUsuarioDTO.builder()
+                .map((Turista u) -> DadosTuristaDTO.builder()
                         .id(u.getId())
                         .bairro(u.getBairro())
                         .cadastroPessoaFisica(u.getCadastroPessoaFisica())
@@ -79,16 +76,13 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .dataCriacao(u.getDataCriacao())
                         .dataEdicao(u.getDataEdicao())
                         .dataNascimento(u.getDataNascimento())
-                        .email(u.getEmail())
                         .estado(u.getEstado())
                         .bairro(u.getBairro())
                         .nome(u.getNome())
-                        .nomeUsuario(u.getNomeUsuario())
                         .numeroCasa(u.getNumeroCasa())
                         .profissao(u.getProfissao())
                         .registroGeral(u.getRegistroGeral())
                         .rua(u.getRua())
-                        .senha(u.getSenha())
                         .telefone(u.getTelefone())
                         .dataCriacao(u.getDataCriacao())
                         .dataEdicao(u.getDataEdicao())
@@ -97,7 +91,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
                                 .id(c.getId())
                                 .turismoId(c.getTurismo().getId())
-                                .usuarioId(c.getUsuario().getId())
+                                .turistaId(c.getTurista().getId())
                                 .dataCriacao(c.getDataCriacao())
                                 .dataEdicao(c.getDataEdicao())
                                 .build()).collect(Collectors.toList()))
@@ -108,7 +102,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                                 .nota(r.getNota())
                                 .texto(r.getTexto())
                                 .turismoId(r.getTurismo().getId())
-                                .usuarioId(r.getUsuario().getId())
+                                .turistaId(r.getTurista().getId())
                                 .build()).collect(Collectors.toList()))
                         .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
                                 .id(t.getId())
@@ -123,7 +117,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                                 .numeroLocal(t.getNumeroLocal())
                                 .rua(t.getRua())
                                 .telefone(t.getTelefone())
-                                .usuarioId(t.getUsuario().getId())
+                                .turistaId(t.getTurista().getId())
                                 .build())
                                 .collect(Collectors.toList()))
                         .build())
@@ -133,8 +127,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional
-    public DadosUsuarioDTO getById(Long id) {
-        return usuarioRepository.findById(id).map((Usuario u) -> DadosUsuarioDTO.builder()
+    public DadosTuristaDTO getById(Long id) {
+        return turistaRepository.findById(id).map((Turista u) -> DadosTuristaDTO.builder()
                 .id(u.getId())
                 .bairro(u.getBairro())
                 .cadastroPessoaFisica(u.getCadastroPessoaFisica())
@@ -142,15 +136,12 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .dataCriacao(u.getDataCriacao())
                 .dataEdicao(u.getDataEdicao())
                 .dataNascimento(u.getDataNascimento())
-                .email(u.getEmail())
                 .estado(u.getEstado())
                 .nome(u.getNome())
-                .nomeUsuario(u.getNomeUsuario())
                 .numeroCasa(u.getNumeroCasa())
                 .profissao(u.getProfissao())
                 .registroGeral(u.getRegistroGeral())
                 .rua(u.getRua())
-                .senha(u.getSenha())
                 .telefone(u.getTelefone())
                 .dataCriacao(u.getDataCriacao())
                 .dataEdicao(u.getDataEdicao())
@@ -161,7 +152,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .dataCriacao(c.getDataCriacao())
                         .dataEdicao(c.getDataEdicao())
                         .turismoId(c.getTurismo().getId())
-                        .usuarioId(c.getUsuario().getId())
+                        .turistaId(c.getTurista().getId())
                         .build()).collect(Collectors.toList()))
                 .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                         .id(r.getId())
@@ -170,7 +161,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .nota(r.getNota())
                         .texto(r.getTexto())
                         .turismoId(r.getTurismo().getId())
-                        .usuarioId(r.getUsuario().getId())
+                        .turistaId(r.getTurista().getId())
                         .build()).collect(Collectors.toList()))
                 .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
                         .id(t.getId())
@@ -185,68 +176,40 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .numeroLocal(t.getNumeroLocal())
                         .rua(t.getRua())
                         .telefone(t.getTelefone())
-                        .usuarioId(t.getUsuario().getId())
+                        .turistaId(t.getTurista().getId())
                         .build()).collect(Collectors.toList()))
                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
     }
 
     @Override
     @Transactional
-    public void put(Long id, UsuarioDTO dto) {
+    public void put(Long id, TuristaDTO dto) {
 
-        Usuario usuario = usuarioRepository.findById(id)
+        Turista turista = turistaRepository.findById(id)
                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
-        usuario.setNomeUsuario(dto.getNomeUsuario());
-        usuario.setSenha(dto.getSenha());
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setTelefone(dto.getTelefone());
-        usuario.setNumeroCasa(dto.getNumeroCasa());
-        usuario.setRua(dto.getRua());
-        usuario.setBairro(dto.getBairro());
-        usuario.setCidade(dto.getCidade());
-        usuario.setEstado(dto.getEstado());
-        usuario.setDataNascimento(dto.getDataNascimento());
-        usuario.setProfissao(dto.getProfissao());
-        usuario.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
-        usuario.setRegistroGeral(dto.getRegistroGeral());
-        usuario.setDataCriacao(dto.getDataCriacao());
-        usuario.setDataEdicao(dto.getDataEdicao());
+        turista.setNome(dto.getNome());
+        turista.setTelefone(dto.getTelefone());
+        turista.setNumeroCasa(dto.getNumeroCasa());
+        turista.setRua(dto.getRua());
+        turista.setBairro(dto.getBairro());
+        turista.setCidade(dto.getCidade());
+        turista.setEstado(dto.getEstado());
+        turista.setDataNascimento(dto.getDataNascimento());
+        turista.setProfissao(dto.getProfissao());
+        turista.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
+        turista.setRegistroGeral(dto.getRegistroGeral());
+        turista.setDataCriacao(dto.getDataCriacao());
+        turista.setDataEdicao(dto.getDataEdicao());
 
-        usuarioRepository.save(usuario);
+        turistaRepository.save(turista);
 
     }
 
     @Override
     @Transactional
     public void delete(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    @Override
-    @Transactional
-    public DadosUsuarioDTO login(String usuario, String senha) {
-        return usuarioRepository.login(usuario, usuario, senha).map((Usuario u) -> DadosUsuarioDTO.builder()
-                .id(u.getId())
-                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
-                .cidade(u.getCidade())
-                .dataCriacao(u.getDataCriacao())
-                .dataEdicao(u.getDataEdicao())
-                .dataNascimento(u.getDataNascimento())
-                .email(u.getEmail())
-                .estado(u.getEstado())
-                .nome(u.getNome())
-                .nomeUsuario(u.getNomeUsuario())
-                .numeroCasa(u.getNumeroCasa())
-                .profissao(u.getProfissao())
-                .registroGeral(u.getRegistroGeral())
-                .rua(u.getRua())
-                .senha(u.getSenha())
-                .telefone(u.getTelefone())
-                .dataCriacao(u.getDataCriacao())
-                .dataEdicao(u.getDataEdicao())
-                .build()).orElseThrow(() -> new RegraNegocioException("Usuário ou senha inválidos."));
+        turistaRepository.deleteById(id);
     }
 
 }

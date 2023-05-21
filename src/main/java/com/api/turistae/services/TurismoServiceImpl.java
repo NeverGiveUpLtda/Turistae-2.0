@@ -11,17 +11,17 @@ import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.dtos.ImagemDTO;
 import com.api.turistae.dtos.CurtidaDTO;
 import com.api.turistae.dtos.ReviewDTO;
-import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.dtos.TuristaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Categoria;
 import com.api.turistae.models.Turismo;
 import com.api.turistae.models.Imagem;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Review;
-import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turista;
 import com.api.turistae.repositorys.CategoriaRepository;
 import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.TuristaRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +31,9 @@ import lombok.RequiredArgsConstructor;
 public class TurismoServiceImpl implements TurismoService {
 
         /**
-         * Mude a mensagem de usuário não encontrado para turismo
+         * Mude a mensagem de turista não encontrado para turismo
          */
-        private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
+        private static final String TURISTA_NAO_ENCONTRADO = "Turista não encontrado.";
 
         /**
          * Mude a mensagem de categoria não encontrado para turismo
@@ -48,7 +48,7 @@ public class TurismoServiceImpl implements TurismoService {
         // Atributos
         private final TurismoRepository turismoRepository;
         private final CategoriaRepository categoriaRepository;
-        private final UsuarioRepository usuarioRepository;
+        private final TuristaRepository turistaRepository;
 
         // Métodos
         @Override
@@ -59,9 +59,9 @@ public class TurismoServiceImpl implements TurismoService {
                                 .findById(dto.getCategoriaId())
                                 .orElseThrow(() -> new RegraNegocioException(CATEGORIA_NAO_ENCONTRADA));
 
-                Usuario usu = usuarioRepository
-                                .findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository
+                                .findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 Turismo turismo = new Turismo();
 
@@ -76,7 +76,7 @@ public class TurismoServiceImpl implements TurismoService {
                 turismo.setNumeroLocal(dto.getNumeroLocal());
                 turismo.setRua(dto.getRua());
                 turismo.setTelefone(dto.getTelefone());
-                turismo.setUsuario(usu);
+                turismo.setTurista(turista);
                 turismo.setCategoria(categ);
 
                 Turismo turismoGerado;
@@ -110,24 +110,21 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .id(t.getCategoria().getId())
                                                 .nome(t.getCategoria().getNome())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .id(t.getUsuario().getId())
-                                                .bairro(t.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(t.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(t.getUsuario().getCidade())
-                                                .dataCriacao(t.getUsuario().getDataCriacao())
-                                                .dataEdicao(t.getUsuario().getDataEdicao())
-                                                .dataNascimento(t.getUsuario().getDataNascimento())
-                                                .email(t.getUsuario().getEmail())
-                                                .estado(t.getUsuario().getEstado())
-                                                .nome(t.getUsuario().getNome())
-                                                .nomeUsuario(t.getUsuario().getNomeUsuario())
-                                                .numeroCasa(t.getUsuario().getNumeroCasa())
-                                                .profissao(t.getUsuario().getProfissao())
-                                                .registroGeral(t.getUsuario().getRegistroGeral())
-                                                .rua(t.getUsuario().getRua())
-                                                .senha(t.getUsuario().getSenha())
-                                                .telefone(t.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(t.getTurista().getId())
+                                                .bairro(t.getTurista().getBairro())
+                                                .cadastroPessoaFisica(t.getTurista().getCadastroPessoaFisica())
+                                                .cidade(t.getTurista().getCidade())
+                                                .dataCriacao(t.getTurista().getDataCriacao())
+                                                .dataEdicao(t.getTurista().getDataEdicao())
+                                                .dataNascimento(t.getTurista().getDataNascimento())
+                                                .estado(t.getTurista().getEstado())
+                                                .nome(t.getTurista().getNome())
+                                                .numeroCasa(t.getTurista().getNumeroCasa())
+                                                .profissao(t.getTurista().getProfissao())
+                                                .registroGeral(t.getTurista().getRegistroGeral())
+                                                .rua(t.getTurista().getRua())
+                                                .telefone(t.getTurista().getTelefone())
                                                 .build())
 
                                 // Relacionamentos
@@ -136,7 +133,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .dataCriacao(c.getDataCriacao())
                                                 .dataEdicao(c.getDataEdicao())
                                                 .turismoId(c.getTurismo().getId())
-                                                .usuarioId(c.getUsuario().getId())
+                                                .turistaId(c.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .reviews(t.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                                                 .id(r.getId())
@@ -145,7 +142,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .nota(r.getNota())
                                                 .texto(r.getTexto())
                                                 .turismoId(r.getTurismo().getId())
-                                                .usuarioId(r.getUsuario().getId())
+                                                .turistaId(r.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
                                                 .id(i.getId())
@@ -181,24 +178,21 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .id(t.getCategoria().getId())
                                                 .nome(t.getCategoria().getNome())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .id(t.getUsuario().getId())
-                                                .bairro(t.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(t.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(t.getUsuario().getCidade())
-                                                .dataCriacao(t.getUsuario().getDataCriacao())
-                                                .dataEdicao(t.getUsuario().getDataEdicao())
-                                                .dataNascimento(t.getUsuario().getDataNascimento())
-                                                .email(t.getUsuario().getEmail())
-                                                .estado(t.getUsuario().getEstado())
-                                                .nome(t.getUsuario().getNome())
-                                                .nomeUsuario(t.getUsuario().getNomeUsuario())
-                                                .numeroCasa(t.getUsuario().getNumeroCasa())
-                                                .profissao(t.getUsuario().getProfissao())
-                                                .registroGeral(t.getUsuario().getRegistroGeral())
-                                                .rua(t.getUsuario().getRua())
-                                                .senha(t.getUsuario().getSenha())
-                                                .telefone(t.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(t.getTurista().getId())
+                                                .bairro(t.getTurista().getBairro())
+                                                .cadastroPessoaFisica(t.getTurista().getCadastroPessoaFisica())
+                                                .cidade(t.getTurista().getCidade())
+                                                .dataCriacao(t.getTurista().getDataCriacao())
+                                                .dataEdicao(t.getTurista().getDataEdicao())
+                                                .dataNascimento(t.getTurista().getDataNascimento())
+                                                .estado(t.getTurista().getEstado())
+                                                .nome(t.getTurista().getNome())
+                                                .numeroCasa(t.getTurista().getNumeroCasa())
+                                                .profissao(t.getTurista().getProfissao())
+                                                .registroGeral(t.getTurista().getRegistroGeral())
+                                                .rua(t.getTurista().getRua())
+                                                .telefone(t.getTurista().getTelefone())
                                                 .build())
 
                                 // Relacionamentos
@@ -207,7 +201,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .dataCriacao(c.getDataCriacao())
                                                 .dataEdicao(c.getDataEdicao())
                                                 .turismoId(c.getTurismo().getId())
-                                                .usuarioId(c.getUsuario().getId())
+                                                .turistaId(c.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .reviews(t.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                                                 .id(r.getId())
@@ -216,7 +210,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .nota(r.getNota())
                                                 .texto(r.getTexto())
                                                 .turismoId(r.getTurismo().getId())
-                                                .usuarioId(r.getUsuario().getId())
+                                                .turistaId(r.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
                                                 .id(i.getId())
@@ -257,24 +251,21 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .id(t.getCategoria().getId())
                                                 .nome(t.getCategoria().getNome())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .id(t.getUsuario().getId())
-                                                .bairro(t.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(t.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(t.getUsuario().getCidade())
-                                                .dataCriacao(t.getUsuario().getDataCriacao())
-                                                .dataEdicao(t.getUsuario().getDataEdicao())
-                                                .dataNascimento(t.getUsuario().getDataNascimento())
-                                                .email(t.getUsuario().getEmail())
-                                                .estado(t.getUsuario().getEstado())
-                                                .nome(t.getUsuario().getNome())
-                                                .nomeUsuario(t.getUsuario().getNomeUsuario())
-                                                .numeroCasa(t.getUsuario().getNumeroCasa())
-                                                .profissao(t.getUsuario().getProfissao())
-                                                .registroGeral(t.getUsuario().getRegistroGeral())
-                                                .rua(t.getUsuario().getRua())
-                                                .senha(t.getUsuario().getSenha())
-                                                .telefone(t.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(t.getTurista().getId())
+                                                .bairro(t.getTurista().getBairro())
+                                                .cadastroPessoaFisica(t.getTurista().getCadastroPessoaFisica())
+                                                .cidade(t.getTurista().getCidade())
+                                                .dataCriacao(t.getTurista().getDataCriacao())
+                                                .dataEdicao(t.getTurista().getDataEdicao())
+                                                .dataNascimento(t.getTurista().getDataNascimento())
+                                                .estado(t.getTurista().getEstado())
+                                                .nome(t.getTurista().getNome())
+                                                .numeroCasa(t.getTurista().getNumeroCasa())
+                                                .profissao(t.getTurista().getProfissao())
+                                                .registroGeral(t.getTurista().getRegistroGeral())
+                                                .rua(t.getTurista().getRua())
+                                                .telefone(t.getTurista().getTelefone())
                                                 .build())
 
                                 // Relacionamentos
@@ -283,7 +274,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .dataCriacao(c.getDataCriacao())
                                                 .dataEdicao(c.getDataEdicao())
                                                 .turismoId(c.getTurismo().getId())
-                                                .usuarioId(c.getUsuario().getId())
+                                                .turistaId(c.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .reviews(t.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                                                 .id(r.getId())
@@ -292,7 +283,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .nota(r.getNota())
                                                 .texto(r.getTexto())
                                                 .turismoId(r.getTurismo().getId())
-                                                .usuarioId(r.getUsuario().getId())
+                                                .turistaId(r.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
                                                 .id(i.getId())
@@ -328,24 +319,21 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .id(t.getCategoria().getId())
                                                 .nome(t.getCategoria().getNome())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .id(t.getUsuario().getId())
-                                                .bairro(t.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(t.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(t.getUsuario().getCidade())
-                                                .dataCriacao(t.getUsuario().getDataCriacao())
-                                                .dataEdicao(t.getUsuario().getDataEdicao())
-                                                .dataNascimento(t.getUsuario().getDataNascimento())
-                                                .email(t.getUsuario().getEmail())
-                                                .estado(t.getUsuario().getEstado())
-                                                .nome(t.getUsuario().getNome())
-                                                .nomeUsuario(t.getUsuario().getNomeUsuario())
-                                                .numeroCasa(t.getUsuario().getNumeroCasa())
-                                                .profissao(t.getUsuario().getProfissao())
-                                                .registroGeral(t.getUsuario().getRegistroGeral())
-                                                .rua(t.getUsuario().getRua())
-                                                .senha(t.getUsuario().getSenha())
-                                                .telefone(t.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(t.getTurista().getId())
+                                                .bairro(t.getTurista().getBairro())
+                                                .cadastroPessoaFisica(t.getTurista().getCadastroPessoaFisica())
+                                                .cidade(t.getTurista().getCidade())
+                                                .dataCriacao(t.getTurista().getDataCriacao())
+                                                .dataEdicao(t.getTurista().getDataEdicao())
+                                                .dataNascimento(t.getTurista().getDataNascimento())
+                                                .estado(t.getTurista().getEstado())
+                                                .nome(t.getTurista().getNome())
+                                                .numeroCasa(t.getTurista().getNumeroCasa())
+                                                .profissao(t.getTurista().getProfissao())
+                                                .registroGeral(t.getTurista().getRegistroGeral())
+                                                .rua(t.getTurista().getRua())
+                                                .telefone(t.getTurista().getTelefone())
                                                 .build())
 
                                 // Relacionamentos
@@ -354,7 +342,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .dataCriacao(c.getDataCriacao())
                                                 .dataEdicao(c.getDataEdicao())
                                                 .turismoId(c.getTurismo().getId())
-                                                .usuarioId(c.getUsuario().getId())
+                                                .turistaId(c.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .reviews(t.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                                                 .id(r.getId())
@@ -363,7 +351,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .nota(r.getNota())
                                                 .texto(r.getTexto())
                                                 .turismoId(r.getTurismo().getId())
-                                                .usuarioId(r.getUsuario().getId())
+                                                .turistaId(r.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
                                                 .id(i.getId())
@@ -398,30 +386,27 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .id(t.getCategoria().getId())
                                                 .nome(t.getCategoria().getNome())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .id(t.getUsuario().getId())
-                                                .bairro(t.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(t.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(t.getUsuario().getCidade())
-                                                .dataCriacao(t.getUsuario().getDataCriacao())
-                                                .dataEdicao(t.getUsuario().getDataEdicao())
-                                                .dataNascimento(t.getUsuario().getDataNascimento())
-                                                .email(t.getUsuario().getEmail())
-                                                .estado(t.getUsuario().getEstado())
-                                                .nome(t.getUsuario().getNome())
-                                                .nomeUsuario(t.getUsuario().getNomeUsuario())
-                                                .numeroCasa(t.getUsuario().getNumeroCasa())
-                                                .profissao(t.getUsuario().getProfissao())
-                                                .registroGeral(t.getUsuario().getRegistroGeral())
-                                                .rua(t.getUsuario().getRua())
-                                                .senha(t.getUsuario().getSenha())
-                                                .telefone(t.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(t.getTurista().getId())
+                                                .bairro(t.getTurista().getBairro())
+                                                .cadastroPessoaFisica(t.getTurista().getCadastroPessoaFisica())
+                                                .cidade(t.getTurista().getCidade())
+                                                .dataCriacao(t.getTurista().getDataCriacao())
+                                                .dataEdicao(t.getTurista().getDataEdicao())
+                                                .dataNascimento(t.getTurista().getDataNascimento())
+                                                .estado(t.getTurista().getEstado())
+                                                .nome(t.getTurista().getNome())
+                                                .numeroCasa(t.getTurista().getNumeroCasa())
+                                                .profissao(t.getTurista().getProfissao())
+                                                .registroGeral(t.getTurista().getRegistroGeral())
+                                                .rua(t.getTurista().getRua())
+                                                .telefone(t.getTurista().getTelefone())
                                                 .build())
                                 // Relacionamentos
                                 .curtidas(t.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
                                                 .id(c.getId())
                                                 .turismoId(c.getTurismo().getId())
-                                                .usuarioId(c.getUsuario().getId())
+                                                .turistaId(c.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .reviews(t.getReviews().stream().map((Review r) -> ReviewDTO.builder()
                                                 .id(r.getId())
@@ -430,7 +415,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .nota(r.getNota())
                                                 .texto(r.getTexto())
                                                 .turismoId(r.getTurismo().getId())
-                                                .usuarioId(r.getUsuario().getId())
+                                                .turistaId(r.getTurista().getId())
                                                 .build()).collect(Collectors.toList()))
                                 .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
                                                 .id(i.getId())
@@ -453,8 +438,8 @@ public class TurismoServiceImpl implements TurismoService {
                 Categoria categ = categoriaRepository.findById(dto.getCategoriaId())
                                 .orElseThrow(() -> new RegraNegocioException(CATEGORIA_NAO_ENCONTRADA));
 
-                Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository.findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 turismo.setBairro(dto.getBairro());
                 turismo.setCadastroNacionalPessoasJuridicas(dto.getCadastroNacionalPessoasJuridicas());
@@ -467,7 +452,7 @@ public class TurismoServiceImpl implements TurismoService {
                 turismo.setNumeroLocal(dto.getNumeroLocal());
                 turismo.setRua(dto.getRua());
                 turismo.setTelefone(dto.getTelefone());
-                turismo.setUsuario(usu);
+                turismo.setTurista(turista);
                 turismo.setCategoria(categ);
 
                 turismoRepository.save(turismo);

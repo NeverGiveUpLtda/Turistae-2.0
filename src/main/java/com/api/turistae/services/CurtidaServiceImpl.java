@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import com.api.turistae.dtos.CurtidaDTO;
 import com.api.turistae.dtos.DadosCurtidaDTO;
 import com.api.turistae.dtos.TurismoDTO;
-import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.dtos.TuristaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turista;
 import com.api.turistae.repositorys.CurtidaRepository;
 import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.TuristaRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class CurtidaServiceImpl implements CurtidaService {
 
         /**
-         * Mude a mensagem de usuário não encontrado para curtida
+         * Mude a mensagem de turista não encontrado para curtida
          */
-        private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
+        private static final String TURISTA_NAO_ENCONTRADO = "Turista não encontrado.";
 
         /**
          * Mude a mensagem de turismo não encontrado para curtida
@@ -42,7 +42,7 @@ public class CurtidaServiceImpl implements CurtidaService {
         // Atributos
         private final CurtidaRepository curtidaRepository;
         private final TurismoRepository turismoRepository;
-        private final UsuarioRepository usuarioRepository;
+        private final TuristaRepository turistaRepository;
 
         // Métodos
         @Override
@@ -53,16 +53,16 @@ public class CurtidaServiceImpl implements CurtidaService {
                                 .findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository
-                                .findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository
+                                .findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 Curtida curtida = new Curtida();
 
                 curtida.setDataCriacao(dto.getDataCriacao());
                 curtida.setDataEdicao(dto.getDataEdicao());
                 curtida.setTurismo(turis);
-                curtida.setUsuario(usu);
+                curtida.setTurista(turista);
 
                 Curtida curtidaGerada = curtidaRepository.save(curtida);
 
@@ -92,28 +92,25 @@ public class CurtidaServiceImpl implements CurtidaService {
                                                 .numeroLocal(c.getTurismo().getNumeroLocal())
                                                 .rua(c.getTurismo().getRua())
                                                 .telefone(c.getTurismo().getTelefone())
-                                                .usuarioId(c.getTurismo().getUsuario().getId())
+                                                .turistaId(c.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(c.getUsuario().getId())
-                                                .bairro(c.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(c.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(c.getUsuario().getCidade())
-                                                .dataCriacao(c.getUsuario().getDataCriacao())
-                                                .dataEdicao(c.getUsuario().getDataEdicao())
-                                                .dataNascimento(c.getUsuario().getDataNascimento())
-                                                .email(c.getUsuario().getEmail())
-                                                .estado(c.getUsuario().getEstado())
-                                                .nome(c.getUsuario().getNome())
-                                                .nomeUsuario(c.getUsuario().getNomeUsuario())
-                                                .numeroCasa(c.getUsuario().getNumeroCasa())
-                                                .profissao(c.getUsuario().getProfissao())
-                                                .registroGeral(c.getUsuario().getRegistroGeral())
-                                                .rua(c.getUsuario().getRua())
-                                                .senha(c.getUsuario().getSenha())
-                                                .telefone(c.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(c.getTurista().getId())
+                                                .bairro(c.getTurista().getBairro())
+                                                .cadastroPessoaFisica(c.getTurista().getCadastroPessoaFisica())
+                                                .cidade(c.getTurista().getCidade())
+                                                .dataCriacao(c.getTurista().getDataCriacao())
+                                                .dataEdicao(c.getTurista().getDataEdicao())
+                                                .dataNascimento(c.getTurista().getDataNascimento())
+                                                .estado(c.getTurista().getEstado())
+                                                .nome(c.getTurista().getNome())
+                                                .numeroCasa(c.getTurista().getNumeroCasa())
+                                                .profissao(c.getTurista().getProfissao())
+                                                .registroGeral(c.getTurista().getRegistroGeral())
+                                                .rua(c.getTurista().getRua())
+                                                .telefone(c.getTurista().getTelefone())
                                                 .build())
                                 .build()).collect(Collectors.toList());
 
@@ -146,28 +143,25 @@ public class CurtidaServiceImpl implements CurtidaService {
                                                 .numeroLocal(c.getTurismo().getNumeroLocal())
                                                 .rua(c.getTurismo().getRua())
                                                 .telefone(c.getTurismo().getTelefone())
-                                                .usuarioId(c.getTurismo().getUsuario().getId())
+                                                .turistaId(c.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(c.getUsuario().getId())
-                                                .bairro(c.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(c.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(c.getUsuario().getCidade())
-                                                .dataCriacao(c.getUsuario().getDataCriacao())
-                                                .dataEdicao(c.getUsuario().getDataEdicao())
-                                                .dataNascimento(c.getUsuario().getDataNascimento())
-                                                .email(c.getUsuario().getEmail())
-                                                .estado(c.getUsuario().getEstado())
-                                                .nome(c.getUsuario().getNome())
-                                                .nomeUsuario(c.getUsuario().getNomeUsuario())
-                                                .numeroCasa(c.getUsuario().getNumeroCasa())
-                                                .profissao(c.getUsuario().getProfissao())
-                                                .registroGeral(c.getUsuario().getRegistroGeral())
-                                                .rua(c.getUsuario().getRua())
-                                                .senha(c.getUsuario().getSenha())
-                                                .telefone(c.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(c.getTurista().getId())
+                                                .bairro(c.getTurista().getBairro())
+                                                .cadastroPessoaFisica(c.getTurista().getCadastroPessoaFisica())
+                                                .cidade(c.getTurista().getCidade())
+                                                .dataCriacao(c.getTurista().getDataCriacao())
+                                                .dataEdicao(c.getTurista().getDataEdicao())
+                                                .dataNascimento(c.getTurista().getDataNascimento())
+                                                .estado(c.getTurista().getEstado())
+                                                .nome(c.getTurista().getNome())
+                                                .numeroCasa(c.getTurista().getNumeroCasa())
+                                                .profissao(c.getTurista().getProfissao())
+                                                .registroGeral(c.getTurista().getRegistroGeral())
+                                                .rua(c.getTurista().getRua())
+                                                .telefone(c.getTurista().getTelefone())
                                                 .build())
                                 .build()).collect(Collectors.toList());
 
@@ -196,45 +190,42 @@ public class CurtidaServiceImpl implements CurtidaService {
                                                 .numeroLocal(c.getTurismo().getNumeroLocal())
                                                 .rua(c.getTurismo().getRua())
                                                 .telefone(c.getTurismo().getTelefone())
-                                                .usuarioId(c.getTurismo().getUsuario().getId())
+                                                .turistaId(c.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(c.getUsuario().getId())
-                                                .bairro(c.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(c.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(c.getUsuario().getCidade())
-                                                .dataCriacao(c.getUsuario().getDataCriacao())
-                                                .dataEdicao(c.getUsuario().getDataEdicao())
-                                                .dataNascimento(c.getUsuario().getDataNascimento())
-                                                .email(c.getUsuario().getEmail())
-                                                .estado(c.getUsuario().getEstado())
-                                                .nome(c.getUsuario().getNome())
-                                                .nomeUsuario(c.getUsuario().getNomeUsuario())
-                                                .numeroCasa(c.getUsuario().getNumeroCasa())
-                                                .profissao(c.getUsuario().getProfissao())
-                                                .registroGeral(c.getUsuario().getRegistroGeral())
-                                                .rua(c.getUsuario().getRua())
-                                                .senha(c.getUsuario().getSenha())
-                                                .telefone(c.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(c.getTurista().getId())
+                                                .bairro(c.getTurista().getBairro())
+                                                .cadastroPessoaFisica(c.getTurista().getCadastroPessoaFisica())
+                                                .cidade(c.getTurista().getCidade())
+                                                .dataCriacao(c.getTurista().getDataCriacao())
+                                                .dataEdicao(c.getTurista().getDataEdicao())
+                                                .dataNascimento(c.getTurista().getDataNascimento())
+                                                .estado(c.getTurista().getEstado())
+                                                .nome(c.getTurista().getNome())
+                                                .numeroCasa(c.getTurista().getNumeroCasa())
+                                                .profissao(c.getTurista().getProfissao())
+                                                .registroGeral(c.getTurista().getRegistroGeral())
+                                                .rua(c.getTurista().getRua())
+                                                .telefone(c.getTurista().getTelefone())
                                                 .build())
                                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
         }
 
         @Override
         @Transactional
-        public DadosCurtidaDTO getCurtidaByTurismoAndUsuario(Long usuarioId, Long turismoId) {
+        public DadosCurtidaDTO getCurtidaByTurismoAndTurista(Long turistaId, Long turismoId) {
 
                 Turismo turis = turismoRepository
                                 .findById(turismoId)
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository
-                                .findById(usuarioId)
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository
+                                .findById(turistaId)
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
-                return curtidaRepository.findByUsuarioAndTurismo(usu, turis).map((Curtida c) -> DadosCurtidaDTO.builder()
+                return curtidaRepository.findByTuristaAndTurismo(turista, turis).map((Curtida c) -> DadosCurtidaDTO.builder()
                                 .id(c.getId())
                                 .dataCriacao(c.getDataCriacao())
                                 .dataEdicao(c.getDataEdicao())
@@ -253,28 +244,25 @@ public class CurtidaServiceImpl implements CurtidaService {
                                                 .numeroLocal(c.getTurismo().getNumeroLocal())
                                                 .rua(c.getTurismo().getRua())
                                                 .telefone(c.getTurismo().getTelefone())
-                                                .usuarioId(c.getTurismo().getUsuario().getId())
+                                                .turistaId(c.getTurismo().getTurista().getId())
                                                 .build())
 
                                 // Relacionamentos
-                                .usuario(UsuarioDTO.builder()
-                                                .id(c.getUsuario().getId())
-                                                .bairro(c.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(c.getUsuario().getCadastroPessoaFisica())
-                                                .cidade(c.getUsuario().getCidade())
-                                                .dataCriacao(c.getUsuario().getDataCriacao())
-                                                .dataEdicao(c.getUsuario().getDataEdicao())
-                                                .dataNascimento(c.getUsuario().getDataNascimento())
-                                                .email(c.getUsuario().getEmail())
-                                                .estado(c.getUsuario().getEstado())
-                                                .nome(c.getUsuario().getNome())
-                                                .nomeUsuario(c.getUsuario().getNomeUsuario())
-                                                .numeroCasa(c.getUsuario().getNumeroCasa())
-                                                .profissao(c.getUsuario().getProfissao())
-                                                .registroGeral(c.getUsuario().getRegistroGeral())
-                                                .rua(c.getUsuario().getRua())
-                                                .senha(c.getUsuario().getSenha())
-                                                .telefone(c.getUsuario().getTelefone())
+                                .turista(TuristaDTO.builder()
+                                                .id(c.getTurista().getId())
+                                                .bairro(c.getTurista().getBairro())
+                                                .cadastroPessoaFisica(c.getTurista().getCadastroPessoaFisica())
+                                                .cidade(c.getTurista().getCidade())
+                                                .dataCriacao(c.getTurista().getDataCriacao())
+                                                .dataEdicao(c.getTurista().getDataEdicao())
+                                                .dataNascimento(c.getTurista().getDataNascimento())
+                                                .estado(c.getTurista().getEstado())
+                                                .nome(c.getTurista().getNome())
+                                                .numeroCasa(c.getTurista().getNumeroCasa())
+                                                .profissao(c.getTurista().getProfissao())
+                                                .registroGeral(c.getTurista().getRegistroGeral())
+                                                .rua(c.getTurista().getRua())
+                                                .telefone(c.getTurista().getTelefone())
                                                 .build())
                                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
@@ -287,8 +275,8 @@ public class CurtidaServiceImpl implements CurtidaService {
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository.findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 Curtida curtida = curtidaRepository.findById(id)
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
@@ -297,7 +285,7 @@ public class CurtidaServiceImpl implements CurtidaService {
                 curtida.setDataEdicao(dto.getDataEdicao());
                 curtida.setId(dto.getId());
                 curtida.setTurismo(turi);
-                curtida.setUsuario(usu);
+                curtida.setTurista(turista);
 
                 curtidaRepository.save(curtida);
 

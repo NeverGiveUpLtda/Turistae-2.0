@@ -23,24 +23,27 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class Turista {
 
     // Atributos
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 25, nullable = false, unique = true)
-    private String nomeUsuario;
+    //TODO
+    // @Column(length = 25, nullable = false, unique = true)
+    // private String nomeUsuario;
 
-    @Column(nullable = false)
-    private String senha;
+    //TODO
+    // @Column(nullable = false)
+    // private String senha;
 
     @Column(length = 200, nullable = false)
     private String nome;
 
-    @Column(length = 200, nullable = false, unique = true)
-    private String email;
+    //TODO
+    // @Column(length = 200, nullable = false, unique = true)
+    // private String email;
 
     @Column(nullable = false)
     private long telefone;
@@ -74,16 +77,16 @@ public class Usuario {
     private String registroGeral;
 
     // Relacionamentos
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "turista", fetch = FetchType.EAGER)
     private List<Turismo> turismos;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "turista", fetch = FetchType.EAGER)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "turista", fetch = FetchType.EAGER)
     private List<Voucher> vouchers;
 
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "turista", fetch = FetchType.EAGER)
     private List<Curtida> curtidas;
 
     // Timestamps

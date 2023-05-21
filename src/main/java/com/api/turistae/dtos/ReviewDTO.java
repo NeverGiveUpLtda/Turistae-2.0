@@ -34,7 +34,7 @@ public class ReviewDTO {
 
      // Relacionamentos
      private long turismoId;
-     private long usuarioId;
+     private long turistaId;
 
      // Timestamps
      private LocalDateTime dataCriacao;

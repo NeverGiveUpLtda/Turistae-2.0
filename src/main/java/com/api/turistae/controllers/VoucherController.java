@@ -58,21 +58,21 @@ public class VoucherController {
     }
 
     @GetMapping("/turismo/{turismoId}/unclaimed")
-    public List<DadosVoucherDTO> getVouchersPorTurismoSemUsuario(@PathVariable Long turismoId) {
-        logger.info("Get todos Vouchers sem usuário para o turismo id: {}", turismoId);
-        return voucherService.getVouchersSemUsuario(turismoId);
+    public List<DadosVoucherDTO> getVouchersPorTurismoSemTurista(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers sem turista para o turismo id: {}", turismoId);
+        return voucherService.getVouchersSemTurista(turismoId);
     }
 
     @GetMapping("/turismo/{turismoId}/claimed")
-    public List<DadosVoucherDTO> getVouchersPorTurismoComUsuario(@PathVariable Long turismoId) {
-        logger.info("Get todos Vouchers com usuário para o turismo id: {}", turismoId);
-        return voucherService.getVouchersComUsuario(turismoId);
+    public List<DadosVoucherDTO> getVouchersPorTurismoComTurista(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers com turista para o turismo id: {}", turismoId);
+        return voucherService.getVouchersComTurista(turismoId);
     }
 
-    @GetMapping("/usuario/{usuarioId}")
-    public List<DadosVoucherDTO> getVouchersPorUsuario(@PathVariable Long usuarioId) {
-        logger.info("Get todos Vouchers do usuário id: {}", usuarioId);
-        return voucherService.getVouchersDoUsuario(usuarioId);
+    @GetMapping("/turista/{turistaId}")
+    public List<DadosVoucherDTO> getVouchersPorTurista(@PathVariable Long turistaId) {
+        logger.info("Get todos Vouchers do turista id: {}", turistaId);
+        return voucherService.getVouchersDoTurista(turistaId);
     }
 
     @GetMapping("{id}")

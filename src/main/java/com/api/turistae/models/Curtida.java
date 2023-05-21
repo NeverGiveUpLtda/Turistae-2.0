@@ -35,8 +35,8 @@ public class Curtida {
     private Turismo turismo;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
-    private Usuario usuario;
+    @JoinColumn(name = "turista_id", nullable = false)
+    private Turista turista;
 
     // Timestamps
     @CreatedDate

@@ -12,14 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DadosUsuarioDTO {
+public class DadosTuristaDTO {
 
     // Atributos
     private long id;
-    private String nomeUsuario;
-    private String senha;
     private String nome;
-    private String email;
     private long telefone;
     private int numeroCasa;
     private String rua;

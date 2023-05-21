@@ -17,29 +17,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsuarioDTO {
+public class TuristaDTO {
 
     // Atributos
     private long id;
 
-    @NotBlank(message = "O campo Nome de Usuário deve ser preencido.")
-    @Size(min = 5, max = 25, message = "O campo Nome de Usuário deve ter entre 5 e 25 caracteres.")
-    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Nome de usuário inválido. Insira um nome de usuário sem espaços e sem caracteres especiais.")
-    private String nomeUsuario;
+    //TODO
+    // @NotBlank(message = "O campo Nome de Usuário deve ser preencido.")
+    // @Size(min = 5, max = 25, message = "O campo Nome de Usuário deve ter entre 5 e 25 caracteres.")
+    // @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Nome de usuário inválido. Insira um nome de usuário sem espaços e sem caracteres especiais.")
+    // private String nomeUsuario;
 
-    @NotBlank(message = "O campo Senha deve ser preencido.")
-    @Size(min = 5, max = 25, message = "O campo Senha deve ter entre 5 e 25 caracteres.")
-    @Pattern(regexp = "^(?=.*[!@#$%^&+=])(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{5,25}$", message = "Senha inválida. Insira uma senha com 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial.")
-    private String senha;
+    //TODO
+    // @NotBlank(message = "O campo Senha deve ser preencido.")
+    // @Size(min = 5, max = 25, message = "O campo Senha deve ter entre 5 e 25 caracteres.")
+    // @Pattern(regexp = "^(?=.*[!@#$%^&+=])(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{5,25}$", message = "Senha inválida. Insira uma senha com 1 letra maiúscula, 1 letra minúscula, 1 número e um caractere especial.")
+    // private String senha;
 
     @NotBlank(message = "O campo Nome deve ser preencido.")
     @Size(min = 3, max = 25, message = "O campo Nome deve ter entre 3 e 25 caracteres.")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "Campo Nome com caracteres inválidos. Insira apenas letras.")
     private String nome;
 
-    @NotBlank(message = "O campo Email deve ser preencido.")
-    @Email(message = "Email inválido.")
-    private String email;
+    //TODO
+    // @NotBlank(message = "O campo Email deve ser preencido.")
+    // @Email(message = "Email inválido.")
+    // private String email;
 
     @NotNull(message = "O campo Telefone deve ser preencido.")
     private long telefone;

@@ -82,7 +82,7 @@ public class ImagemServiceImpl implements ImagemService {
                         .numeroLocal(i.getTurismo().getNumeroLocal())
                         .rua(i.getTurismo().getRua())
                         .telefone(i.getTurismo().getTelefone())
-                        .usuarioId(i.getTurismo().getUsuario().getId())
+                        .turistaId(i.getTurismo().getTurista().getId())
                         .build())
                 .build()).collect(Collectors.toList());
 
@@ -114,7 +114,7 @@ public class ImagemServiceImpl implements ImagemService {
                         .numeroLocal(i.getTurismo().getNumeroLocal())
                         .rua(i.getTurismo().getRua())
                         .telefone(i.getTurismo().getTelefone())
-                        .usuarioId(i.getTurismo().getUsuario().getId())
+                        .turistaId(i.getTurismo().getTurista().getId())
                         .build())
                 .build()).collect(Collectors.toList());
 
@@ -142,7 +142,7 @@ public class ImagemServiceImpl implements ImagemService {
                         .numeroLocal(i.getTurismo().getNumeroLocal())
                         .rua(i.getTurismo().getRua())
                         .telefone(i.getTurismo().getTelefone())
-                        .usuarioId(i.getTurismo().getUsuario().getId())
+                        .turistaId(i.getTurismo().getTurista().getId())
                         .build())
                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
     }

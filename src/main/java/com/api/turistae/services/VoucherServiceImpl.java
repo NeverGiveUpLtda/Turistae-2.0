@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.DadosVoucherDTO;
 import com.api.turistae.dtos.TurismoDTO;
-import com.api.turistae.dtos.UsuarioDTO;
+import com.api.turistae.dtos.TuristaDTO;
 import com.api.turistae.dtos.VoucherDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.models.Usuario;
+import com.api.turistae.models.Turista;
 import com.api.turistae.models.Voucher;
 import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.TuristaRepository;
 import com.api.turistae.repositorys.VoucherRepository;
 
 import jakarta.transaction.Transactional;
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 public class VoucherServiceImpl implements VoucherService {
 
         /**
-         * Mude a mensagem de usuário não encontrado para curtida
+         * Mude a mensagem de turista não encontrado para curtida
          */
-        private static final String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
+        private static final String TURISTA_NAO_ENCONTRADO = "Turista não encontrado.";
 
         /**
          * Mude a mensagem de turismo não encontrado para curtida
@@ -42,7 +42,7 @@ public class VoucherServiceImpl implements VoucherService {
         // Atributos
         private final VoucherRepository voucherRepository;
         private final TurismoRepository turismoRepository;
-        private final UsuarioRepository usuarioRepository;
+        private final TuristaRepository turistaRepository;
 
         @Override
         @Transactional
@@ -73,7 +73,7 @@ public class VoucherServiceImpl implements VoucherService {
 
                 return voucherRepository.findAll().stream().map((Voucher v) -> {
 
-                        if (v.getUsuario() != null)
+                        if (v.getTurista() != null)
                                 return DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
@@ -95,29 +95,27 @@ public class VoucherServiceImpl implements VoucherService {
                                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                                 .rua(v.getTurismo().getRua())
                                                                 .telefone(v.getTurismo().getTelefone())
-                                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                                .turistaId(v.getTurismo().getTurista().getId())
                                                                 .build())
-                                                .usuario(UsuarioDTO.builder()
-                                                                .bairro(v.getUsuario().getBairro())
-                                                                .cadastroPessoaFisica(v.getUsuario()
+                                                .turista(TuristaDTO.builder()
+                                                                .bairro(v.getTurista().getBairro())
+                                                                .cadastroPessoaFisica(v.getTurista()
                                                                                 .getCadastroPessoaFisica())
-                                                                .cidade(v.getUsuario().getCidade())
-                                                                .dataCriacao(v.getUsuario().getDataCriacao())
-                                                                .dataEdicao(v.getUsuario().getDataEdicao())
-                                                                .dataNascimento(v.getUsuario().getDataNascimento())
-                                                                .email(v.getUsuario().getEmail())
-                                                                .estado(v.getUsuario().getEstado())
-                                                                .id(v.getUsuario().getId())
-                                                                .nome(v.getUsuario().getNome())
-                                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
-                                                                .numeroCasa(v.getUsuario().getNumeroCasa())
-                                                                .profissao(v.getUsuario().getProfissao())
-                                                                .registroGeral(v.getUsuario().getRegistroGeral())
-                                                                .rua(v.getUsuario().getRua())
-                                                                .senha(v.getUsuario().getSenha())
-                                                                .telefone(v.getUsuario().getTelefone())
+                                                                .cidade(v.getTurista().getCidade())
+                                                                .dataCriacao(v.getTurista().getDataCriacao())
+                                                                .dataEdicao(v.getTurista().getDataEdicao())
+                                                                .dataNascimento(v.getTurista().getDataNascimento())
+                                                                .estado(v.getTurista().getEstado())
+                                                                .id(v.getTurista().getId())
+                                                                .nome(v.getTurista().getNome())
+                                                                .numeroCasa(v.getTurista().getNumeroCasa())
+                                                                .profissao(v.getTurista().getProfissao())
+                                                                .registroGeral(v.getTurista().getRegistroGeral())
+                                                                .rua(v.getTurista().getRua())
+                                                                .telefone(v.getTurista().getTelefone())
                                                                 .build())
                                                 .build();
+
                         return DadosVoucherDTO.builder()
                                         .id(v.getId())
                                         .codigo(v.getCodigo())
@@ -139,7 +137,7 @@ public class VoucherServiceImpl implements VoucherService {
                                                         .numeroLocal(v.getTurismo().getNumeroLocal())
                                                         .rua(v.getTurismo().getRua())
                                                         .telefone(v.getTurismo().getTelefone())
-                                                        .usuarioId(v.getTurismo().getUsuario().getId())
+                                                        .turistaId(v.getTurismo().getTurista().getId())
                                                         .build())
                                         .build();
 
@@ -155,7 +153,7 @@ public class VoucherServiceImpl implements VoucherService {
 
                 return voucherRepository.findAllByTurismo(turi).stream().map((Voucher v) -> {
 
-                        if (v.getUsuario() != null)
+                        if (v.getTurista() != null)
                                 return DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
@@ -177,27 +175,24 @@ public class VoucherServiceImpl implements VoucherService {
                                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                                 .rua(v.getTurismo().getRua())
                                                                 .telefone(v.getTurismo().getTelefone())
-                                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                                .turistaId(v.getTurismo().getTurista().getId())
                                                                 .build())
-                                                .usuario(UsuarioDTO.builder()
-                                                                .bairro(v.getUsuario().getBairro())
-                                                                .cadastroPessoaFisica(v.getUsuario()
+                                                .turista(TuristaDTO.builder()
+                                                                .bairro(v.getTurista().getBairro())
+                                                                .cadastroPessoaFisica(v.getTurista()
                                                                                 .getCadastroPessoaFisica())
-                                                                .cidade(v.getUsuario().getCidade())
-                                                                .dataCriacao(v.getUsuario().getDataCriacao())
-                                                                .dataEdicao(v.getUsuario().getDataEdicao())
-                                                                .dataNascimento(v.getUsuario().getDataNascimento())
-                                                                .email(v.getUsuario().getEmail())
-                                                                .estado(v.getUsuario().getEstado())
-                                                                .id(v.getUsuario().getId())
-                                                                .nome(v.getUsuario().getNome())
-                                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
-                                                                .numeroCasa(v.getUsuario().getNumeroCasa())
-                                                                .profissao(v.getUsuario().getProfissao())
-                                                                .registroGeral(v.getUsuario().getRegistroGeral())
-                                                                .rua(v.getUsuario().getRua())
-                                                                .senha(v.getUsuario().getSenha())
-                                                                .telefone(v.getUsuario().getTelefone())
+                                                                .cidade(v.getTurista().getCidade())
+                                                                .dataCriacao(v.getTurista().getDataCriacao())
+                                                                .dataEdicao(v.getTurista().getDataEdicao())
+                                                                .dataNascimento(v.getTurista().getDataNascimento())
+                                                                .estado(v.getTurista().getEstado())
+                                                                .id(v.getTurista().getId())
+                                                                .nome(v.getTurista().getNome())
+                                                                .numeroCasa(v.getTurista().getNumeroCasa())
+                                                                .profissao(v.getTurista().getProfissao())
+                                                                .registroGeral(v.getTurista().getRegistroGeral())
+                                                                .rua(v.getTurista().getRua())
+                                                                .telefone(v.getTurista().getTelefone())
                                                                 .build())
                                                 .build();
                         return DadosVoucherDTO.builder()
@@ -221,7 +216,7 @@ public class VoucherServiceImpl implements VoucherService {
                                                         .numeroLocal(v.getTurismo().getNumeroLocal())
                                                         .rua(v.getTurismo().getRua())
                                                         .telefone(v.getTurismo().getTelefone())
-                                                        .usuarioId(v.getTurismo().getUsuario().getId())
+                                                        .turistaId(v.getTurismo().getTurista().getId())
                                                         .build())
                                         .build();
 
@@ -230,12 +225,12 @@ public class VoucherServiceImpl implements VoucherService {
 
         @Override
         @Transactional
-        public List<DadosVoucherDTO> getVouchersSemUsuario(Long turismoId) {
+        public List<DadosVoucherDTO> getVouchersSemTurista(Long turismoId) {
 
                 Turismo turi = turismoRepository.findById(turismoId)
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                return voucherRepository.findAllByTurismoAndUsuarioIsNull(turi).stream()
+                return voucherRepository.findAllByTurismoAndTuristaIsNull(turi).stream()
                                 .map((Voucher v) -> DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
@@ -257,7 +252,7 @@ public class VoucherServiceImpl implements VoucherService {
                                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                                 .rua(v.getTurismo().getRua())
                                                                 .telefone(v.getTurismo().getTelefone())
-                                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                                .turistaId(v.getTurismo().getTurista().getId())
                                                                 .build())
                                                 .build()
 
@@ -266,12 +261,12 @@ public class VoucherServiceImpl implements VoucherService {
 
         @Override
         @Transactional
-        public List<DadosVoucherDTO> getVouchersComUsuario(Long id) {
+        public List<DadosVoucherDTO> getVouchersComTurista(Long id) {
 
                 Turismo turi = turismoRepository.findById(id)
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                return voucherRepository.findAllByTurismoAndUsuarioIsNotNull(turi).stream().map((Voucher v) ->
+                return voucherRepository.findAllByTurismoAndTuristaIsNotNull(turi).stream().map((Voucher v) ->
 
                 DadosVoucherDTO.builder()
                                 .id(v.getId())
@@ -294,27 +289,24 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                 .rua(v.getTurismo().getRua())
                                                 .telefone(v.getTurismo().getTelefone())
-                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                .turistaId(v.getTurismo().getTurista().getId())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .bairro(v.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(v.getUsuario()
+                                .turista(TuristaDTO.builder()
+                                                .bairro(v.getTurista().getBairro())
+                                                .cadastroPessoaFisica(v.getTurista()
                                                                 .getCadastroPessoaFisica())
-                                                .cidade(v.getUsuario().getCidade())
-                                                .dataCriacao(v.getUsuario().getDataCriacao())
-                                                .dataEdicao(v.getUsuario().getDataEdicao())
-                                                .dataNascimento(v.getUsuario().getDataNascimento())
-                                                .email(v.getUsuario().getEmail())
-                                                .estado(v.getUsuario().getEstado())
-                                                .id(v.getUsuario().getId())
-                                                .nome(v.getUsuario().getNome())
-                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
-                                                .numeroCasa(v.getUsuario().getNumeroCasa())
-                                                .profissao(v.getUsuario().getProfissao())
-                                                .registroGeral(v.getUsuario().getRegistroGeral())
-                                                .rua(v.getUsuario().getRua())
-                                                .senha(v.getUsuario().getSenha())
-                                                .telefone(v.getUsuario().getTelefone())
+                                                .cidade(v.getTurista().getCidade())
+                                                .dataCriacao(v.getTurista().getDataCriacao())
+                                                .dataEdicao(v.getTurista().getDataEdicao())
+                                                .dataNascimento(v.getTurista().getDataNascimento())
+                                                .estado(v.getTurista().getEstado())
+                                                .id(v.getTurista().getId())
+                                                .nome(v.getTurista().getNome())
+                                                .numeroCasa(v.getTurista().getNumeroCasa())
+                                                .profissao(v.getTurista().getProfissao())
+                                                .registroGeral(v.getTurista().getRegistroGeral())
+                                                .rua(v.getTurista().getRua())
+                                                .telefone(v.getTurista().getTelefone())
                                                 .build())
                                 .build()
 
@@ -323,12 +315,12 @@ public class VoucherServiceImpl implements VoucherService {
 
         @Override
         @Transactional
-        public List<DadosVoucherDTO> getVouchersDoUsuario(Long id) {
+        public List<DadosVoucherDTO> getVouchersDoTurista(Long id) {
 
-                Usuario usu = usuarioRepository.findById(id)
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository.findById(id)
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
-                return voucherRepository.findAllByUsuario(usu).stream().map((Voucher v) ->
+                return voucherRepository.findAllByTurista(turista).stream().map((Voucher v) ->
 
                 DadosVoucherDTO.builder()
                                 .id(v.getId())
@@ -351,27 +343,24 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                 .rua(v.getTurismo().getRua())
                                                 .telefone(v.getTurismo().getTelefone())
-                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                .turistaId(v.getTurismo().getTurista().getId())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .bairro(v.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(v.getUsuario()
+                                .turista(TuristaDTO.builder()
+                                                .bairro(v.getTurista().getBairro())
+                                                .cadastroPessoaFisica(v.getTurista()
                                                                 .getCadastroPessoaFisica())
-                                                .cidade(v.getUsuario().getCidade())
-                                                .dataCriacao(v.getUsuario().getDataCriacao())
-                                                .dataEdicao(v.getUsuario().getDataEdicao())
-                                                .dataNascimento(v.getUsuario().getDataNascimento())
-                                                .email(v.getUsuario().getEmail())
-                                                .estado(v.getUsuario().getEstado())
-                                                .id(v.getUsuario().getId())
-                                                .nome(v.getUsuario().getNome())
-                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
-                                                .numeroCasa(v.getUsuario().getNumeroCasa())
-                                                .profissao(v.getUsuario().getProfissao())
-                                                .registroGeral(v.getUsuario().getRegistroGeral())
-                                                .rua(v.getUsuario().getRua())
-                                                .senha(v.getUsuario().getSenha())
-                                                .telefone(v.getUsuario().getTelefone())
+                                                .cidade(v.getTurista().getCidade())
+                                                .dataCriacao(v.getTurista().getDataCriacao())
+                                                .dataEdicao(v.getTurista().getDataEdicao())
+                                                .dataNascimento(v.getTurista().getDataNascimento())
+                                                .estado(v.getTurista().getEstado())
+                                                .id(v.getTurista().getId())
+                                                .nome(v.getTurista().getNome())
+                                                .numeroCasa(v.getTurista().getNumeroCasa())
+                                                .profissao(v.getTurista().getProfissao())
+                                                .registroGeral(v.getTurista().getRegistroGeral())
+                                                .rua(v.getTurista().getRua())
+                                                .telefone(v.getTurista().getTelefone())
                                                 .build())
                                 .build()
 
@@ -384,7 +373,7 @@ public class VoucherServiceImpl implements VoucherService {
 
                 return voucherRepository.findById(id).map((Voucher v) -> {
 
-                        if (v.getUsuario() != null)
+                        if (v.getTurista() != null)
                                 return DadosVoucherDTO.builder()
                                                 .id(v.getId())
                                                 .codigo(v.getCodigo())
@@ -406,27 +395,24 @@ public class VoucherServiceImpl implements VoucherService {
                                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                                 .rua(v.getTurismo().getRua())
                                                                 .telefone(v.getTurismo().getTelefone())
-                                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                                .turistaId(v.getTurismo().getTurista().getId())
                                                                 .build())
-                                                .usuario(UsuarioDTO.builder()
-                                                                .bairro(v.getUsuario().getBairro())
-                                                                .cadastroPessoaFisica(v.getUsuario()
+                                                .turista(TuristaDTO.builder()
+                                                                .bairro(v.getTurista().getBairro())
+                                                                .cadastroPessoaFisica(v.getTurista()
                                                                                 .getCadastroPessoaFisica())
-                                                                .cidade(v.getUsuario().getCidade())
-                                                                .dataCriacao(v.getUsuario().getDataCriacao())
-                                                                .dataEdicao(v.getUsuario().getDataEdicao())
-                                                                .dataNascimento(v.getUsuario().getDataNascimento())
-                                                                .email(v.getUsuario().getEmail())
-                                                                .estado(v.getUsuario().getEstado())
-                                                                .id(v.getUsuario().getId())
-                                                                .nome(v.getUsuario().getNome())
-                                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
-                                                                .numeroCasa(v.getUsuario().getNumeroCasa())
-                                                                .profissao(v.getUsuario().getProfissao())
-                                                                .registroGeral(v.getUsuario().getRegistroGeral())
-                                                                .rua(v.getUsuario().getRua())
-                                                                .senha(v.getUsuario().getSenha())
-                                                                .telefone(v.getUsuario().getTelefone())
+                                                                .cidade(v.getTurista().getCidade())
+                                                                .dataCriacao(v.getTurista().getDataCriacao())
+                                                                .dataEdicao(v.getTurista().getDataEdicao())
+                                                                .dataNascimento(v.getTurista().getDataNascimento())
+                                                                .estado(v.getTurista().getEstado())
+                                                                .id(v.getTurista().getId())
+                                                                .nome(v.getTurista().getNome())
+                                                                .numeroCasa(v.getTurista().getNumeroCasa())
+                                                                .profissao(v.getTurista().getProfissao())
+                                                                .registroGeral(v.getTurista().getRegistroGeral())
+                                                                .rua(v.getTurista().getRua())
+                                                                .telefone(v.getTurista().getTelefone())
                                                                 .build())
                                                 .build();
 
@@ -451,7 +437,7 @@ public class VoucherServiceImpl implements VoucherService {
                                                         .numeroLocal(v.getTurismo().getNumeroLocal())
                                                         .rua(v.getTurismo().getRua())
                                                         .telefone(v.getTurismo().getTelefone())
-                                                        .usuarioId(v.getTurismo().getUsuario().getId())
+                                                        .turistaId(v.getTurismo().getTurista().getId())
                                                         .build())
                                         .build();
 
@@ -468,16 +454,16 @@ public class VoucherServiceImpl implements VoucherService {
                 Turismo turi = turismoRepository.findById(voucher.getTurismo().getId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository.findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
-                if (voucher.getUsuario() != null) {
+                if (voucher.getTurista() != null) {
                         throw new RegraNegocioException("Voucher expirado.");
                 }
 
                 voucher.setDataEdicao(dto.getDataEdicao());
                 voucher.setTurismo(turi);
-                voucher.setUsuario(usu);
+                voucher.setTurista(turista);
 
                 voucherRepository.save(voucher);
 
@@ -502,27 +488,24 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .numeroLocal(v.getTurismo().getNumeroLocal())
                                                 .rua(v.getTurismo().getRua())
                                                 .telefone(v.getTurismo().getTelefone())
-                                                .usuarioId(v.getTurismo().getUsuario().getId())
+                                                .turistaId(v.getTurismo().getTurista().getId())
                                                 .build())
-                                .usuario(UsuarioDTO.builder()
-                                                .bairro(v.getUsuario().getBairro())
-                                                .cadastroPessoaFisica(v.getUsuario()
+                                .turista(TuristaDTO.builder()
+                                                .bairro(v.getTurista().getBairro())
+                                                .cadastroPessoaFisica(v.getTurista()
                                                                 .getCadastroPessoaFisica())
-                                                .cidade(v.getUsuario().getCidade())
-                                                .dataCriacao(v.getUsuario().getDataCriacao())
-                                                .dataEdicao(v.getUsuario().getDataEdicao())
-                                                .dataNascimento(v.getUsuario().getDataNascimento())
-                                                .email(v.getUsuario().getEmail())
-                                                .estado(v.getUsuario().getEstado())
-                                                .id(v.getUsuario().getId())
-                                                .nome(v.getUsuario().getNome())
-                                                .nomeUsuario(v.getUsuario().getNomeUsuario())
-                                                .numeroCasa(v.getUsuario().getNumeroCasa())
-                                                .profissao(v.getUsuario().getProfissao())
-                                                .registroGeral(v.getUsuario().getRegistroGeral())
-                                                .rua(v.getUsuario().getRua())
-                                                .senha(v.getUsuario().getSenha())
-                                                .telefone(v.getUsuario().getTelefone())
+                                                .cidade(v.getTurista().getCidade())
+                                                .dataCriacao(v.getTurista().getDataCriacao())
+                                                .dataEdicao(v.getTurista().getDataEdicao())
+                                                .dataNascimento(v.getTurista().getDataNascimento())
+                                                .estado(v.getTurista().getEstado())
+                                                .id(v.getTurista().getId())
+                                                .nome(v.getTurista().getNome())
+                                                .numeroCasa(v.getTurista().getNumeroCasa())
+                                                .profissao(v.getTurista().getProfissao())
+                                                .registroGeral(v.getTurista().getRegistroGeral())
+                                                .rua(v.getTurista().getRua())
+                                                .telefone(v.getTurista().getTelefone())
                                                 .build())
                                 .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
@@ -532,12 +515,12 @@ public class VoucherServiceImpl implements VoucherService {
         @Transactional
         public void put(Long id, VoucherDTO dto) {
 
-                //TODO
+                // TODO
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
-                Usuario usu = usuarioRepository.findById(dto.getUsuarioId())
-                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+                Turista turista = turistaRepository.findById(dto.getTuristaId())
+                                .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 Voucher voucher = voucherRepository.findById(id)
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
@@ -547,7 +530,7 @@ public class VoucherServiceImpl implements VoucherService {
                 voucher.setDataCriacao(dto.getDataCriacao());
                 voucher.setDataEdicao(dto.getDataEdicao());
                 voucher.setTurismo(turi);
-                voucher.setUsuario(usu);
+                voucher.setTurista(turista);
 
                 voucherRepository.save(voucher);
 

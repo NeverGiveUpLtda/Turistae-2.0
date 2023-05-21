@@ -27,7 +27,7 @@ public class DadosTurismoDTO {
     private String descricao;
 
     // Relacionamentos
-    private UsuarioDTO usuario;
+    private TuristaDTO turista;
     private CategoriaDTO categoria;
 
     private List<ImagemDTO> imagens;

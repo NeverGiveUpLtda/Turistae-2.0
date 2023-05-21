@@ -13,13 +13,13 @@ public interface VoucherService {
     // Read
     List<DadosVoucherDTO> getAll();
 
-    List<DadosVoucherDTO> getVouchersSemUsuario(Long id);
+    List<DadosVoucherDTO> getVouchersSemTurista(Long turismoId);
 
-    List<DadosVoucherDTO> getVouchersComUsuario(Long id);
+    List<DadosVoucherDTO> getVouchersComTurista(Long turismoId);
 
-    List<DadosVoucherDTO> getVouchersPorTurismo(Long id);
+    List<DadosVoucherDTO> getVouchersPorTurismo(Long turismoId);
 
-    List<DadosVoucherDTO> getVouchersDoUsuario(Long id);
+    List<DadosVoucherDTO> getVouchersDoTurista(Long turistaId);
 
     DadosVoucherDTO getById(Long id);
 
