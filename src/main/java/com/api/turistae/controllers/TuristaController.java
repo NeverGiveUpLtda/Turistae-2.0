@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.turistae.dtos.DadosTuristaDTO;
 import com.api.turistae.dtos.TuristaDTO;
-import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.TuristaService;
-import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
 
 import jakarta.validation.Valid;

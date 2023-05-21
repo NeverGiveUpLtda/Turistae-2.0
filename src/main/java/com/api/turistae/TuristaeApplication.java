@@ -10,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.models.Categoria;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Imagem;
@@ -25,7 +24,6 @@ import com.api.turistae.repositorys.ReviewRepository;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.TuristaRepository;
 import com.api.turistae.repositorys.VoucherRepository;
-import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
 import com.api.turistae.utils.VoucherUtils;
 

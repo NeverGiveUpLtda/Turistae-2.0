@@ -2,7 +2,6 @@ package com.api.turistae.dtos;
 
 import java.time.LocalDateTime;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
