@@ -8,7 +8,11 @@ import com.api.turistae.models.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-    @Query("SELECT u FROM Usuario u WHERE u.email = :email OR u.nome = :nome AND u.senha = :senha")
-    Usuario findByEmailOrNomeAndSenha(@Param("email") String email, @Param("nome") String nome, @Param("senha") String senha);
+    Usuario findByEmail(String email);
+
+    Usuario findByNome(String nome);
+
+    @Query("SELECT u FROM Usuario u WHERE u.email = :emailOrNome OR u.nome = :emailOrNome")
+    Usuario findByEmailOrNome(@Param("emailOrNome") String emailOrNome);
 
 }
