@@ -30,20 +30,8 @@ public class Turista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    //TODO
-    // @Column(length = 25, nullable = false, unique = true)
-    // private String nomeUsuario;
-
-    //TODO
-    // @Column(nullable = false)
-    // private String senha;
-
     @Column(length = 200, nullable = false)
     private String nome;
-
-    //TODO
-    // @Column(length = 200, nullable = false, unique = true)
-    // private String email;
 
     @Column(nullable = false)
     private long telefone;
