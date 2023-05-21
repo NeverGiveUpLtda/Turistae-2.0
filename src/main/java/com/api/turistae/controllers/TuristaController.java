@@ -57,10 +57,6 @@ public class TuristaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postTurista(@Valid @RequestBody TuristaDTO turistaDTO) {
 
-        //TODO
-        turistaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        turistaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Post turista: {}", turistaDTO);
 
         //  Se turista ou email já exisirem na tabela, retornar erro

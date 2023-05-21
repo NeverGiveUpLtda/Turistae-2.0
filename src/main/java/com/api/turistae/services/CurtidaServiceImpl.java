@@ -16,6 +16,7 @@ import com.api.turistae.models.Turista;
 import com.api.turistae.repositorys.CurtidaRepository;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.TuristaRepository;
+import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -59,8 +60,8 @@ public class CurtidaServiceImpl implements CurtidaService {
 
                 Curtida curtida = new Curtida();
 
-                curtida.setDataCriacao(dto.getDataCriacao());
-                curtida.setDataEdicao(dto.getDataEdicao());
+                curtida.setDataCriacao(DataUtils.getDataAtualComMascara());
+                curtida.setDataEdicao(DataUtils.getDataAtualComMascara());
                 curtida.setTurismo(turis);
                 curtida.setTurista(turista);
 
@@ -282,7 +283,7 @@ public class CurtidaServiceImpl implements CurtidaService {
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
                 curtida.setDataCriacao(dto.getDataCriacao());
-                curtida.setDataEdicao(dto.getDataEdicao());
+                curtida.setDataEdicao(DataUtils.getDataAtualComMascara());
                 curtida.setId(dto.getId());
                 curtida.setTurismo(turi);
                 curtida.setTurista(turista);

@@ -16,6 +16,8 @@ import com.api.turistae.models.Voucher;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.TuristaRepository;
 import com.api.turistae.repositorys.VoucherRepository;
+import com.api.turistae.utils.DataUtils;
+import com.api.turistae.utils.VoucherUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -53,10 +55,10 @@ public class VoucherServiceImpl implements VoucherService {
 
                 Voucher voucher = new Voucher();
 
-                voucher.setCodigo(dto.getCodigo());
+                voucher.setCodigo(VoucherUtils.gerarVoucher(turi.getId()));
                 voucher.setValor(dto.getValor());
-                voucher.setDataCriacao(dto.getDataCriacao());
-                voucher.setDataEdicao(dto.getDataEdicao());
+                voucher.setDataCriacao(DataUtils.getDataAtualComMascara());
+                voucher.setDataEdicao(DataUtils.getDataAtualComMascara());
                 voucher.setTurismo(turi);
 
                 Voucher voucherGerado;
@@ -461,7 +463,7 @@ public class VoucherServiceImpl implements VoucherService {
                         throw new RegraNegocioException("Voucher expirado.");
                 }
 
-                voucher.setDataEdicao(dto.getDataEdicao());
+                voucher.setDataEdicao(DataUtils.getDataAtualComMascara());
                 voucher.setTurismo(turi);
                 voucher.setTurista(turista);
 
@@ -515,7 +517,6 @@ public class VoucherServiceImpl implements VoucherService {
         @Transactional
         public void put(Long id, VoucherDTO dto) {
 
-                // TODO
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
                                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
@@ -525,10 +526,10 @@ public class VoucherServiceImpl implements VoucherService {
                 Voucher voucher = voucherRepository.findById(id)
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
-                voucher.setCodigo(dto.getCodigo());
+                voucher.setCodigo(VoucherUtils.gerarVoucher(turi.getId()));
                 voucher.setValor(dto.getValor());
                 voucher.setDataCriacao(dto.getDataCriacao());
-                voucher.setDataEdicao(dto.getDataEdicao());
+                voucher.setDataEdicao(DataUtils.getDataAtualComMascara());
                 voucher.setTurismo(turi);
                 voucher.setTurista(turista);
 

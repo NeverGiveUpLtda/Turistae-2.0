@@ -13,6 +13,7 @@ import com.api.turistae.models.Imagem;
 import com.api.turistae.models.Turismo;
 import com.api.turistae.repositorys.ImagemRepository;
 import com.api.turistae.repositorys.TurismoRepository;
+import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -46,8 +47,8 @@ public class ImagemServiceImpl implements ImagemService {
 
         Imagem imagem = new Imagem();
 
-        imagem.setDataCriacao(dto.getDataCriacao());
-        imagem.setDataEdicao(dto.getDataEdicao());
+        imagem.setDataCriacao(DataUtils.getDataAtualComMascara());
+        imagem.setDataEdicao(DataUtils.getDataAtualComMascara());
         imagem.setString64(dto.getString64());
         imagem.setTurismo(turis);
 
@@ -158,7 +159,7 @@ public class ImagemServiceImpl implements ImagemService {
                 .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
 
         imagem.setDataCriacao(dto.getDataCriacao());
-        imagem.setDataEdicao(dto.getDataEdicao());
+        imagem.setDataEdicao(DataUtils.getDataAtualComMascara());
         imagem.setString64(dto.getString64());
         imagem.setTurismo(turis);
 

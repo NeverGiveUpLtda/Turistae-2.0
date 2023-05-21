@@ -20,7 +20,6 @@ import com.api.turistae.dtos.DadosTurismoDTO;
 import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.TurismoService;
-import com.api.turistae.utils.DataUtils;
 
 import jakarta.validation.Valid;
 
@@ -81,10 +80,6 @@ public class TurismoController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postTurismo(@Valid @RequestBody TurismoDTO turismoDTO) {
 
-        //TODO
-        turismoDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Post turismo: {}", turismoDTO);
 
         // Se turismo já exisir na tabela, retornar erro
@@ -106,9 +101,6 @@ public class TurismoController {
     // HttpPut
     @PutMapping("{id}")
     public void putTurismo(@PathVariable Long id, @Valid @RequestBody TurismoDTO turismoDTO) {
-
-        //TODO
-        turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put turismo id {}: {}", id, turismoDTO);
 

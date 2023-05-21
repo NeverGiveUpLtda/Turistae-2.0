@@ -22,6 +22,7 @@ import com.api.turistae.models.Turista;
 import com.api.turistae.repositorys.CategoriaRepository;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.TuristaRepository;
+import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -68,8 +69,8 @@ public class TurismoServiceImpl implements TurismoService {
                 turismo.setBairro(dto.getBairro());
                 turismo.setCadastroNacionalPessoasJuridicas(dto.getCadastroNacionalPessoasJuridicas());
                 turismo.setCidade(dto.getCidade());
-                turismo.setDataCriacao(dto.getDataCriacao());
-                turismo.setDataEdicao(dto.getDataEdicao());
+                turismo.setDataCriacao(DataUtils.getDataAtualComMascara());
+                turismo.setDataEdicao(DataUtils.getDataAtualComMascara());
                 turismo.setDescricao(dto.getDescricao());
                 turismo.setEstado(dto.getEstado());
                 turismo.setNome(dto.getNome());
@@ -445,7 +446,7 @@ public class TurismoServiceImpl implements TurismoService {
                 turismo.setCadastroNacionalPessoasJuridicas(dto.getCadastroNacionalPessoasJuridicas());
                 turismo.setCidade(dto.getCidade());
                 turismo.setDataCriacao(dto.getDataCriacao());
-                turismo.setDataEdicao(dto.getDataEdicao());
+                turismo.setDataEdicao(DataUtils.getDataAtualComMascara());
                 turismo.setDescricao(dto.getDescricao());
                 turismo.setEstado(dto.getEstado());
                 turismo.setNome(dto.getNome());

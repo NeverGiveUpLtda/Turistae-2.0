@@ -20,7 +20,6 @@ import com.api.turistae.dtos.CategoriaDTO;
 import com.api.turistae.dtos.DadosCategoriaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.CategoriaService;
-import com.api.turistae.utils.DataUtils;
 
 import jakarta.validation.Valid;
 
@@ -57,10 +56,6 @@ public class CategoriaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 
-        //TODO
-        categoriaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Post categoria: {}", categoriaDTO);
 
         // Retorno do cadastro
@@ -77,9 +72,6 @@ public class CategoriaController {
     // HttpPut
     @PutMapping("{id}")
     public void putCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
-
-        //TODO
-        categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put categoria id {}: {}", id, categoriaDTO);
 

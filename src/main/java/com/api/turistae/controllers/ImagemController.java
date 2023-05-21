@@ -20,7 +20,6 @@ import com.api.turistae.dtos.DadosImagemDTO;
 import com.api.turistae.dtos.ImagemDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.ImagemService;
-import com.api.turistae.utils.DataUtils;
 import com.api.turistae.utils.ImagemUtils;
 
 import jakarta.validation.Valid;
@@ -71,9 +70,6 @@ public class ImagemController {
             throw new RegraNegocioException("Imagem inválida: " + validacao);
         }
 
-        imagemDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        imagemDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Post Imagem: {}", imagemDTO);
 
         // Se Imagem já exisir na tabela, retornar erro
@@ -92,9 +88,6 @@ public class ImagemController {
     // HttpPut
     @PutMapping("{id}")
     public void putImagem(@PathVariable Long id, @Valid @RequestBody ImagemDTO imagemDTO) {
-
-        //TODO
-        imagemDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put Imagem id {}: {}", id, imagemDTO);
 

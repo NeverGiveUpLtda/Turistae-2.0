@@ -12,6 +12,7 @@ import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Categoria;
 import com.api.turistae.models.Turismo;
 import com.api.turistae.repositorys.CategoriaRepository;
+import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         categoria.setNome(dto.getNome());
         categoria.setDataCriacao(dto.getDataCriacao());
-        categoria.setDataEdicao(dto.getDataEdicao());
+        categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         Categoria categoriaGerada;
 
@@ -122,7 +123,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
         categoria.setNome(dto.getNome());
         categoria.setDataCriacao(dto.getDataCriacao());
-        categoria.setDataEdicao(dto.getDataEdicao());
+        categoria.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         categoriaRepository.save(categoria);
 

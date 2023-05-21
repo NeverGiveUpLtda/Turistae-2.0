@@ -20,8 +20,6 @@ import com.api.turistae.dtos.DadosVoucherDTO;
 import com.api.turistae.dtos.VoucherDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.VoucherService;
-import com.api.turistae.utils.DataUtils;
-import com.api.turistae.utils.VoucherUtils;
 
 import jakarta.validation.Valid;
 
@@ -86,11 +84,6 @@ public class VoucherController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postVoucher(@Valid @RequestBody VoucherDTO voucherDTO) {
 
-        //TODO
-        voucherDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-        voucherDTO.setCodigo(VoucherUtils.gerarVoucher(voucherDTO.getTurismoId()));
-
         logger.info("Post Voucher: {}", voucherDTO);
 
         // Retorno do cadastro
@@ -108,9 +101,6 @@ public class VoucherController {
     @PostMapping("/claim")
     public void claimVoucher(@Valid @RequestBody VoucherDTO voucherDTO) {
 
-        //TODO
-        voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Claim Voucher: {}", voucherDTO);
 
         try {
@@ -123,10 +113,6 @@ public class VoucherController {
     // HttpPut
     @PutMapping("{id}")
     public void putVoucher(@PathVariable Long id, @Valid @RequestBody VoucherDTO voucherDTO) {
-
-        //TODO
-        voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-        voucherDTO.setCodigo(VoucherUtils.gerarVoucher(voucherDTO.getTurismoId()));
 
         logger.info("Put Voucher id {}: {}", id, voucherDTO);
 

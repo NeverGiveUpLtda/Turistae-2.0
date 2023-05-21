@@ -20,7 +20,6 @@ import com.api.turistae.dtos.DadosReviewDTO;
 import com.api.turistae.dtos.ReviewDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.ReviewService;
-import com.api.turistae.utils.DataUtils;
 
 import jakarta.validation.Valid;
 
@@ -63,11 +62,6 @@ public class ReviewController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postReview(@Valid @RequestBody ReviewDTO reviewDTO) {
 
-
-        //TODO
-        reviewDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        reviewDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Post review: {}", reviewDTO);
 
         // Se review já exisir na tabela, retornar erro
@@ -84,9 +78,6 @@ public class ReviewController {
     // HttpPut
     @PutMapping("{id}")
     public void putReview(@PathVariable Long id, @Valid @RequestBody ReviewDTO reviewDTO) {
-
-        //TODO
-        reviewDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put review id {}: {}", id, reviewDTO);
 

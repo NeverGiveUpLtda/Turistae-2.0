@@ -20,7 +20,6 @@ import com.api.turistae.dtos.CurtidaDTO;
 import com.api.turistae.dtos.DadosCurtidaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.services.CurtidaService;
-import com.api.turistae.utils.DataUtils;
 
 import jakarta.validation.Valid;
 
@@ -63,10 +62,6 @@ public class CurtidaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postCurtida(@Valid @RequestBody CurtidaDTO curtidaDTO) {
 
-        // TODO
-        curtidaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
-
         logger.info("Post Curtida: {}", curtidaDTO);
 
         // Retorno do cadastro
@@ -83,10 +78,6 @@ public class CurtidaController {
     @PostMapping("/curtir")
     @ResponseStatus(HttpStatus.CREATED)
     public Long curtir(@Valid @RequestBody CurtidaDTO curtidaDTO) {
-
-        // TODO
-        curtidaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
-        curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Curtir: {}", curtidaDTO);
 
@@ -135,9 +126,6 @@ public class CurtidaController {
     // HttpPut
     @PutMapping("{id}")
     public void putCurtida(@PathVariable Long id, @Valid @RequestBody CurtidaDTO curtidaDTO) {
-
-        // TODO
-        curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put Curtida id {}: {}", id, curtidaDTO);
 

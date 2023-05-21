@@ -16,6 +16,7 @@ import com.api.turistae.models.Review;
 import com.api.turistae.models.Turista;
 import com.api.turistae.models.Turismo;
 import com.api.turistae.repositorys.TuristaRepository;
+import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -51,8 +52,8 @@ public class TuristaServiceImpl implements TuristaService {
         turista.setProfissao(dto.getProfissao());
         turista.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
         turista.setRegistroGeral(dto.getRegistroGeral());
-        turista.setDataCriacao(dto.getDataCriacao());
-        turista.setDataEdicao(dto.getDataEdicao());
+        turista.setDataCriacao(DataUtils.getDataAtualComMascara());
+        turista.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         Turista turistaGerado;
 
@@ -200,7 +201,7 @@ public class TuristaServiceImpl implements TuristaService {
         turista.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
         turista.setRegistroGeral(dto.getRegistroGeral());
         turista.setDataCriacao(dto.getDataCriacao());
-        turista.setDataEdicao(dto.getDataEdicao());
+        turista.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         turistaRepository.save(turista);
 

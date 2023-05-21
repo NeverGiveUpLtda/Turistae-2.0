@@ -16,6 +16,7 @@ import com.api.turistae.models.Turista;
 import com.api.turistae.repositorys.ReviewRepository;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.TuristaRepository;
+import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -61,8 +62,8 @@ public class ReviewServiceImpl implements ReviewService {
 
                 review.setTexto(dto.getTexto());
                 review.setNota(dto.getNota());
-                review.setDataCriacao(dto.getDataCriacao());
-                review.setDataEdicao(dto.getDataEdicao());
+                review.setDataCriacao(DataUtils.getDataAtualComMascara());
+                review.setDataEdicao(DataUtils.getDataAtualComMascara());
                 review.setTurismo(turis);
                 review.setTurista(turista);
 
@@ -238,7 +239,7 @@ public class ReviewServiceImpl implements ReviewService {
                                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
                 review.setDataCriacao(dto.getDataCriacao());
-                review.setDataEdicao(dto.getDataEdicao());
+                review.setDataEdicao(DataUtils.getDataAtualComMascara());
                 review.setNota(dto.getNota());
                 review.setTexto(dto.getTexto());
                 review.setTurismo(turi);
