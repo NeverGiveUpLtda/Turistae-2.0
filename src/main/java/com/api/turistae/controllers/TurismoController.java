@@ -39,37 +39,37 @@ public class TurismoController {
     }
 
     // HttpGet
-    @GetMapping
+    @GetMapping("/get")
     public List<DadosTurismoDTO> getTurismos() {
         logger.info("Get todos turismos.");
         return turismoService.getAll();
     }
 
-    @GetMapping("/curtida")
+    @GetMapping("/get/curtida")
     public List<DadosTurismoDTO> getTurismosPorCurtidas() {
         logger.info("Get todos turismos por curtidas.");
         return turismoService.getAllOrderByCurtidas();
     }
 
-    @GetMapping("/categoria/{id}")
+    @GetMapping("/get/categoria/{id}")
     public List<DadosTurismoDTO> getTurismosPorCategoria(@PathVariable Long id) {
         logger.info("Get todos turismos por categoria.");
         return turismoService.getAllByCategoria(id);
     }
 
-    @GetMapping("/nota")
+    @GetMapping("/get/nota")
     public List<DadosTurismoDTO> getTurismosPorNota() {
         logger.info("Get todos turismos por nota.");
         return turismoService.getAllOrderByNota();
     }
 
-    @GetMapping("/nota/{id}")
+    @GetMapping("/get/nota/{id}")
     public Double getNotaTurismo(@PathVariable Long id) {
         logger.info("Get nota turismo id: {}", id);
         return turismoService.calcularMediaNotasPorId(id);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/get/{id}")
     public DadosTurismoDTO getTurismoPorId(@PathVariable Long id) {
         logger.info("Get turismo id: {}", id);
         return turismoService.getById(id);
@@ -119,6 +119,7 @@ public class TurismoController {
 
     // HttpDelete
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTurismo(@PathVariable Long id) {
 
         logger.info("Delete turismo id {}", id);

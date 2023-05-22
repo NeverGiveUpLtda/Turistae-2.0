@@ -11,7 +11,7 @@ import com.api.turistae.dtos.DadosCategoriaDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Categoria;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.repositorys.CategoriaRepository;
+import com.api.turistae.repositories.CategoriaRepository;
 import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;

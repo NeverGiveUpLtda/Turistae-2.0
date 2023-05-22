@@ -1,16 +1,12 @@
 package com.api.turistae.controllers;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -38,41 +34,16 @@ public class CurtidaController {
         logger.info("Curtida Controller iniciado.");
     }
 
-    // HttpGet
-    @GetMapping
-    public List<DadosCurtidaDTO> getCurtidas() {
-        logger.info("Get todas Curtidas.");
-        return curtidaService.getAll();
-    }
-
-    @GetMapping("/turismo/{id}")
+    @GetMapping("/get/turismo/{id}")
     public int getQuantidadeCurtidas(@PathVariable Long id) {
         logger.info("Get quantidade de curtidas por turismo: {}", id);
         return curtidaService.getByTurismo(id).size();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/get/{id}")
     public DadosCurtidaDTO getCurtidaPorId(@PathVariable Long id) {
         logger.info("Get Curtida id: {}", id);
         return curtidaService.getById(id);
-    }
-
-    // HttpPost
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Long postCurtida(@Valid @RequestBody CurtidaDTO curtidaDTO) {
-
-        logger.info("Post Curtida: {}", curtidaDTO);
-
-        // Retorno do cadastro
-        Long id = 0l;
-        try {
-            id = curtidaService.post(curtidaDTO);
-        } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Curtida indisponível.");
-        }
-
-        return id;
     }
 
     @PostMapping("/curtir")
@@ -121,29 +92,6 @@ public class CurtidaController {
 
         curtidaService.delete(id);
 
-    }
-
-    // HttpPut
-    @PutMapping("{id}")
-    public void putCurtida(@PathVariable Long id, @Valid @RequestBody CurtidaDTO curtidaDTO) {
-
-        logger.info("Put Curtida id {}: {}", id, curtidaDTO);
-
-        try {
-            curtidaService.put(id, curtidaDTO);
-        } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Curtida indisponível.");
-        }
-
-    }
-
-    // HttpDelete
-    @DeleteMapping("{id}")
-    public void deleteCurtida(@PathVariable Long id) {
-
-        logger.info("Delete Curtida id {}", id);
-
-        curtidaService.delete(id);
     }
 
 }

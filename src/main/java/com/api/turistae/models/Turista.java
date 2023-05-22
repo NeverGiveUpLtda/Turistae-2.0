@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -65,6 +66,9 @@ public class Turista {
     private String registroGeral;
 
     // Relacionamentos
+    @OneToOne(mappedBy = "turista", fetch = FetchType.EAGER)
+    private Usuario usuario;
+
     @OneToMany(mappedBy = "turista", fetch = FetchType.EAGER)
     private List<Turismo> turismos;
 

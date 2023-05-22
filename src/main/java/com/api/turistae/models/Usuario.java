@@ -2,6 +2,7 @@ package com.api.turistae.models;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -13,6 +14,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -42,6 +45,11 @@ public class Usuario implements UserDetails {
 
     private String perfil;
 
+    // Relacionamentos
+    @OneToOne
+    @JoinColumn(name = "turista_id")
+    private Turista turista;
+
     // Timestamps
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
@@ -56,7 +64,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override

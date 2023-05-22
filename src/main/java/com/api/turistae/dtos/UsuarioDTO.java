@@ -1,5 +1,7 @@
 package com.api.turistae.dtos;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -14,6 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class UsuarioDTO {
+
+    private Integer id;
 
     @NotBlank(message = "O campo Email deve ser preencido.")
     @Email(message = "Email inválido.")
@@ -30,4 +34,8 @@ public class UsuarioDTO {
     private String senha;
 
     private String perfil;
+
+    // Timestamps
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataEdicao;
 }

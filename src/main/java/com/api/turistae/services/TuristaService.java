@@ -16,7 +16,7 @@ public interface TuristaService {
     DadosTuristaDTO getById(Long id);
 
     // Update
-    void put(Long id, TuristaDTO dto);
+    void put(TuristaDTO dto);
 
     // Delete
     void delete(Long id);

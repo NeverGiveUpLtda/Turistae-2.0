@@ -4,17 +4,27 @@ import java.util.List;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.api.turistae.dtos.TuristaDTO;
 import com.api.turistae.dtos.UsuarioDTO;
 import com.api.turistae.models.Usuario;
 
 public interface UsuarioService {
 
-    UsuarioDTO obterUsuarioPorId(Integer id);
+    // Create
+    Integer post(UsuarioDTO dto);
 
-    Usuario salvar(UsuarioDTO dto);
+    // Read
+    List<UsuarioDTO> getAll();
 
-    List<UsuarioDTO> obterUsuarios();
+    UsuarioDTO getById(Integer id);
 
-    UserDetails autenticar(Usuario usuario);
+    // Update
+    void put(TuristaDTO dto);
+
+    // Delete
+    void delete(Integer id);
+
+    // Métodos
+    UserDetails auth(Usuario usuario);
 
 }

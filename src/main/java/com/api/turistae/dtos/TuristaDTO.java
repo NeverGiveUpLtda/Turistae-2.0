@@ -2,6 +2,7 @@ package com.api.turistae.dtos;
 
 import java.time.LocalDateTime;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
@@ -70,6 +71,9 @@ public class TuristaDTO {
     @Size(min = 12, max = 12, message = "RG inválido. Insira um RG válido com 12 caracteres.")
     @Pattern(regexp = "\\d{2}\\.\\d{3}\\.\\d{3}-\\d{1}", message = "RG inválido. Ex: xx.xxx.xxx-x.")
     private String registroGeral;
+
+    @Valid
+    private UsuarioDTO usuarioDTO;
 
     // Timestamps
     private LocalDateTime dataCriacao;

@@ -11,8 +11,8 @@ import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Imagem;
 import com.api.turistae.models.Turismo;
-import com.api.turistae.repositorys.ImagemRepository;
-import com.api.turistae.repositorys.TurismoRepository;
+import com.api.turistae.repositories.ImagemRepository;
+import com.api.turistae.repositories.TurismoRepository;
 import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;

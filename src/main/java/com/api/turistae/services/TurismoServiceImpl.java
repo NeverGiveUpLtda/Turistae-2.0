@@ -19,9 +19,9 @@ import com.api.turistae.models.Imagem;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Review;
 import com.api.turistae.models.Turista;
-import com.api.turistae.repositorys.CategoriaRepository;
-import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.TuristaRepository;
+import com.api.turistae.repositories.CategoriaRepository;
+import com.api.turistae.repositories.TurismoRepository;
+import com.api.turistae.repositories.TuristaRepository;
 import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;

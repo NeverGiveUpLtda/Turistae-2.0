@@ -39,23 +39,10 @@ public class ImagemController {
         logger.info("Imagem Controller iniciado.");
     }
 
-    // HttpGet
-    @GetMapping
-    public List<DadosImagemDTO> getImagens() {
-        logger.info("Get todas Imagens.");
-        return imagemService.getAll();
-    }
-
-    @GetMapping("/turismo/{id}")
+    @GetMapping("/get/turismo/{id}")
     public List<DadosImagemDTO> getImagensPorTurismo(@PathVariable Long id) {
         logger.info("Get todas Imagens por turismo id: {}", id);
         return imagemService.getByTurismo(id);
-    }
-
-    @GetMapping("{id}")
-    public DadosImagemDTO getImagemPorId(@PathVariable Long id) {
-        logger.info("Get Imagem id: {}", id);
-        return imagemService.getById(id);
     }
 
     // HttpPost
@@ -102,6 +89,7 @@ public class ImagemController {
 
     // HttpDelete
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteImagem(@PathVariable Long id) {
 
         logger.info("Delete Imagem id {}", id);

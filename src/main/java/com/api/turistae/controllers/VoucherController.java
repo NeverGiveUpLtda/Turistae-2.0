@@ -126,6 +126,7 @@ public class VoucherController {
 
     // HttpDelete
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteVoucher(@PathVariable Long id) {
 
         logger.info("Delete Voucher id {}", id);

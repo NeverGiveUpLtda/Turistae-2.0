@@ -38,23 +38,10 @@ public class ReviewController {
         logger.info("Review Controller iniciado.");
     }
 
-    // HttpGet
-    @GetMapping
-    public List<DadosReviewDTO> getReviews() {
-        logger.info("Get todos reviews.");
-        return reviewService.getAll();
-    }
-
-    @GetMapping("/turismo/{id}")
+    @GetMapping("/get/turismo/{id}")
     public List<DadosReviewDTO> getReviewsPorTurismo(@PathVariable Long id) {
         logger.info("Get todas Reviews por turismo id: {}", id);
         return reviewService.getByTurismo(id);
-    }
-
-    @GetMapping("{id}")
-    public DadosReviewDTO getReviewPorId(@PathVariable Long id) {
-        logger.info("Get review id: {}", id);
-        return reviewService.getById(id);
     }
 
     // HttpPost
@@ -92,6 +79,7 @@ public class ReviewController {
 
     // HttpDelete
     @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteReview(@PathVariable Long id) {
 
         logger.info("Delete review id {}", id);

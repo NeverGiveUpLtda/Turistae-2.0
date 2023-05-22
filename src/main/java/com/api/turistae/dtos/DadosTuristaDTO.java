@@ -17,6 +17,9 @@ public class DadosTuristaDTO {
     // Atributos
     private long id;
     private String nome;
+    private String email;
+    private String nomeUsuario;
+    private Integer usuarioId;
     private long telefone;
     private int numeroCasa;
     private String rua;

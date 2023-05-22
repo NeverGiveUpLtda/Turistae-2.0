@@ -1,4 +1,4 @@
-package com.api.turistae.repositorys;
+package com.api.turistae.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

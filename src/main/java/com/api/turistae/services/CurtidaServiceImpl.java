@@ -13,9 +13,9 @@ import com.api.turistae.exceptions.RegraNegocioException;
 import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Turismo;
 import com.api.turistae.models.Turista;
-import com.api.turistae.repositorys.CurtidaRepository;
-import com.api.turistae.repositorys.TurismoRepository;
-import com.api.turistae.repositorys.TuristaRepository;
+import com.api.turistae.repositories.CurtidaRepository;
+import com.api.turistae.repositories.TurismoRepository;
+import com.api.turistae.repositories.TuristaRepository;
 import com.api.turistae.utils.DataUtils;
 
 import jakarta.transaction.Transactional;

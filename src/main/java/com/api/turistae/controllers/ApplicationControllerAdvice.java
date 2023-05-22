@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.api.turistae.exceptions.ApiError;
 import com.api.turistae.exceptions.RegraNegocioException;
@@ -35,6 +36,7 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handlerConstraintViolationException(
             ConstraintViolationException ex) {
 
@@ -48,9 +50,10 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
 
-        logger.error("Erro de validaão de método : {}", ex.getMessage());
+        logger.error("Erro de validação de método : {}", ex.getMessage());
 
         List<String> erros = ex.getBindingResult().getAllErrors().stream()
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -59,9 +62,10 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(InvalidFormatException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleInvalidFormatException(InvalidFormatException ex) {
 
-        logger.error("Erro de validaão de formato : {}", ex.getMessage());
+        logger.error("Erro de validação de formato : {}", ex.getMessage());
 
         String field = ex.getPath().get(0).getFieldName();
         String message = String.format("Campo %s com formato inválido.", field);
@@ -69,11 +73,21 @@ public class ApplicationControllerAdvice {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ApiError handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
 
         logger.error("Erro de body na requisição: {}", ex.getMessage());
 
         return new ApiError("Requisição com erro nos parâmetros.");
     }
-    
+
+    @ExceptionHandler(ResponseStatusException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ApiError handleResponseStatusException(ResponseStatusException ex) {
+
+        logger.error("Erro de login: {}", ex.getMessage());
+
+        return new ApiError("Usuário ou senha inválidos.");
+
+    }
 }
