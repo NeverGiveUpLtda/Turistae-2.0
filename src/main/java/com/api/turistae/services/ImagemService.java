@@ -10,6 +10,8 @@ public interface ImagemService {
     // Create
     Long post(ImagemDTO dto);
 
+    List<Long> postImagens(Long turismoId, List<ImagemDTO> dto);
+
     // Read
     List<DadosImagemDTO> getAll();
 

@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.turistae.dtos.DadosTurismoDTO;
+import com.api.turistae.dtos.ImagemDTO;
 import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.exceptions.RegraNegocioException;
+import com.api.turistae.services.ImagemService;
 import com.api.turistae.services.TurismoService;
+import com.api.turistae.utils.ImagemUtils;
 
 import jakarta.validation.Valid;
 
@@ -29,11 +32,13 @@ public class TurismoController {
 
     // Atributos
     private TurismoService turismoService;
+    private ImagemService imagemService;
     private final Logger logger;
 
     // Construtor
-    public TurismoController(TurismoService turismoService) {
+    public TurismoController(TurismoService turismoService, ImagemService imagemService) {
         this.turismoService = turismoService;
+        this.imagemService = imagemService;
         this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Turismo Controller iniciado.");
     }
@@ -85,8 +90,16 @@ public class TurismoController {
         // Se turismo já exisir na tabela, retornar erro
         // Retorno do cadastro
         Long id = 0l;
+        List<Long> idsImagens = null;
+        for (ImagemDTO dto : turismoDTO.getImagens()) {
+            String validacao = ImagemUtils.validarImagem(dto.getString64());
+            if (!"valida".equals(validacao))
+                throw new RegraNegocioException("Imagem inválida: " + validacao);
+        }
         try {
             id = turismoService.post(turismoDTO);
+            idsImagens = imagemService.postImagens(id, turismoDTO.getImagens());
+            logger.info("Ids das imagens: {}", idsImagens);
         } catch (DataIntegrityViolationException e) {
             if (e.getMessage().contains("cadastro_nacional_pessoa_juridica_UNIQUE")) {
                 throw new RegraNegocioException("CNPJ indisponível.");

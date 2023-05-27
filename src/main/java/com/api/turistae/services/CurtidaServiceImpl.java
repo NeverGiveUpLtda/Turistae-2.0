@@ -81,8 +81,8 @@ public class CurtidaServiceImpl implements CurtidaService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(c.getTurismo().getId())
                                                 .bairro(c.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                c.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                c.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(c.getTurismo().getCategoria().getId())
                                                 .cidade(c.getTurismo().getCidade())
                                                 .dataCriacao(c.getTurismo().getDataCriacao())
@@ -132,8 +132,8 @@ public class CurtidaServiceImpl implements CurtidaService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(c.getTurismo().getId())
                                                 .bairro(c.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                c.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                c.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(c.getTurismo().getCategoria().getId())
                                                 .cidade(c.getTurismo().getCidade())
                                                 .dataCriacao(c.getTurismo().getDataCriacao())
@@ -179,8 +179,8 @@ public class CurtidaServiceImpl implements CurtidaService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(c.getTurismo().getId())
                                                 .bairro(c.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                c.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                c.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(c.getTurismo().getCategoria().getId())
                                                 .cidade(c.getTurismo().getCidade())
                                                 .dataCriacao(c.getTurismo().getDataCriacao())
@@ -233,8 +233,8 @@ public class CurtidaServiceImpl implements CurtidaService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(c.getTurismo().getId())
                                                 .bairro(c.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                c.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                c.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(c.getTurismo().getCategoria().getId())
                                                 .cidade(c.getTurismo().getCidade())
                                                 .dataCriacao(c.getTurismo().getDataCriacao())

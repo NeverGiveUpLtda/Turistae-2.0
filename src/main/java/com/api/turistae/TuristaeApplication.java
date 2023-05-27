@@ -272,7 +272,7 @@ public class TuristaeApplication {
 
                 turismo = new Turismo();
                 turismo.setBairro(turistaSalvo.getBairro());
-                turismo.setCadastroNacionalPessoasJuridicas("12.345.678/0001-" + (x + 10));
+                turismo.setCadastroNacionalPessoasJuridica("12.345.678/0001-" + (x + 10));
                 turismo.setCategoria(categoriaSalva);
                 turismo.setCidade(turistaSalvo.getCidade());
                 turismo.setDataCriacao(turistaSalvo.getDataCriacao());

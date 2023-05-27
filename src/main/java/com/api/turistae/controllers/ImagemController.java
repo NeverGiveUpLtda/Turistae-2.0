@@ -50,7 +50,6 @@ public class ImagemController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postImagem(@Valid @RequestBody ImagemDTO imagemDTO) {
 
-        //TODO
         String validacao = ImagemUtils.validarImagem(imagemDTO.getString64());
         // Valida a imagem
         if (!"valida".equals(validacao)) {

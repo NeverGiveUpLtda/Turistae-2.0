@@ -2,6 +2,8 @@ package com.api.turistae.dtos;
 
 import java.time.LocalDateTime;
 
+import com.api.turistae.validations.ImagemValidacao;
+
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +20,7 @@ public class ImagemDTO {
     private long id;
 
     @NotBlank(message = "Imagem inválida.")
+    @ImagemValidacao
     private String string64;
 
     // Relacionamentos

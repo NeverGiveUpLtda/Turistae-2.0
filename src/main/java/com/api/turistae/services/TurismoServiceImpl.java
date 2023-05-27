@@ -67,7 +67,7 @@ public class TurismoServiceImpl implements TurismoService {
                 Turismo turismo = new Turismo();
 
                 turismo.setBairro(dto.getBairro());
-                turismo.setCadastroNacionalPessoasJuridicas(dto.getCadastroNacionalPessoasJuridicas());
+                turismo.setCadastroNacionalPessoasJuridica(dto.getCadastroNacionalPessoasJuridica());
                 turismo.setCidade(dto.getCidade());
                 turismo.setDataCriacao(DataUtils.getDataAtualComMascara());
                 turismo.setDataEdicao(DataUtils.getDataAtualComMascara());
@@ -95,7 +95,7 @@ public class TurismoServiceImpl implements TurismoService {
                 return turismoRepository.findAll().stream().map((Turismo t) -> DadosTurismoDTO.builder()
                                 .id(t.getId())
                                 .bairro(t.getBairro())
-                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .cadastroNacionalPessoasJuridica(t.getCadastroNacionalPessoasJuridica())
                                 .cidade(t.getBairro())
                                 .dataCriacao(t.getDataCriacao())
                                 .dataEdicao(t.getDataEdicao())
@@ -163,7 +163,7 @@ public class TurismoServiceImpl implements TurismoService {
                                 .builder()
                                 .id(t.getId())
                                 .bairro(t.getBairro())
-                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .cadastroNacionalPessoasJuridica(t.getCadastroNacionalPessoasJuridica())
                                 .cidade(t.getBairro())
                                 .dataCriacao(t.getDataCriacao())
                                 .dataEdicao(t.getDataEdicao())
@@ -236,7 +236,7 @@ public class TurismoServiceImpl implements TurismoService {
                                 .builder()
                                 .id(t.getId())
                                 .bairro(t.getBairro())
-                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .cadastroNacionalPessoasJuridica(t.getCadastroNacionalPessoasJuridica())
                                 .cidade(t.getBairro())
                                 .dataCriacao(t.getDataCriacao())
                                 .dataEdicao(t.getDataEdicao())
@@ -304,7 +304,7 @@ public class TurismoServiceImpl implements TurismoService {
                                 .builder()
                                 .id(t.getId())
                                 .bairro(t.getBairro())
-                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .cadastroNacionalPessoasJuridica(t.getCadastroNacionalPessoasJuridica())
                                 .cidade(t.getBairro())
                                 .dataCriacao(t.getDataCriacao())
                                 .dataEdicao(t.getDataEdicao())
@@ -371,7 +371,7 @@ public class TurismoServiceImpl implements TurismoService {
 
                 return turismoRepository.findById(id).map((Turismo t) -> DadosTurismoDTO.builder()
                                 .id(t.getId())
-                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .cadastroNacionalPessoasJuridica(t.getCadastroNacionalPessoasJuridica())
                                 .cidade(t.getBairro())
                                 .dataCriacao(t.getDataCriacao())
                                 .dataEdicao(t.getDataEdicao())
@@ -443,7 +443,7 @@ public class TurismoServiceImpl implements TurismoService {
                                 .orElseThrow(() -> new RegraNegocioException(TURISTA_NAO_ENCONTRADO));
 
                 turismo.setBairro(dto.getBairro());
-                turismo.setCadastroNacionalPessoasJuridicas(dto.getCadastroNacionalPessoasJuridicas());
+                turismo.setCadastroNacionalPessoasJuridica(dto.getCadastroNacionalPessoasJuridica());
                 turismo.setCidade(dto.getCidade());
                 turismo.setDataCriacao(dto.getDataCriacao());
                 turismo.setDataEdicao(DataUtils.getDataAtualComMascara());

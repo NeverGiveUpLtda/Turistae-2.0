@@ -120,8 +120,8 @@ public class TuristaServiceImpl implements TuristaService {
                                                 .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO
                                                                 .builder()
                                                                 .id(t.getId())
-                                                                .cadastroNacionalPessoasJuridicas(
-                                                                                t.getCadastroNacionalPessoasJuridicas())
+                                                                .cadastroNacionalPessoasJuridica(
+                                                                                t.getCadastroNacionalPessoasJuridica())
                                                                 .categoriaId(t.getCategoria().getId())
                                                                 .cidade(t.getCidade())
                                                                 .dataCriacao(t.getDataCriacao())
@@ -183,8 +183,8 @@ public class TuristaServiceImpl implements TuristaService {
                                                 .build()).collect(Collectors.toList()))
                                 .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
                                                 .id(t.getId())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                t.getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                t.getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(t.getCategoria().getId())
                                                 .cidade(t.getCidade())
                                                 .dataCriacao(t.getDataCriacao())

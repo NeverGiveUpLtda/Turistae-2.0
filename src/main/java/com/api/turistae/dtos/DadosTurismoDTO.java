@@ -23,7 +23,7 @@ public class DadosTurismoDTO {
     private String bairro;
     private String cidade;
     private String estado;
-    private String cadastroNacionalPessoasJuridicas;
+    private String cadastroNacionalPessoasJuridica;
     private String descricao;
 
     // Relacionamentos

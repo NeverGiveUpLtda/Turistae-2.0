@@ -1,7 +1,9 @@
 package com.api.turistae.dtos;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -54,12 +56,16 @@ public class TurismoDTO {
     @NotBlank(message = "O campo CNPJ deve ser preencido.")
     @Size(min = 18, max = 18, message = "CNPJ inválido. Insira um CNPJ válido com 18 caracteres.")
     @Pattern(regexp = "^\\d{2}\\.\\d{3}\\.\\d{3}\\/\\d{4}\\-\\d{2}$", message = "CNPJ inválido. Ex: xx.xxx.xxx/xxxx-xx.")
-    private String cadastroNacionalPessoasJuridicas;
+    private String cadastroNacionalPessoasJuridica;
 
     @NotBlank(message = "O campo Nome deve ser preencido.")
     @Size(min = 3, max = 400, message = "O campo Descrição deve ter entre 3 e 400 caracteres.")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "Campo Descrição com caracteres inválidos. Insira apenas letras.")
     private String descricao;
+
+    @NotNull(message = "Campo imagens não deve ser nulo.")
+    @Valid
+    private List<ImagemDTO> imagens;
 
     // Relacionamentos
     private Long turistaId;

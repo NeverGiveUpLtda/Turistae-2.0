@@ -84,8 +84,8 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
                                                                 .bairro(v.getTurismo().getBairro())
-                                                                .cadastroNacionalPessoasJuridicas(
-                                                                                v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                                .cadastroNacionalPessoasJuridica(
+                                                                                v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                                 .cidade(v.getTurismo().getCidade())
                                                                 .dataCriacao(v.getTurismo().getDataCriacao())
@@ -126,8 +126,8 @@ public class VoucherServiceImpl implements VoucherService {
                                         .dataEdicao(v.getDataEdicao())
                                         .turismo(TurismoDTO.builder()
                                                         .bairro(v.getTurismo().getBairro())
-                                                        .cadastroNacionalPessoasJuridicas(
-                                                                        v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                        .cadastroNacionalPessoasJuridica(
+                                                                        v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                         .categoriaId(v.getTurismo().getCategoria().getId())
                                                         .cidade(v.getTurismo().getCidade())
                                                         .dataCriacao(v.getTurismo().getDataCriacao())
@@ -164,8 +164,8 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
                                                                 .bairro(v.getTurismo().getBairro())
-                                                                .cadastroNacionalPessoasJuridicas(
-                                                                                v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                                .cadastroNacionalPessoasJuridica(
+                                                                                v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                                 .cidade(v.getTurismo().getCidade())
                                                                 .dataCriacao(v.getTurismo().getDataCriacao())
@@ -205,8 +205,8 @@ public class VoucherServiceImpl implements VoucherService {
                                         .dataEdicao(v.getDataEdicao())
                                         .turismo(TurismoDTO.builder()
                                                         .bairro(v.getTurismo().getBairro())
-                                                        .cadastroNacionalPessoasJuridicas(
-                                                                        v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                        .cadastroNacionalPessoasJuridica(
+                                                                        v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                         .categoriaId(v.getTurismo().getCategoria().getId())
                                                         .cidade(v.getTurismo().getCidade())
                                                         .dataCriacao(v.getTurismo().getDataCriacao())
@@ -241,8 +241,8 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
                                                                 .bairro(v.getTurismo().getBairro())
-                                                                .cadastroNacionalPessoasJuridicas(
-                                                                                v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                                .cadastroNacionalPessoasJuridica(
+                                                                                v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                                 .cidade(v.getTurismo().getCidade())
                                                                 .dataCriacao(v.getTurismo().getDataCriacao())
@@ -278,8 +278,8 @@ public class VoucherServiceImpl implements VoucherService {
                                 .dataEdicao(v.getDataEdicao())
                                 .turismo(TurismoDTO.builder()
                                                 .bairro(v.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                 .cidade(v.getTurismo().getCidade())
                                                 .dataCriacao(v.getTurismo().getDataCriacao())
@@ -332,8 +332,8 @@ public class VoucherServiceImpl implements VoucherService {
                                 .dataEdicao(v.getDataEdicao())
                                 .turismo(TurismoDTO.builder()
                                                 .bairro(v.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                 .cidade(v.getTurismo().getCidade())
                                                 .dataCriacao(v.getTurismo().getDataCriacao())
@@ -384,8 +384,8 @@ public class VoucherServiceImpl implements VoucherService {
                                                 .dataEdicao(v.getDataEdicao())
                                                 .turismo(TurismoDTO.builder()
                                                                 .bairro(v.getTurismo().getBairro())
-                                                                .cadastroNacionalPessoasJuridicas(v.getTurismo()
-                                                                                .getCadastroNacionalPessoasJuridicas())
+                                                                .cadastroNacionalPessoasJuridica(v.getTurismo()
+                                                                                .getCadastroNacionalPessoasJuridica())
                                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                                 .cidade(v.getTurismo().getCidade())
                                                                 .dataCriacao(v.getTurismo().getDataCriacao())
@@ -426,8 +426,8 @@ public class VoucherServiceImpl implements VoucherService {
                                         .dataEdicao(v.getDataEdicao())
                                         .turismo(TurismoDTO.builder()
                                                         .bairro(v.getTurismo().getBairro())
-                                                        .cadastroNacionalPessoasJuridicas(
-                                                                        v.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                        .cadastroNacionalPessoasJuridica(
+                                                                        v.getTurismo().getCadastroNacionalPessoasJuridica())
                                                         .categoriaId(v.getTurismo().getCategoria().getId())
                                                         .cidade(v.getTurismo().getCidade())
                                                         .dataCriacao(v.getTurismo().getDataCriacao())
@@ -477,8 +477,8 @@ public class VoucherServiceImpl implements VoucherService {
                                 .dataEdicao(v.getDataEdicao())
                                 .turismo(TurismoDTO.builder()
                                                 .bairro(v.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(v.getTurismo()
-                                                                .getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(v.getTurismo()
+                                                                .getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(v.getTurismo().getCategoria().getId())
                                                 .cidade(v.getTurismo().getCidade())
                                                 .dataCriacao(v.getTurismo().getDataCriacao())

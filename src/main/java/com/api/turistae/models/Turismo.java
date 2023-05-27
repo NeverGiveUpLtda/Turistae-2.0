@@ -54,7 +54,7 @@ public class Turismo {
     private String estado;
 
     @Column(length = 18, nullable = false, unique = true)
-    private String cadastroNacionalPessoasJuridicas;
+    private String cadastroNacionalPessoasJuridica;
 
     @Column(length = 400, nullable = false)
     private String descricao;

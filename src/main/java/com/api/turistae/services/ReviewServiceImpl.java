@@ -87,8 +87,8 @@ public class ReviewServiceImpl implements ReviewService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(r.getTurismo().getId())
                                                 .bairro(r.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                r.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                r.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(r.getTurismo().getCategoria().getId())
                                                 .cidade(r.getTurismo().getCidade())
                                                 .dataCriacao(r.getTurismo().getDataCriacao())
@@ -140,8 +140,8 @@ public class ReviewServiceImpl implements ReviewService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(r.getTurismo().getId())
                                                 .bairro(r.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                r.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                r.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(r.getTurismo().getCategoria().getId())
                                                 .cidade(r.getTurismo().getCidade())
                                                 .dataCriacao(r.getTurismo().getDataCriacao())
@@ -189,8 +189,8 @@ public class ReviewServiceImpl implements ReviewService {
                                 .turismo(TurismoDTO.builder()
                                                 .id(r.getTurismo().getId())
                                                 .bairro(r.getTurismo().getBairro())
-                                                .cadastroNacionalPessoasJuridicas(
-                                                                r.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .cadastroNacionalPessoasJuridica(
+                                                                r.getTurismo().getCadastroNacionalPessoasJuridica())
                                                 .categoriaId(r.getTurismo().getCategoria().getId())
                                                 .cidade(r.getTurismo().getCidade())
                                                 .dataCriacao(r.getTurismo().getDataCriacao())
