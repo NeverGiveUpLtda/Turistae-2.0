@@ -22,6 +22,7 @@ public class ImagemUtils {
     private static final Logger logger = LoggerFactory.getLogger(ImagemUtils.class);
 
     public static String validarImagem(String string64) {
+        string64 = string64.replaceAll("\\s", "");
         logger.info("validando: {}", string64);
         byte[] bytes = null;
         try {
