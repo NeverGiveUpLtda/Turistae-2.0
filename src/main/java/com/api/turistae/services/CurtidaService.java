@@ -13,7 +13,11 @@ public interface CurtidaService {
     // Read
     List<DadosCurtidaDTO> getAll();
 
+    List<DadosCurtidaDTO> getByTurismo(Long turismoId);
+
     DadosCurtidaDTO getById(Long id);
+
+    DadosCurtidaDTO getCurtidaByTurismoAndUsuario(Long usuarioId, Long turismoId);
 
     // Update
     void put(Long id, CurtidaDTO dto);

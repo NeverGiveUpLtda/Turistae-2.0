@@ -57,6 +57,7 @@ public class CategoriaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 
+        //TODO
         categoriaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
@@ -69,7 +70,7 @@ public class CategoriaController {
         } catch(DataIntegrityViolationException e) {
             throw new RegraNegocioException("Categoria indisponível.");
         }
-        
+
         return id;
     }
 
@@ -77,6 +78,7 @@ public class CategoriaController {
     @PutMapping("{id}")
     public void putCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
 
+        //TODO
         categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put categoria id {}: {}", id, categoriaDTO);

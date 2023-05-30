@@ -46,6 +46,12 @@ public class ReviewController {
         return reviewService.getAll();
     }
 
+    @GetMapping("/turismo/{id}")
+    public List<DadosReviewDTO> getReviewsPorTurismo(@PathVariable Long id) {
+        logger.info("Get todas Reviews por turismo id: {}", id);
+        return reviewService.getByTurismo(id);
+    }
+
     @GetMapping("{id}")
     public DadosReviewDTO getReviewPorId(@PathVariable Long id) {
         logger.info("Get review id: {}", id);
@@ -56,6 +62,9 @@ public class ReviewController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long postReview(@Valid @RequestBody ReviewDTO reviewDTO) {
+
+
+        //TODO
         reviewDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         reviewDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
@@ -76,6 +85,7 @@ public class ReviewController {
     @PutMapping("{id}")
     public void putReview(@PathVariable Long id, @Valid @RequestBody ReviewDTO reviewDTO) {
 
+        //TODO
         reviewDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put review id {}: {}", id, reviewDTO);

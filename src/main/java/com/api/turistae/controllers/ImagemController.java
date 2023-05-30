@@ -47,6 +47,12 @@ public class ImagemController {
         return imagemService.getAll();
     }
 
+    @GetMapping("/turismo/{id}")
+    public List<DadosImagemDTO> getImagensPorTurismo(@PathVariable Long id) {
+        logger.info("Get todas Imagens por turismo id: {}", id);
+        return imagemService.getByTurismo(id);
+    }
+
     @GetMapping("{id}")
     public DadosImagemDTO getImagemPorId(@PathVariable Long id) {
         logger.info("Get Imagem id: {}", id);
@@ -58,6 +64,7 @@ public class ImagemController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postImagem(@Valid @RequestBody ImagemDTO imagemDTO) {
 
+        //TODO
         String validacao = ImagemUtils.validarImagem(imagemDTO.getString64());
         // Valida a imagem
         if (!"valida".equals(validacao)) {
@@ -86,6 +93,7 @@ public class ImagemController {
     @PutMapping("{id}")
     public void putImagem(@PathVariable Long id, @Valid @RequestBody ImagemDTO imagemDTO) {
 
+        //TODO
         imagemDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
         logger.info("Put Imagem id {}: {}", id, imagemDTO);

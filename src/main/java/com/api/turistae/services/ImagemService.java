@@ -13,6 +13,8 @@ public interface ImagemService {
     // Read
     List<DadosImagemDTO> getAll();
 
+    List<DadosImagemDTO> getByTurismo(Long turismoId);
+
     DadosImagemDTO getById(Long id);
 
     // Update

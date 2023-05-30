@@ -24,6 +24,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
+    /**
+     * Mude a mensagem de não encontrado para usuario
+     */
+    private static final String NAO_ENCONTRADO = "Usuario não encontrado.";
+
+
     // Atributos
     private final UsuarioRepository usuarioRepository;
 
@@ -181,7 +187,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                         .telefone(t.getTelefone())
                         .usuarioId(t.getUsuario().getId())
                         .build()).collect(Collectors.toList()))
-                .build()).orElseThrow(() -> new RegraNegocioException("Usuário não encontrado."));
+                .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
     }
 
     @Override
@@ -189,7 +195,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public void put(Long id, UsuarioDTO dto) {
 
         Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Usuário não encontrado."));
+                .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
         usuario.setNomeUsuario(dto.getNomeUsuario());
         usuario.setSenha(dto.getSenha());
