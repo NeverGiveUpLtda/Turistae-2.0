@@ -50,7 +50,7 @@ public class UsuarioController {
 
     @GetMapping("{id}")
     public DadosUsuarioDTO getUsuarioPorId(@PathVariable Long id) {
-        logger.info("Get usuário id: {}", id);
+        logger.info("Get usuário.");
         return usuarioService.getById(id);
     }
 
@@ -71,7 +71,7 @@ public class UsuarioController {
         usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post usuário: {}", usuarioDTO);
+        logger.info("Post usuário.");
 
         //  Se usuario ou email já exisirem na tabela, retornar erro
         // Retorno do cadastro
@@ -131,7 +131,7 @@ public class UsuarioController {
 
         usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put usuário id {}: {}", id, usuarioDTO);
+        logger.info("Put usuário.");
 
         //  Se usuario ou email já exisirem na tabela, retornar erro
         try {
@@ -152,7 +152,7 @@ public class UsuarioController {
     @DeleteMapping("{id}")
     public void deleteUsuario(@PathVariable Long id) {
 
-        logger.info("Delete usuário id {}", id);
+        logger.info("Delete usuário.");
 
         usuarioService.delete(id);
     }

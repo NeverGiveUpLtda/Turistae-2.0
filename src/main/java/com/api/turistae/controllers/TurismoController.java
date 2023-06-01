@@ -66,13 +66,13 @@ public class TurismoController {
 
     @GetMapping("/nota/{id}")
     public Double getNotaTurismo(@PathVariable Long id) {
-        logger.info("Get nota turismo id: {}", id);
+        logger.info("Get nota turismo.");
         return turismoService.calcularMediaNotasPorId(id);
     }
 
     @GetMapping("{id}")
     public DadosTurismoDTO getTurismoPorId(@PathVariable Long id) {
-        logger.info("Get turismo id: {}", id);
+        logger.info("Get turismo.");
         return turismoService.getById(id);
     }
 
@@ -85,7 +85,7 @@ public class TurismoController {
         turismoDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post turismo: {}", turismoDTO);
+        logger.info("Post turismo.");
 
         // Se turismo já exisir na tabela, retornar erro
         // Retorno do cadastro
@@ -110,7 +110,7 @@ public class TurismoController {
         //TODO
         turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put turismo id {}: {}", id, turismoDTO);
+        logger.info("Put turismo.");
 
         // Se turismo já exisir na tabela, retornar erro
         // Retorno do cadastro
@@ -129,7 +129,7 @@ public class TurismoController {
     @DeleteMapping("{id}")
     public void deleteTurismo(@PathVariable Long id) {
 
-        logger.info("Delete turismo id {}", id);
+        logger.info("Delete turismo.");
 
         turismoService.delete(id);
     }

@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 public class VoucherUtils {
 
     // Atributos
-    private static final Logger logger = LoggerFactory.getLogger(VoucherUtils.class);
     private static Random random = new Random(System.currentTimeMillis());
+    private static final Logger logger = LoggerFactory.getLogger(VoucherUtils.class);
 
     // Métodos
     public static String gerarVoucher(long id) {
@@ -39,7 +39,7 @@ public class VoucherUtils {
         }
         code.append(id);
 
-        logger.info("Voucher gerado: {}", code);
+        logger.info("Voucher gerado com sucesso!");
 
         return code.toString();
     }

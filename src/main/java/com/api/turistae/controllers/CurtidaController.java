@@ -48,13 +48,13 @@ public class CurtidaController {
 
     @GetMapping("/turismo/{id}")
     public int getQuantidadeCurtidas(@PathVariable Long id) {
-        logger.info("Get quantidade de curtidas por turismo: {}", id);
+        logger.info("Get quantidade de curtidas por turismo.");
         return curtidaService.getByTurismo(id).size();
     }
 
     @GetMapping("{id}")
     public DadosCurtidaDTO getCurtidaPorId(@PathVariable Long id) {
-        logger.info("Get Curtida id: {}", id);
+        logger.info("Get Curtida.");
         return curtidaService.getById(id);
     }
 
@@ -67,7 +67,7 @@ public class CurtidaController {
         curtidaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post Curtida: {}", curtidaDTO);
+        logger.info("Post Curtida.");
 
         // Retorno do cadastro
         Long id = 0l;
@@ -88,7 +88,7 @@ public class CurtidaController {
         curtidaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Curtir: {}", curtidaDTO);
+        logger.info("Curtir.");
 
         // Retorno do cadastro
         Long id = 0l;
@@ -117,7 +117,7 @@ public class CurtidaController {
     @ResponseStatus(HttpStatus.CREATED)
     public void descurtir(@Valid @RequestBody CurtidaDTO curtidaDTO) {
 
-        logger.info("Descurtir: {}", curtidaDTO);
+        logger.info("Descurtir.");
 
         // Retorno do cadastro
         Long id = 0l;
@@ -139,7 +139,7 @@ public class CurtidaController {
         // TODO
         curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put Curtida id {}: {}", id, curtidaDTO);
+        logger.info("Put Curtida.");
 
         try {
             curtidaService.put(id, curtidaDTO);
@@ -153,7 +153,7 @@ public class CurtidaController {
     @DeleteMapping("{id}")
     public void deleteCurtida(@PathVariable Long id) {
 
-        logger.info("Delete Curtida id {}", id);
+        logger.info("Delete Curtida.");
 
         curtidaService.delete(id);
     }

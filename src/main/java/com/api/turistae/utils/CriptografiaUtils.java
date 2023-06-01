@@ -15,9 +15,9 @@ public class CriptografiaUtils {
 
     // Atributos
     private static final Logger logger = LoggerFactory.getLogger(CriptografiaUtils.class);
-    
+
     // Métodos
-    
+
     public static String criptografarSenha(String senha) throws CriptografiaException {
 
         logger.info("Criptografando senha...");
@@ -40,7 +40,7 @@ public class CriptografiaUtils {
                 hexString.append(hex);
             }
 
-            logger.info("Senha criptografada: {}", hexString);
+            logger.info("Senha criptografada com sucesso!");
 
             return hexString.toString();
 

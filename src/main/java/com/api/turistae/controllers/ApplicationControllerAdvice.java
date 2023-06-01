@@ -61,7 +61,7 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(InvalidFormatException.class)
     public ApiError handleInvalidFormatException(InvalidFormatException ex) {
 
-        logger.error("Erro de validaão de formato : {}", ex.getMessage());
+        logger.error("Erro de validação de formato : {}", ex.getMessage());
 
         String field = ex.getPath().get(0).getFieldName();
         String message = String.format("Campo %s com formato inválido.", field);
@@ -75,5 +75,5 @@ public class ApplicationControllerAdvice {
 
         return new ApiError("Requisição com erro nos parâmetros.");
     }
-    
+
 }

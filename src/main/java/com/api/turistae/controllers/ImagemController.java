@@ -49,13 +49,13 @@ public class ImagemController {
 
     @GetMapping("/turismo/{id}")
     public List<DadosImagemDTO> getImagensPorTurismo(@PathVariable Long id) {
-        logger.info("Get todas Imagens por turismo id: {}", id);
+        logger.info("Get todas Imagens por turismo.");
         return imagemService.getByTurismo(id);
     }
 
     @GetMapping("{id}")
     public DadosImagemDTO getImagemPorId(@PathVariable Long id) {
-        logger.info("Get Imagem id: {}", id);
+        logger.info("Get Imagem.");
         return imagemService.getById(id);
     }
 
@@ -74,7 +74,7 @@ public class ImagemController {
         imagemDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         imagemDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post Imagem: {}", imagemDTO);
+        logger.info("Post Imagem.");
 
         // Se Imagem já exisir na tabela, retornar erro
         // Retorno do cadastro
@@ -96,7 +96,7 @@ public class ImagemController {
         //TODO
         imagemDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put Imagem id {}: {}", id, imagemDTO);
+        logger.info("Put Imagem.");
 
         // Se Imagem já exisir na tabela, retornar erro
         // Retorno do cadastro
@@ -111,7 +111,7 @@ public class ImagemController {
     @DeleteMapping("{id}")
     public void deleteImagem(@PathVariable Long id) {
 
-        logger.info("Delete Imagem id {}", id);
+        logger.info("Delete Imagem.");
 
         imagemService.delete(id);
     }
