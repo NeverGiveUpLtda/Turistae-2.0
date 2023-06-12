@@ -20,8 +20,12 @@ import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Review;
 import com.api.turistae.models.Usuario;
 import com.api.turistae.repositorys.CategoriaRepository;
+import com.api.turistae.repositorys.CurtidaRepository;
+import com.api.turistae.repositorys.ImagemRepository;
+import com.api.turistae.repositorys.ReviewRepository;
 import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.VoucherRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -49,6 +53,10 @@ public class TurismoServiceImpl implements TurismoService {
         private final TurismoRepository turismoRepository;
         private final CategoriaRepository categoriaRepository;
         private final UsuarioRepository usuarioRepository;
+        private final VoucherRepository voucherRepository;
+        private final CurtidaRepository curtidaRepository;
+        private final ReviewRepository reviewRepository;
+        private final ImagemRepository imagemRepository;
 
         // Métodos
         @Override
@@ -477,6 +485,10 @@ public class TurismoServiceImpl implements TurismoService {
         @Override
         @Transactional
         public void delete(Long id) {
+                voucherRepository.deleteByTurismoId(id);
+                curtidaRepository.deleteByTurismoId(id);
+                reviewRepository.deleteByTurismoId(id);
+                imagemRepository.deleteByTurismoId(id);
                 turismoRepository.deleteById(id);
         }
 

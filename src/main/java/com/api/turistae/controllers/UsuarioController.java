@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
 import com.api.turistae.dtos.PutUsuarioDTO;
+import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.dtos.UsuarioDTO;
 import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.exceptions.RegraNegocioException;
+import com.api.turistae.services.TurismoService;
 import com.api.turistae.services.UsuarioService;
 import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
@@ -33,11 +35,13 @@ public class UsuarioController {
 
     // Atributos
     private UsuarioService usuarioService;
+    private TurismoService turismoService;
     private final Logger logger;
 
     // Construtor
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, TurismoService turismoService) {
         this.usuarioService = usuarioService;
+        this.turismoService = turismoService;
         this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Usuário Controller iniciado.");
     }
@@ -145,6 +149,11 @@ public class UsuarioController {
     public void deleteUsuario(@PathVariable Long id) {
 
         logger.info("Delete usuário.");
+        DadosUsuarioDTO usuarioToDelete = usuarioService.getById(id);
+
+        for(TurismoDTO turi : usuarioToDelete.getTurismos()) {
+            turismoService.delete(turi.getId());
+        }
 
         usuarioService.delete(id);
     }

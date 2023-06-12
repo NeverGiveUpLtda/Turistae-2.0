@@ -16,7 +16,11 @@ import com.api.turistae.models.Curtida;
 import com.api.turistae.models.Review;
 import com.api.turistae.models.Usuario;
 import com.api.turistae.models.Turismo;
+import com.api.turistae.repositorys.CurtidaRepository;
+import com.api.turistae.repositorys.ReviewRepository;
+import com.api.turistae.repositorys.TurismoRepository;
 import com.api.turistae.repositorys.UsuarioRepository;
+import com.api.turistae.repositorys.VoucherRepository;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -25,225 +29,237 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
-    /**
-     * Mude a mensagem de não encontrado para usuario
-     */
-    private static final String NAO_ENCONTRADO = "Usuario não encontrado.";
+        /**
+         * Mude a mensagem de não encontrado para usuario
+         */
+        private static final String NAO_ENCONTRADO = "Usuario não encontrado.";
 
+        // Atributos
+        private final UsuarioRepository usuarioRepository;
+        private final TurismoRepository turismoRepository;
+        private final CurtidaRepository curtidaRepository;
+        private final VoucherRepository voucherRepository;
+        private final ReviewRepository reviewRepository;
 
-    // Atributos
-    private final UsuarioRepository usuarioRepository;
+        // Métodos
+        @Override
+        @Transactional
+        public Long post(UsuarioDTO dto) {
 
-    // Métodos
-    @Override
-    @Transactional
-    public Long post(UsuarioDTO dto) {
+                Usuario usuario = new Usuario();
 
-        Usuario usuario = new Usuario();
+                usuario.setNomeUsuario(dto.getNomeUsuario());
+                usuario.setSenha(dto.getSenha());
+                usuario.setNome(dto.getNome());
+                usuario.setEmail(dto.getEmail());
+                usuario.setTelefone(dto.getTelefone());
+                usuario.setNumeroCasa(dto.getNumeroCasa());
+                usuario.setRua(dto.getRua());
+                usuario.setBairro(dto.getBairro());
+                usuario.setCidade(dto.getCidade());
+                usuario.setEstado(dto.getEstado());
+                usuario.setDataNascimento(dto.getDataNascimento());
+                usuario.setProfissao(dto.getProfissao());
+                usuario.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
+                usuario.setRegistroGeral(dto.getRegistroGeral());
+                usuario.setDataCriacao(dto.getDataCriacao());
+                usuario.setDataEdicao(dto.getDataEdicao());
 
-        usuario.setNomeUsuario(dto.getNomeUsuario());
-        usuario.setSenha(dto.getSenha());
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setTelefone(dto.getTelefone());
-        usuario.setNumeroCasa(dto.getNumeroCasa());
-        usuario.setRua(dto.getRua());
-        usuario.setBairro(dto.getBairro());
-        usuario.setCidade(dto.getCidade());
-        usuario.setEstado(dto.getEstado());
-        usuario.setDataNascimento(dto.getDataNascimento());
-        usuario.setProfissao(dto.getProfissao());
-        usuario.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
-        usuario.setRegistroGeral(dto.getRegistroGeral());
-        usuario.setDataCriacao(dto.getDataCriacao());
-        usuario.setDataEdicao(dto.getDataEdicao());
+                Usuario usuarioGerado;
 
-        Usuario usuarioGerado;
+                usuarioGerado = usuarioRepository.save(usuario);
 
-        usuarioGerado = usuarioRepository.save(usuario);
+                return usuarioGerado.getId();
 
-        return usuarioGerado.getId();
+        }
 
-    }
+        @Override
+        @Transactional
+        public List<DadosUsuarioDTO> getAll() {
 
-    @Override
-    @Transactional
-    public List<DadosUsuarioDTO> getAll() {
+                return usuarioRepository.findAll()
+                                .stream()
+                                .map((Usuario u) -> DadosUsuarioDTO.builder()
+                                                .id(u.getId())
+                                                .bairro(u.getBairro())
+                                                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
+                                                .cidade(u.getCidade())
+                                                .dataCriacao(u.getDataCriacao())
+                                                .dataEdicao(u.getDataEdicao())
+                                                .dataNascimento(u.getDataNascimento())
+                                                .email(u.getEmail())
+                                                .estado(u.getEstado())
+                                                .bairro(u.getBairro())
+                                                .nome(u.getNome())
+                                                .nomeUsuario(u.getNomeUsuario())
+                                                .numeroCasa(u.getNumeroCasa())
+                                                .profissao(u.getProfissao())
+                                                .registroGeral(u.getRegistroGeral())
+                                                .rua(u.getRua())
+                                                .senha(u.getSenha())
+                                                .telefone(u.getTelefone())
+                                                .dataCriacao(u.getDataCriacao())
+                                                .dataEdicao(u.getDataEdicao())
 
-        return usuarioRepository.findAll()
-                .stream()
-                .map((Usuario u) -> DadosUsuarioDTO.builder()
-                        .id(u.getId())
-                        .bairro(u.getBairro())
-                        .cadastroPessoaFisica(u.getCadastroPessoaFisica())
-                        .cidade(u.getCidade())
-                        .dataCriacao(u.getDataCriacao())
-                        .dataEdicao(u.getDataEdicao())
-                        .dataNascimento(u.getDataNascimento())
-                        .email(u.getEmail())
-                        .estado(u.getEstado())
-                        .bairro(u.getBairro())
-                        .nome(u.getNome())
-                        .nomeUsuario(u.getNomeUsuario())
-                        .numeroCasa(u.getNumeroCasa())
-                        .profissao(u.getProfissao())
-                        .registroGeral(u.getRegistroGeral())
-                        .rua(u.getRua())
-                        .senha(u.getSenha())
-                        .telefone(u.getTelefone())
-                        .dataCriacao(u.getDataCriacao())
-                        .dataEdicao(u.getDataEdicao())
+                                                // Relacionamentos
+                                                .curtidas(u.getCurtidas().stream()
+                                                                .map((Curtida c) -> CurtidaDTO.builder()
+                                                                                .id(c.getId())
+                                                                                .turismoId(c.getTurismo().getId())
+                                                                                .usuarioId(c.getUsuario().getId())
+                                                                                .dataCriacao(c.getDataCriacao())
+                                                                                .dataEdicao(c.getDataEdicao())
+                                                                                .build())
+                                                                .collect(Collectors.toList()))
+                                                .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
+                                                                .id(r.getId())
+                                                                .dataCriacao(r.getDataCriacao())
+                                                                .dataEdicao(r.getDataEdicao())
+                                                                .nota(r.getNota())
+                                                                .texto(r.getTexto())
+                                                                .turismoId(r.getTurismo().getId())
+                                                                .usuarioId(r.getUsuario().getId())
+                                                                .build()).collect(Collectors.toList()))
+                                                .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO
+                                                                .builder()
+                                                                .id(t.getId())
+                                                                .cadastroNacionalPessoasJuridicas(
+                                                                                t.getCadastroNacionalPessoasJuridicas())
+                                                                .categoriaId(t.getCategoria().getId())
+                                                                .cidade(t.getCidade())
+                                                                .dataCriacao(t.getDataCriacao())
+                                                                .dataEdicao(t.getDataEdicao())
+                                                                .descricao(t.getDescricao())
+                                                                .estado(t.getEstado())
+                                                                .nome(t.getNome())
+                                                                .numeroLocal(t.getNumeroLocal())
+                                                                .rua(t.getRua())
+                                                                .telefone(t.getTelefone())
+                                                                .usuarioId(t.getUsuario().getId())
+                                                                .build())
+                                                                .collect(Collectors.toList()))
+                                                .build())
+                                .collect(Collectors.toList());
 
-                        // Relacionamentos
-                        .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
-                                .id(c.getId())
-                                .turismoId(c.getTurismo().getId())
-                                .usuarioId(c.getUsuario().getId())
-                                .dataCriacao(c.getDataCriacao())
-                                .dataEdicao(c.getDataEdicao())
-                                .build()).collect(Collectors.toList()))
-                        .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
-                                .id(r.getId())
-                                .dataCriacao(r.getDataCriacao())
-                                .dataEdicao(r.getDataEdicao())
-                                .nota(r.getNota())
-                                .texto(r.getTexto())
-                                .turismoId(r.getTurismo().getId())
-                                .usuarioId(r.getUsuario().getId())
-                                .build()).collect(Collectors.toList()))
-                        .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
-                                .id(t.getId())
-                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
-                                .categoriaId(t.getCategoria().getId())
-                                .cidade(t.getCidade())
-                                .dataCriacao(t.getDataCriacao())
-                                .dataEdicao(t.getDataEdicao())
-                                .descricao(t.getDescricao())
-                                .estado(t.getEstado())
-                                .nome(t.getNome())
-                                .numeroLocal(t.getNumeroLocal())
-                                .rua(t.getRua())
-                                .telefone(t.getTelefone())
-                                .usuarioId(t.getUsuario().getId())
-                                .build())
-                                .collect(Collectors.toList()))
-                        .build())
-                .collect(Collectors.toList());
+        }
 
-    }
+        @Override
+        @Transactional
+        public DadosUsuarioDTO getById(Long id) {
+                return usuarioRepository.findById(id).map((Usuario u) -> DadosUsuarioDTO.builder()
+                                .id(u.getId())
+                                .bairro(u.getBairro())
+                                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
+                                .cidade(u.getCidade())
+                                .dataCriacao(u.getDataCriacao())
+                                .dataEdicao(u.getDataEdicao())
+                                .dataNascimento(u.getDataNascimento())
+                                .email(u.getEmail())
+                                .estado(u.getEstado())
+                                .nome(u.getNome())
+                                .nomeUsuario(u.getNomeUsuario())
+                                .numeroCasa(u.getNumeroCasa())
+                                .profissao(u.getProfissao())
+                                .registroGeral(u.getRegistroGeral())
+                                .rua(u.getRua())
+                                .senha(u.getSenha())
+                                .telefone(u.getTelefone())
+                                .dataCriacao(u.getDataCriacao())
+                                .dataEdicao(u.getDataEdicao())
 
-    @Override
-    @Transactional
-    public DadosUsuarioDTO getById(Long id) {
-        return usuarioRepository.findById(id).map((Usuario u) -> DadosUsuarioDTO.builder()
-                .id(u.getId())
-                .bairro(u.getBairro())
-                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
-                .cidade(u.getCidade())
-                .dataCriacao(u.getDataCriacao())
-                .dataEdicao(u.getDataEdicao())
-                .dataNascimento(u.getDataNascimento())
-                .email(u.getEmail())
-                .estado(u.getEstado())
-                .nome(u.getNome())
-                .nomeUsuario(u.getNomeUsuario())
-                .numeroCasa(u.getNumeroCasa())
-                .profissao(u.getProfissao())
-                .registroGeral(u.getRegistroGeral())
-                .rua(u.getRua())
-                .senha(u.getSenha())
-                .telefone(u.getTelefone())
-                .dataCriacao(u.getDataCriacao())
-                .dataEdicao(u.getDataEdicao())
+                                // Relacionamentos
+                                .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
+                                                .id(c.getId())
+                                                .dataCriacao(c.getDataCriacao())
+                                                .dataEdicao(c.getDataEdicao())
+                                                .turismoId(c.getTurismo().getId())
+                                                .usuarioId(c.getUsuario().getId())
+                                                .build()).collect(Collectors.toList()))
+                                .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
+                                                .id(r.getId())
+                                                .dataCriacao(r.getDataCriacao())
+                                                .dataEdicao(r.getDataEdicao())
+                                                .nota(r.getNota())
+                                                .texto(r.getTexto())
+                                                .turismoId(r.getTurismo().getId())
+                                                .usuarioId(r.getUsuario().getId())
+                                                .build()).collect(Collectors.toList()))
+                                .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
+                                                .id(t.getId())
+                                                .cadastroNacionalPessoasJuridicas(
+                                                                t.getCadastroNacionalPessoasJuridicas())
+                                                .categoriaId(t.getCategoria().getId())
+                                                .cidade(t.getCidade())
+                                                .dataCriacao(t.getDataCriacao())
+                                                .dataEdicao(t.getDataEdicao())
+                                                .descricao(t.getDescricao())
+                                                .estado(t.getEstado())
+                                                .nome(t.getNome())
+                                                .numeroLocal(t.getNumeroLocal())
+                                                .rua(t.getRua())
+                                                .telefone(t.getTelefone())
+                                                .usuarioId(t.getUsuario().getId())
+                                                .build()).collect(Collectors.toList()))
+                                .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
+        }
 
-                // Relacionamentos
-                .curtidas(u.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
-                        .id(c.getId())
-                        .dataCriacao(c.getDataCriacao())
-                        .dataEdicao(c.getDataEdicao())
-                        .turismoId(c.getTurismo().getId())
-                        .usuarioId(c.getUsuario().getId())
-                        .build()).collect(Collectors.toList()))
-                .reviews(u.getReviews().stream().map((Review r) -> ReviewDTO.builder()
-                        .id(r.getId())
-                        .dataCriacao(r.getDataCriacao())
-                        .dataEdicao(r.getDataEdicao())
-                        .nota(r.getNota())
-                        .texto(r.getTexto())
-                        .turismoId(r.getTurismo().getId())
-                        .usuarioId(r.getUsuario().getId())
-                        .build()).collect(Collectors.toList()))
-                .turismos(u.getTurismos().stream().map((Turismo t) -> TurismoDTO.builder()
-                        .id(t.getId())
-                        .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
-                        .categoriaId(t.getCategoria().getId())
-                        .cidade(t.getCidade())
-                        .dataCriacao(t.getDataCriacao())
-                        .dataEdicao(t.getDataEdicao())
-                        .descricao(t.getDescricao())
-                        .estado(t.getEstado())
-                        .nome(t.getNome())
-                        .numeroLocal(t.getNumeroLocal())
-                        .rua(t.getRua())
-                        .telefone(t.getTelefone())
-                        .usuarioId(t.getUsuario().getId())
-                        .build()).collect(Collectors.toList()))
-                .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
-    }
+        @Override
+        @Transactional
+        public void put(Long id, PutUsuarioDTO dto) {
 
-    @Override
-    @Transactional
-    public void put(Long id, PutUsuarioDTO dto) {
+                Usuario usuario = usuarioRepository.findById(id)
+                                .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
-        Usuario usuario = usuarioRepository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
+                usuario.setNomeUsuario(dto.getNomeUsuario());
+                usuario.setNome(dto.getNome());
+                usuario.setEmail(dto.getEmail());
+                usuario.setTelefone(dto.getTelefone());
+                usuario.setNumeroCasa(dto.getNumeroCasa());
+                usuario.setRua(dto.getRua());
+                usuario.setBairro(dto.getBairro());
+                usuario.setCidade(dto.getCidade());
+                usuario.setEstado(dto.getEstado());
+                usuario.setDataCriacao(dto.getDataCriacao());
+                usuario.setDataEdicao(dto.getDataEdicao());
 
-        usuario.setNomeUsuario(dto.getNomeUsuario());
-        usuario.setNome(dto.getNome());
-        usuario.setEmail(dto.getEmail());
-        usuario.setTelefone(dto.getTelefone());
-        usuario.setNumeroCasa(dto.getNumeroCasa());
-        usuario.setRua(dto.getRua());
-        usuario.setBairro(dto.getBairro());
-        usuario.setCidade(dto.getCidade());
-        usuario.setEstado(dto.getEstado());
-        usuario.setDataCriacao(dto.getDataCriacao());
-        usuario.setDataEdicao(dto.getDataEdicao());
+                usuarioRepository.save(usuario);
 
-        usuarioRepository.save(usuario);
+        }
 
-    }
+        @Override
+        @Transactional
+        public void delete(Long id) {
+                curtidaRepository.deleteByUsuarioId(id);
+                voucherRepository.deleteByUsuarioId(id);
+                reviewRepository.deleteByUsuarioId(id);
+                turismoRepository.deleteByUsuarioId(id);
+                usuarioRepository.deleteById(id);
+        }
 
-    @Override
-    @Transactional
-    public void delete(Long id) {
-        usuarioRepository.deleteById(id);
-    }
-
-    @Override
-    @Transactional
-    public DadosUsuarioDTO login(String usuario, String senha) {
-        return usuarioRepository.login(usuario, usuario, senha).map((Usuario u) -> DadosUsuarioDTO.builder()
-                .id(u.getId())
-                .bairro(u.getBairro())
-                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
-                .cidade(u.getCidade())
-                .dataCriacao(u.getDataCriacao())
-                .dataEdicao(u.getDataEdicao())
-                .dataNascimento(u.getDataNascimento())
-                .email(u.getEmail())
-                .estado(u.getEstado())
-                .nome(u.getNome())
-                .nomeUsuario(u.getNomeUsuario())
-                .numeroCasa(u.getNumeroCasa())
-                .profissao(u.getProfissao())
-                .registroGeral(u.getRegistroGeral())
-                .rua(u.getRua())
-                .senha(u.getSenha())
-                .telefone(u.getTelefone())
-                .dataCriacao(u.getDataCriacao())
-                .dataEdicao(u.getDataEdicao())
-                .build()).orElseThrow(() -> new RegraNegocioException("Usuário ou senha inválidos."));
-    }
+        @Override
+        @Transactional
+        public DadosUsuarioDTO login(String usuario, String senha) {
+                return usuarioRepository.login(usuario, usuario, senha).map((Usuario u) -> DadosUsuarioDTO.builder()
+                                .id(u.getId())
+                                .bairro(u.getBairro())
+                                .cadastroPessoaFisica(u.getCadastroPessoaFisica())
+                                .cidade(u.getCidade())
+                                .dataCriacao(u.getDataCriacao())
+                                .dataEdicao(u.getDataEdicao())
+                                .dataNascimento(u.getDataNascimento())
+                                .email(u.getEmail())
+                                .estado(u.getEstado())
+                                .nome(u.getNome())
+                                .nomeUsuario(u.getNomeUsuario())
+                                .numeroCasa(u.getNumeroCasa())
+                                .profissao(u.getProfissao())
+                                .registroGeral(u.getRegistroGeral())
+                                .rua(u.getRua())
+                                .senha(u.getSenha())
+                                .telefone(u.getTelefone())
+                                .dataCriacao(u.getDataCriacao())
+                                .dataEdicao(u.getDataEdicao())
+                                .build()).orElseThrow(() -> new RegraNegocioException("Usuário ou senha inválidos."));
+        }
 
 }
