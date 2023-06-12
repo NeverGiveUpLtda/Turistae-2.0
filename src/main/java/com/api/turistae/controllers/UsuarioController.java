@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
+import com.api.turistae.dtos.PutUsuarioDTO;
 import com.api.turistae.dtos.UsuarioDTO;
 import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.exceptions.RegraNegocioException;
@@ -118,16 +119,7 @@ public class UsuarioController {
 
     // HttpPut
     @PutMapping("{id}")
-    public void putUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
-
-        //TODO
-        String senha = usuarioDTO.getSenha();
-
-        try {
-            usuarioDTO.setSenha(CriptografiaUtils.criptografarSenha(senha));
-        } catch (CriptografiaException e) {
-            throw new RegraNegocioException(e.getMessage());
-        }
+    public void putUsuario(@PathVariable Long id, @Valid @RequestBody PutUsuarioDTO usuarioDTO) {
 
         usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 

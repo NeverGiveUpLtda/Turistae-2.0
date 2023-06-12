@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.api.turistae.dtos.CurtidaDTO;
 import com.api.turistae.dtos.DadosUsuarioDTO;
+import com.api.turistae.dtos.PutUsuarioDTO;
 import com.api.turistae.dtos.ReviewDTO;
 import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.dtos.UsuarioDTO;
@@ -192,13 +193,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     @Transactional
-    public void put(Long id, UsuarioDTO dto) {
+    public void put(Long id, PutUsuarioDTO dto) {
 
         Usuario usuario = usuarioRepository.findById(id)
                 .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
         usuario.setNomeUsuario(dto.getNomeUsuario());
-        usuario.setSenha(dto.getSenha());
         usuario.setNome(dto.getNome());
         usuario.setEmail(dto.getEmail());
         usuario.setTelefone(dto.getTelefone());
@@ -207,10 +207,6 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setBairro(dto.getBairro());
         usuario.setCidade(dto.getCidade());
         usuario.setEstado(dto.getEstado());
-        usuario.setDataNascimento(dto.getDataNascimento());
-        usuario.setProfissao(dto.getProfissao());
-        usuario.setCadastroPessoaFisica(dto.getCadastroPessoaFisica());
-        usuario.setRegistroGeral(dto.getRegistroGeral());
         usuario.setDataCriacao(dto.getDataCriacao());
         usuario.setDataEdicao(dto.getDataEdicao());
 
