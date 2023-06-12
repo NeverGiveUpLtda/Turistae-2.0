@@ -229,6 +229,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     public DadosUsuarioDTO login(String usuario, String senha) {
         return usuarioRepository.login(usuario, usuario, senha).map((Usuario u) -> DadosUsuarioDTO.builder()
                 .id(u.getId())
+                .bairro(u.getBairro())
                 .cadastroPessoaFisica(u.getCadastroPessoaFisica())
                 .cidade(u.getCidade())
                 .dataCriacao(u.getDataCriacao())
