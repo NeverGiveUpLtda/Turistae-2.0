@@ -440,6 +440,7 @@ public class TurismoServiceImpl implements TurismoService {
                                                 .texto(r.getTexto())
                                                 .turismoId(r.getTurismo().getId())
                                                 .usuarioId(r.getUsuario().getId())
+                                                .nomeUsuario(r.getUsuario().getNome())
                                                 .build()).collect(Collectors.toList()))
                                 .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
                                                 .id(i.getId())

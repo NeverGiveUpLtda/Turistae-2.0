@@ -32,6 +32,8 @@ public class ReviewDTO {
      @DecimalMax(value = "10", message = "O campo Nota deve ser menor ou igual a 10.")
      private int nota;
 
+     private String nomeUsuario;
+
      // Relacionamentos
      private long turismoId;
      private long usuarioId;
