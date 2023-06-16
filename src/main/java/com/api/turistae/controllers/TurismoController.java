@@ -27,7 +27,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/turismo")
 public class TurismoController {
-	
+
     // Atributos
     private TurismoService turismoService;
     private final Logger logger;
@@ -38,7 +38,7 @@ public class TurismoController {
         this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Turismo Controller iniciado.");
     }
-    
+
     // HttpGet
     @GetMapping
     public List<DadosTurismoDTO> getTurismos() {
@@ -46,9 +46,33 @@ public class TurismoController {
         return turismoService.getAll();
     }
 
+    @GetMapping("/curtida")
+    public List<DadosTurismoDTO> getTurismosPorCurtidas() {
+        logger.info("Get todos turismos por curtidas.");
+        return turismoService.getAllOrderByCurtidas();
+    }
+
+    @GetMapping("/categoria/{id}")
+    public List<DadosTurismoDTO> getTurismosPorCategoria(@PathVariable Long id) {
+        logger.info("Get todos turismos por categoria.");
+        return turismoService.getAllByCategoria(id);
+    }
+
+    @GetMapping("/nota")
+    public List<DadosTurismoDTO> getTurismosPorNota() {
+        logger.info("Get todos turismos por nota.");
+        return turismoService.getAllOrderByNota();
+    }
+
+    @GetMapping("/nota/{id}")
+    public Double getNotaTurismo(@PathVariable Long id) {
+        logger.info("Get nota turismo.");
+        return turismoService.calcularMediaNotasPorId(id);
+    }
+
     @GetMapping("{id}")
     public DadosTurismoDTO getTurismoPorId(@PathVariable Long id) {
-        logger.info("Get turismo id: {}", id);
+        logger.info("Get turismo.");
         return turismoService.getById(id);
     }
 
@@ -56,12 +80,14 @@ public class TurismoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long postTurismo(@Valid @RequestBody TurismoDTO turismoDTO) {
+
+        //TODO
         turismoDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post turismo: {}", turismoDTO);
+        logger.info("Post turismo.");
 
-        //  Se turismo já exisir na tabela, retornar erro
+        // Se turismo já exisir na tabela, retornar erro
         // Retorno do cadastro
         Long id = 0l;
         try {
@@ -77,15 +103,16 @@ public class TurismoController {
         return id;
     }
 
-    //  HttpPut
+    // HttpPut
     @PutMapping("{id}")
     public void putTurismo(@PathVariable Long id, @Valid @RequestBody TurismoDTO turismoDTO) {
 
+        //TODO
         turismoDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put turismo id {}: {}", id, turismoDTO);
+        logger.info("Put turismo.");
 
-        //  Se turismo já exisir na tabela, retornar erro
+        // Se turismo já exisir na tabela, retornar erro
         // Retorno do cadastro
         try {
             turismoService.put(id, turismoDTO);
@@ -97,14 +124,14 @@ public class TurismoController {
             }
         }
     }
-    
+
     // HttpDelete
     @DeleteMapping("{id}")
     public void deleteTurismo(@PathVariable Long id) {
 
-        logger.info("Delete turismo id {}", id);
+        logger.info("Delete turismo.");
 
         turismoService.delete(id);
     }
-    
+
 }

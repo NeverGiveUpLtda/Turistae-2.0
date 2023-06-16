@@ -20,6 +20,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CategoriaServiceImpl implements CategoriaService {
 
+    /**
+     * Mude a mensagem de não encontrado para categoria
+     */
+    private static final String NAO_ENCONTRADO = "Categoria não encontrada.";
+
     // Atributos
     private final CategoriaRepository categoriaRepository;
 
@@ -104,7 +109,7 @@ public class CategoriaServiceImpl implements CategoriaService {
                         .usuarioId(t.getUsuario().getId())
                         .build())
                         .collect(Collectors.toList()))
-                .build()).orElseThrow(() -> new RegraNegocioException("Categoria não encontrada."));
+                .build()).orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
     }
 
@@ -113,7 +118,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public void put(Long id, CategoriaDTO dto) {
 
         Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new RegraNegocioException("Categoria não econtrada."));
+                .orElseThrow(() -> new RegraNegocioException(NAO_ENCONTRADO));
 
         categoria.setNome(dto.getNome());
         categoria.setDataCriacao(dto.getDataCriacao());

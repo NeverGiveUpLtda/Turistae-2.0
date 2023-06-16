@@ -13,6 +13,8 @@ public interface ReviewService {
     // Read
     List<DadosReviewDTO> getAll();
 
+    List<DadosReviewDTO> getByTurismo(Long turismoId);
+
     DadosReviewDTO getById(Long id);
 
     // Update

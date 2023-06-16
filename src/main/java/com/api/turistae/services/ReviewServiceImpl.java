@@ -33,7 +33,7 @@ public class ReviewServiceImpl implements ReviewService {
          * Mude a mensagem de turismo não encontrado para review
          */
         private static final String TURISMO_NAO_ENCONTRADO = "Turismo não encontrado.";
-        
+
         /**
          * Mude a mensagem de não encontrado para review
          */
@@ -74,6 +74,7 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         @Override
+        @Transactional
         public List<DadosReviewDTO> getAll() {
 
                 return reviewRepository.findAll().stream().map((Review r) -> DadosReviewDTO.builder()
@@ -125,6 +126,64 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         @Override
+        @Transactional
+        public List<DadosReviewDTO> getByTurismo(Long id) {
+
+                Turismo turis = turismoRepository
+                                .findById(id)
+                                .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
+
+
+                return reviewRepository.findAllByTurismo(turis).stream().map((Review r) -> DadosReviewDTO.builder()
+                                .id(r.getId())
+                                .dataCriacao(r.getDataCriacao())
+                                .dataEdicao(r.getDataEdicao())
+                                .nota(r.getNota())
+                                .texto(r.getTexto())
+                                .turismo(TurismoDTO.builder()
+                                                .id(r.getTurismo().getId())
+                                                .bairro(r.getTurismo().getBairro())
+                                                .cadastroNacionalPessoasJuridicas(
+                                                                r.getTurismo().getCadastroNacionalPessoasJuridicas())
+                                                .categoriaId(r.getTurismo().getCategoria().getId())
+                                                .cidade(r.getTurismo().getCidade())
+                                                .dataCriacao(r.getTurismo().getDataCriacao())
+                                                .dataEdicao(r.getTurismo().getDataEdicao())
+                                                .descricao(r.getTurismo().getDescricao())
+                                                .estado(r.getTurismo().getEstado())
+                                                .nome(r.getTurismo().getNome())
+                                                .numeroLocal(r.getTurismo().getNumeroLocal())
+                                                .rua(r.getTurismo().getRua())
+                                                .telefone(r.getTurismo().getTelefone())
+                                                .usuarioId(r.getTurismo().getUsuario().getId())
+                                                .build())
+
+                                // Relacionamentos
+                                .usuario(UsuarioDTO.builder()
+                                                .id(r.getUsuario().getId())
+                                                .bairro(r.getUsuario().getBairro())
+                                                .cadastroPessoaFisica(r.getUsuario().getCadastroPessoaFisica())
+                                                .cidade(r.getUsuario().getCidade())
+                                                .dataCriacao(r.getUsuario().getDataCriacao())
+                                                .dataEdicao(r.getUsuario().getDataEdicao())
+                                                .dataNascimento(r.getUsuario().getDataNascimento())
+                                                .email(r.getUsuario().getEmail())
+                                                .estado(r.getUsuario().getEstado())
+                                                .nome(r.getUsuario().getNome())
+                                                .nomeUsuario(r.getUsuario().getNomeUsuario())
+                                                .numeroCasa(r.getUsuario().getNumeroCasa())
+                                                .profissao(r.getUsuario().getProfissao())
+                                                .registroGeral(r.getUsuario().getRegistroGeral())
+                                                .rua(r.getUsuario().getRua())
+                                                .senha(r.getUsuario().getSenha())
+                                                .telefone(r.getUsuario().getTelefone())
+                                                .build())
+                                .build()).collect(Collectors.toList());
+
+        }
+
+        @Override
+        @Transactional
         public DadosReviewDTO getById(Long id) {
 
                 return reviewRepository.findById(id).map((Review r) -> DadosReviewDTO.builder()
@@ -176,6 +235,7 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         @Override
+        @Transactional
         public void put(Long id, ReviewDTO dto) {
 
                 Turismo turi = turismoRepository.findById(dto.getTurismoId())
@@ -199,6 +259,7 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         @Override
+        @Transactional
         public void delete(Long id) {
                 reviewRepository.deleteById(id);
         }

@@ -26,12 +26,12 @@ public class ImagemServiceImpl implements ImagemService {
     private final ImagemRepository imagemRepository;
 
     /**
-     * Mude a mensagem de turismo não encontrado para review
+     * Mude a mensagem de turismo não encontrado para imagem
      */
     private static final String TURISMO_NAO_ENCONTRADO = "Turismo não encontrado.";
 
     /**
-     * Mude a mensagem de não encontrado para review
+     * Mude a mensagem de não encontrado para imagem
      */
     private static final String NAO_ENCONTRADO = "Imagem não encontrada.";
 
@@ -64,6 +64,38 @@ public class ImagemServiceImpl implements ImagemService {
     public List<DadosImagemDTO> getAll() {
 
         return imagemRepository.findAll().stream().map((Imagem i) -> DadosImagemDTO.builder()
+                .id(i.getId())
+                .dataCriacao(i.getDataCriacao())
+                .dataEdicao(i.getDataEdicao())
+                .string64(i.getString64())
+                .turismo(TurismoDTO.builder()
+                        .id(i.getTurismo().getId())
+                        .bairro(i.getTurismo().getBairro())
+                        .cadastroNacionalPessoasJuridicas(i.getTurismo().getCadastroNacionalPessoasJuridicas())
+                        .categoriaId(i.getTurismo().getCategoria().getId())
+                        .cidade(i.getTurismo().getCidade())
+                        .dataCriacao(i.getTurismo().getDataCriacao())
+                        .dataEdicao(i.getTurismo().getDataEdicao())
+                        .descricao(i.getTurismo().getDescricao())
+                        .estado(i.getTurismo().getEstado())
+                        .nome(i.getTurismo().getNome())
+                        .numeroLocal(i.getTurismo().getNumeroLocal())
+                        .rua(i.getTurismo().getRua())
+                        .telefone(i.getTurismo().getTelefone())
+                        .usuarioId(i.getTurismo().getUsuario().getId())
+                        .build())
+                .build()).collect(Collectors.toList());
+
+    }
+    @Override
+    @Transactional
+    public List<DadosImagemDTO> getByTurismo(Long id) {
+
+        Turismo turis = turismoRepository
+                .findById(id)
+                .orElseThrow(() -> new RegraNegocioException(TURISMO_NAO_ENCONTRADO));
+
+        return imagemRepository.findAllByTurismo(turis).stream().map((Imagem i) -> DadosImagemDTO.builder()
                 .id(i.getId())
                 .dataCriacao(i.getDataCriacao())
                 .dataEdicao(i.getDataEdicao())

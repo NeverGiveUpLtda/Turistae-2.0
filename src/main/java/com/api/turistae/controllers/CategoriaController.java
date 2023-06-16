@@ -48,7 +48,7 @@ public class CategoriaController {
 
     @GetMapping("{id}")
     public DadosCategoriaDTO getCategoriaPorId(@PathVariable Long id) {
-        logger.info("Get categoria id: {}", id);
+        logger.info("Get categoria.");
         return categoriaService.getById(id);
     }
 
@@ -57,10 +57,11 @@ public class CategoriaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postCategoria(@Valid @RequestBody CategoriaDTO categoriaDTO) {
 
+        //TODO
         categoriaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post categoria: {}", categoriaDTO);
+        logger.info("Post categoria.");
 
         // Retorno do cadastro
         Long id = 0l;
@@ -69,7 +70,7 @@ public class CategoriaController {
         } catch(DataIntegrityViolationException e) {
             throw new RegraNegocioException("Categoria indisponível.");
         }
-        
+
         return id;
     }
 
@@ -77,9 +78,10 @@ public class CategoriaController {
     @PutMapping("{id}")
     public void putCategoria(@PathVariable Long id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
 
+        //TODO
         categoriaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put categoria id {}: {}", id, categoriaDTO);
+        logger.info("Put categoria.");
 
         try {
             categoriaService.put(id, categoriaDTO);
@@ -93,7 +95,7 @@ public class CategoriaController {
     @DeleteMapping("{id}")
     public void deleteCategoria(@PathVariable Long id) {
 
-        logger.info("Delete categoria id {}", id);
+        logger.info("Delete categoria.");
 
         categoriaService.delete(id);
     }

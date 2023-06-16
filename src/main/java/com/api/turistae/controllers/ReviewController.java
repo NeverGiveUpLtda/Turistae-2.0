@@ -46,9 +46,15 @@ public class ReviewController {
         return reviewService.getAll();
     }
 
+    @GetMapping("/turismo/{id}")
+    public List<DadosReviewDTO> getReviewsPorTurismo(@PathVariable Long id) {
+        logger.info("Get todas Reviews por turismo");
+        return reviewService.getByTurismo(id);
+    }
+
     @GetMapping("{id}")
     public DadosReviewDTO getReviewPorId(@PathVariable Long id) {
-        logger.info("Get review id: {}", id);
+        logger.info("Get review.");
         return reviewService.getById(id);
     }
 
@@ -56,10 +62,13 @@ public class ReviewController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long postReview(@Valid @RequestBody ReviewDTO reviewDTO) {
+
+
+        //TODO
         reviewDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         reviewDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post review: {}", reviewDTO);
+        logger.info("Post review.");
 
         // Se review já exisir na tabela, retornar erro
         // Retorno do cadastro
@@ -76,9 +85,10 @@ public class ReviewController {
     @PutMapping("{id}")
     public void putReview(@PathVariable Long id, @Valid @RequestBody ReviewDTO reviewDTO) {
 
+        //TODO
         reviewDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put review id {}: {}", id, reviewDTO);
+        logger.info("Put review.");
 
         // Se review já exisir na tabela, retornar erro
         // Retorno do cadastro
@@ -93,7 +103,7 @@ public class ReviewController {
     @DeleteMapping("{id}")
     public void deleteReview(@PathVariable Long id) {
 
-        logger.info("Delete review id {}", id);
+        logger.info("Delete review.");
 
         reviewService.delete(id);
     }

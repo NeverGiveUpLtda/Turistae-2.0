@@ -29,6 +29,10 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/voucher")
 public class VoucherController {
 
+    /**
+     *
+     */
+    private static final String VOUCHER_INDISPONIVEL = "Voucher indisponível.";
     // Atributos
     private VoucherService voucherService;
     private final Logger logger;
@@ -43,13 +47,37 @@ public class VoucherController {
     // HttpGet
     @GetMapping
     public List<DadosVoucherDTO> getVouchers() {
-        logger.info("Get todas Vouchers.");
+        logger.info("Get todos Vouchers.");
         return voucherService.getAll();
+    }
+
+    @GetMapping("/turismo/{turismoId}")
+    public List<DadosVoucherDTO> getVouchersPorTurismo(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers para o turismo.");
+        return voucherService.getVouchersPorTurismo(turismoId);
+    }
+
+    @GetMapping("/turismo/{turismoId}/unclaimed")
+    public List<DadosVoucherDTO> getVouchersPorTurismoSemUsuario(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers sem usuário para o turismo.");
+        return voucherService.getVouchersSemUsuario(turismoId);
+    }
+
+    @GetMapping("/turismo/{turismoId}/claimed")
+    public List<DadosVoucherDTO> getVouchersPorTurismoComUsuario(@PathVariable Long turismoId) {
+        logger.info("Get todos Vouchers com usuário para o turismo.");
+        return voucherService.getVouchersComUsuario(turismoId);
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public List<DadosVoucherDTO> getVouchersPorUsuario(@PathVariable Long usuarioId) {
+        logger.info("Get todos Vouchers do usuário.");
+        return voucherService.getVouchersDoUsuario(usuarioId);
     }
 
     @GetMapping("{id}")
     public DadosVoucherDTO getVoucherPorId(@PathVariable Long id) {
-        logger.info("Get Voucher id: {}", id);
+        logger.info("Get Voucher.");
         return voucherService.getById(id);
     }
 
@@ -58,36 +86,54 @@ public class VoucherController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postVoucher(@Valid @RequestBody VoucherDTO voucherDTO) {
 
+        //TODO
         voucherDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
         voucherDTO.setCodigo(VoucherUtils.gerarVoucher(voucherDTO.getTurismoId()));
 
-        logger.info("Post Voucher: {}", voucherDTO);
+        logger.info("Post Voucher.");
 
         // Retorno do cadastro
         Long id = 0l;
         try {
             id = voucherService.post(voucherDTO);
         } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Voucher indisponível.");
+            throw new RegraNegocioException(VOUCHER_INDISPONIVEL);
         }
 
         return id;
+    }
+
+
+    @PostMapping("/claim")
+    public void claimVoucher(@Valid @RequestBody VoucherDTO voucherDTO) {
+
+        //TODO
+        voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
+
+        logger.info("Claim Voucher.");
+
+        try {
+            voucherService.claim(voucherDTO);
+        } catch (DataIntegrityViolationException e) {
+            throw new RegraNegocioException(VOUCHER_INDISPONIVEL);
+        }
     }
 
     // HttpPut
     @PutMapping("{id}")
     public void putVoucher(@PathVariable Long id, @Valid @RequestBody VoucherDTO voucherDTO) {
 
+        //TODO
         voucherDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
         voucherDTO.setCodigo(VoucherUtils.gerarVoucher(voucherDTO.getTurismoId()));
-        
+
         logger.info("Put Voucher id {}: {}", id, voucherDTO);
 
         try {
             voucherService.put(id, voucherDTO);
         } catch (DataIntegrityViolationException e) {
-            throw new RegraNegocioException("Voucher indisponível.");
+            throw new RegraNegocioException(VOUCHER_INDISPONIVEL);
         }
 
     }

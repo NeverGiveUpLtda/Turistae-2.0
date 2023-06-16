@@ -46,9 +46,15 @@ public class CurtidaController {
         return curtidaService.getAll();
     }
 
+    @GetMapping("/turismo/{id}")
+    public int getQuantidadeCurtidas(@PathVariable Long id) {
+        logger.info("Get quantidade de curtidas por turismo.");
+        return curtidaService.getByTurismo(id).size();
+    }
+
     @GetMapping("{id}")
     public DadosCurtidaDTO getCurtidaPorId(@PathVariable Long id) {
-        logger.info("Get Curtida id: {}", id);
+        logger.info("Get Curtida.");
         return curtidaService.getById(id);
     }
 
@@ -57,10 +63,11 @@ public class CurtidaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postCurtida(@Valid @RequestBody CurtidaDTO curtidaDTO) {
 
+        // TODO
         curtidaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post Curtida: {}", curtidaDTO);
+        logger.info("Post Curtida.");
 
         // Retorno do cadastro
         Long id = 0l;
@@ -73,13 +80,66 @@ public class CurtidaController {
         return id;
     }
 
+    @PostMapping("/curtir")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long curtir(@Valid @RequestBody CurtidaDTO curtidaDTO) {
+
+        // TODO
+        curtidaDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
+        curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
+
+        logger.info("Curtir.");
+
+        // Retorno do cadastro
+        Long id = 0l;
+
+        try {
+            id = curtidaService.getCurtidaByTurismoAndUsuario(curtidaDTO.getUsuarioId(), curtidaDTO.getTurismoId())
+                    .getId();
+        } catch (RegraNegocioException e) {
+            logger.info("Curtida não existente.");
+        }
+
+        if (id != 0l) {
+            throw new RegraNegocioException("Curtida já existe.");
+        }
+
+        try {
+            id = curtidaService.post(curtidaDTO);
+        } catch (DataIntegrityViolationException e) {
+            throw new RegraNegocioException("Curtida inválida.");
+        }
+
+        return id;
+    }
+
+    @PostMapping("/descurtir")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void descurtir(@Valid @RequestBody CurtidaDTO curtidaDTO) {
+
+        logger.info("Descurtir.");
+
+        // Retorno do cadastro
+        Long id = 0l;
+        try {
+            id = curtidaService.getCurtidaByTurismoAndUsuario(curtidaDTO.getUsuarioId(), curtidaDTO.getTurismoId())
+                    .getId();
+        } catch (DataIntegrityViolationException e) {
+            throw new RegraNegocioException("Descurtida inválida.");
+        }
+
+        curtidaService.delete(id);
+
+    }
+
     // HttpPut
     @PutMapping("{id}")
     public void putCurtida(@PathVariable Long id, @Valid @RequestBody CurtidaDTO curtidaDTO) {
 
+        // TODO
         curtidaDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put Curtida id {}: {}", id, curtidaDTO);
+        logger.info("Put Curtida.");
 
         try {
             curtidaService.put(id, curtidaDTO);
@@ -93,7 +153,7 @@ public class CurtidaController {
     @DeleteMapping("{id}")
     public void deleteCurtida(@PathVariable Long id) {
 
-        logger.info("Delete Curtida id {}", id);
+        logger.info("Delete Curtida.");
 
         curtidaService.delete(id);
     }

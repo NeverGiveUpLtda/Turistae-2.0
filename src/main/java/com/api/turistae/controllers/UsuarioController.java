@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.turistae.dtos.DadosUsuarioDTO;
+import com.api.turistae.dtos.PutUsuarioDTO;
+import com.api.turistae.dtos.TurismoDTO;
 import com.api.turistae.dtos.UsuarioDTO;
 import com.api.turistae.exceptions.CriptografiaException;
 import com.api.turistae.exceptions.RegraNegocioException;
+import com.api.turistae.services.TurismoService;
 import com.api.turistae.services.UsuarioService;
 import com.api.turistae.utils.CriptografiaUtils;
 import com.api.turistae.utils.DataUtils;
@@ -32,11 +35,13 @@ public class UsuarioController {
 
     // Atributos
     private UsuarioService usuarioService;
+    private TurismoService turismoService;
     private final Logger logger;
 
     // Construtor
-    public UsuarioController(UsuarioService usuarioService) {
+    public UsuarioController(UsuarioService usuarioService, TurismoService turismoService) {
         this.usuarioService = usuarioService;
+        this.turismoService = turismoService;
         this.logger = LoggerFactory.getLogger(this.getClass());
         logger.info("Usuário Controller iniciado.");
     }
@@ -50,7 +55,7 @@ public class UsuarioController {
 
     @GetMapping("{id}")
     public DadosUsuarioDTO getUsuarioPorId(@PathVariable Long id) {
-        logger.info("Get usuário id: {}", id);
+        logger.info("Get usuário.");
         return usuarioService.getById(id);
     }
 
@@ -59,6 +64,7 @@ public class UsuarioController {
     @ResponseStatus(HttpStatus.CREATED)
     public Long postUsuario(@Valid @RequestBody UsuarioDTO usuarioDTO) {
 
+        //TODO
         String senha = usuarioDTO.getSenha();
 
         try {
@@ -70,7 +76,7 @@ public class UsuarioController {
         usuarioDTO.setDataCriacao(DataUtils.getDataAtualComMascara());
         usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Post usuário: {}", usuarioDTO);
+        logger.info("Post usuário.");
 
         //  Se usuario ou email já exisirem na tabela, retornar erro
         // Retorno do cadastro
@@ -93,6 +99,8 @@ public class UsuarioController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public DadosUsuarioDTO login(@RequestBody UsuarioDTO usuarioDTO) {
+
+        //TODO
         String senha;
         if (usuarioDTO.getNomeUsuario() != null && usuarioDTO.getSenha() != null) {
             senha = usuarioDTO.getSenha();
@@ -106,33 +114,20 @@ public class UsuarioController {
         }
 
         if (usuarioDTO.getNomeUsuario() != null && !usuarioDTO.getNomeUsuario().isEmpty()) {
-            usuarioDTO.setEmail("");
 
             return usuarioService.login(usuarioDTO.getNomeUsuario(), usuarioDTO.getSenha());
-        } else if (usuarioDTO.getEmail() != null && !usuarioDTO.getEmail().isEmpty()) {
-            usuarioDTO.setNomeUsuario("senha");
 
-            // Retorno do login
-            return usuarioService.login(usuarioDTO.getEmail(), usuarioDTO.getSenha());
         } else
             throw new RegraNegocioException("Usuário ou senha inválidos.");
     }
 
     // HttpPut
     @PutMapping("{id}")
-    public void putUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioDTO usuarioDTO) {
-
-        String senha = usuarioDTO.getSenha();
-
-        try {
-            usuarioDTO.setSenha(CriptografiaUtils.criptografarSenha(senha));
-        } catch (CriptografiaException e) {
-            throw new RegraNegocioException(e.getMessage());
-        }
+    public void putUsuario(@PathVariable Long id, @Valid @RequestBody PutUsuarioDTO usuarioDTO) {
 
         usuarioDTO.setDataEdicao(DataUtils.getDataAtualComMascara());
 
-        logger.info("Put usuário id {}: {}", id, usuarioDTO);
+        logger.info("Put usuário.");
 
         //  Se usuario ou email já exisirem na tabela, retornar erro
         try {
@@ -153,7 +148,12 @@ public class UsuarioController {
     @DeleteMapping("{id}")
     public void deleteUsuario(@PathVariable Long id) {
 
-        logger.info("Delete usuário id {}", id);
+        logger.info("Delete usuário.");
+        DadosUsuarioDTO usuarioToDelete = usuarioService.getById(id);
+
+        for(TurismoDTO turi : usuarioToDelete.getTurismos()) {
+            turismoService.delete(turi.getId());
+        }
 
         usuarioService.delete(id);
     }

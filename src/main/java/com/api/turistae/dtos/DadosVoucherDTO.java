@@ -16,6 +16,7 @@ public class DadosVoucherDTO {
     // Atributos
     private long id;
     private String codigo;
+    private int valor;
 
     // Relacionamentos
     private TurismoDTO turismo;
