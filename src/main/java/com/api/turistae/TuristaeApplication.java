@@ -63,9 +63,13 @@ public class TuristaeApplication {
         return args -> {
 
             logger.info("Rodando CommandLineRunner");
-
+            try {
             geraMock(4, categoriaRepository, curtidaRepository, imagemRepository, reviewRepository, turismoRepository,
                     usuarioRepository, voucherRepository);
+
+            } catch(Exception e) {
+                logger.info("Mock já criado.");
+            }
         };
     }
 
