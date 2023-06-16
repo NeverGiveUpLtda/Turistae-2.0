@@ -4,8 +4,8 @@ FROM eclipse-temurin
 # Update aptitude with new repo
 RUN apt-get update
 
-# Install software 
-RUN apt-get install -y git
+# Install software
+RUN apt-get install -y git mysql-server
 
 # Set the working directory
 WORKDIR /app
