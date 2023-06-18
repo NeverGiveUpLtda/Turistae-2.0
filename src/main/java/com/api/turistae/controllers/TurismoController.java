@@ -52,6 +52,12 @@ public class TurismoController {
         return turismoService.getAllOrderByCurtidas();
     }
 
+    @GetMapping("/usuario/{id}")
+    public List<DadosTurismoDTO> getTurismosPorUsuario(@PathVariable Long id) {
+        logger.info("Get todos turismos por usuario.");
+        return turismoService.getAllByUsuario(id);
+    }
+
     @GetMapping("/categoria/{id}")
     public List<DadosTurismoDTO> getTurismosPorCategoria(@PathVariable Long id) {
         logger.info("Get todos turismos por categoria.");

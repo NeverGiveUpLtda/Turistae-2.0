@@ -313,6 +313,82 @@ public class TurismoServiceImpl implements TurismoService {
                                 .build()).collect(Collectors.toList());
         }
 
+         @Override
+        @Transactional
+        public List<DadosTurismoDTO> getAllByUsuario(Long id) {
+
+                Usuario usu = usuarioRepository
+                                .findById(id)
+                                .orElseThrow(() -> new RegraNegocioException(USUARIO_NAO_ENCONTRADO));
+
+                return turismoRepository.findAllByUsuario(usu).stream().map((Turismo t) -> DadosTurismoDTO
+                                .builder()
+                                .id(t.getId())
+                                .bairro(t.getBairro())
+                                .cadastroNacionalPessoasJuridicas(t.getCadastroNacionalPessoasJuridicas())
+                                .cidade(t.getBairro())
+                                .dataCriacao(t.getDataCriacao())
+                                .dataEdicao(t.getDataEdicao())
+                                .descricao(t.getDescricao())
+                                .estado(t.getEstado())
+                                .nome(t.getNome())
+                                .numeroLocal(t.getNumeroLocal())
+                                .rua(t.getRua())
+                                .telefone(t.getTelefone())
+                                .categoria(CategoriaDTO.builder()
+                                                .dataCriacao(t.getCategoria().getDataCriacao())
+                                                .dataEdicao(t.getCategoria().getDataEdicao())
+                                                .id(t.getCategoria().getId())
+                                                .nome(t.getCategoria().getNome())
+                                                .build())
+                                .usuario(UsuarioDTO.builder()
+                                                .id(t.getUsuario().getId())
+                                                .bairro(t.getUsuario().getBairro())
+                                                .cadastroPessoaFisica(t.getUsuario().getCadastroPessoaFisica())
+                                                .cidade(t.getUsuario().getCidade())
+                                                .dataCriacao(t.getUsuario().getDataCriacao())
+                                                .dataEdicao(t.getUsuario().getDataEdicao())
+                                                .dataNascimento(t.getUsuario().getDataNascimento())
+                                                .email(t.getUsuario().getEmail())
+                                                .estado(t.getUsuario().getEstado())
+                                                .nome(t.getUsuario().getNome())
+                                                .nomeUsuario(t.getUsuario().getNomeUsuario())
+                                                .numeroCasa(t.getUsuario().getNumeroCasa())
+                                                .profissao(t.getUsuario().getProfissao())
+                                                .registroGeral(t.getUsuario().getRegistroGeral())
+                                                .rua(t.getUsuario().getRua())
+                                                .senha(t.getUsuario().getSenha())
+                                                .telefone(t.getUsuario().getTelefone())
+                                                .build())
+
+                                // Relacionamentos
+                                .curtidas(t.getCurtidas().stream().map((Curtida c) -> CurtidaDTO.builder()
+                                                .id(c.getId())
+                                                .dataCriacao(c.getDataCriacao())
+                                                .dataEdicao(c.getDataEdicao())
+                                                .turismoId(c.getTurismo().getId())
+                                                .usuarioId(c.getUsuario().getId())
+                                                .build()).collect(Collectors.toList()))
+                                .reviews(t.getReviews().stream().map((Review r) -> ReviewDTO.builder()
+                                                .id(r.getId())
+                                                .dataCriacao(r.getDataCriacao())
+                                                .dataEdicao(r.getDataEdicao())
+                                                .nota(r.getNota())
+                                                .texto(r.getTexto())
+                                                .turismoId(r.getTurismo().getId())
+                                                .usuarioId(r.getUsuario().getId())
+                                                .build()).collect(Collectors.toList()))
+                                .imagens(t.getImagens().stream().map((Imagem i) -> ImagemDTO.builder()
+                                                .id(i.getId())
+                                                .dataCriacao(i.getDataCriacao())
+                                                .dataEdicao(i.getDataEdicao())
+                                                .turismoId(i.getTurismo().getId())
+                                                .string64(i.getString64())
+                                                .build()).collect(Collectors.toList()))
+
+                                .build()).collect(Collectors.toList());
+        }
+
         @Override
         @Transactional
         public List<DadosTurismoDTO> getAllOrderByNota() {

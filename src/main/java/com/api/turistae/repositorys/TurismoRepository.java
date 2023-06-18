@@ -9,12 +9,15 @@ import org.springframework.data.repository.query.Param;
 
 import com.api.turistae.models.Categoria;
 import com.api.turistae.models.Turismo;
+import com.api.turistae.models.Usuario;
 
 public interface TurismoRepository extends JpaRepository<Turismo, Long> {
 
     List<Turismo> findAllByOrderByCurtidasDesc();
 
     List<Turismo> findAllByCategoria(Categoria categoria);
+
+    List<Turismo> findAllByUsuario(Usuario usuario);
 
     @Query("SELECT t FROM Turismo t LEFT JOIN t.reviews r GROUP BY t ORDER BY AVG(r.nota) DESC")
     List<Turismo> findAllOrderByMediaNotaDesc();

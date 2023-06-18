@@ -17,6 +17,8 @@ public interface TurismoService {
 
     List<DadosTurismoDTO> getAllByCategoria(Long id);
 
+    List<DadosTurismoDTO> getAllByUsuario(Long id);
+
     List<DadosTurismoDTO> getAllOrderByNota();
 
     Double calcularMediaNotasPorId(Long turismoId);
