@@ -18,9 +18,9 @@ public class CategoriaDTO {
 
     // Atributos
     private long id;
-    
+
     @NotBlank(message = "O campo Nome deve ser preencido.")
-    @Size(min = 3, max = 25, message = "O campo Nome deve ter entre 3 e 200 caracteres.")
+    @Size(min = 3, max = 200, message = "O campo Nome deve ter entre 3 e 200 caracteres.")
     @Pattern(regexp = "^[a-zA-ZÀ-ÿ ]+$", message = "Campo Nome com caracteres inválidos. Insira apenas letras.")
     private String nome;
 
